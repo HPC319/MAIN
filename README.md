@@ -1,118 +1,98 @@
-Play Next.js is a free and **Open-source SaaS starter kit and boilerplate, designed and built for SaaS startups**, apps, businesses, and more. With its premium design and essential UI components and pages, it provides everything you need to kickstart a feature-rich SaaS website.
+# Canonstrata
 
-[![Play Next.js](https://github.com/NextJSTemplates/play-nextjs/blob/main/nextjs-play.png)](https://play.nextjstemplates.com)
+Canonstrata is a production-ready, open-source **Next.js framework** built for deploying modern, high-performance websites at scale. Originally bootstrapped from a Next.js starter template, it has been fully re-architected into a **trade-agnostic, adapter-driven system** designed for reuse across domains, brands, and deployments without rewriting core logic.
 
-## Free SaaS Boilerplate and Starter Kit for Next.js 🚀
+The framework prioritizes long-term maintainability, clean separation of concerns, and a single responsive codebase that can be configured, extended, and deployed repeatedly.
 
-Play Next.js SaaS Boilerplate and Starter Kit is a free, open-source solution ideal for startups, SaaS companies, and more. It offers essential UI components, authentication and database integration, and Stripe integration. Its superior design and functionality make it a go-to choice for launching a feature-rich SaaS website efficiently.
+## A Universal Website Framework Built on Next.js 16
 
-### [🚀 View Live Demo](https://play.nextjstemplates.com/)
+Canonstrata provides a stable foundation for teams and businesses that require more than a starter kit. It combines modern Next.js architecture with strict isolation boundaries, centralized configuration, and a runtime-safe core that remains consistent as implementations evolve.
 
-### [🔌 Documentation](https://nextjstemplates.com/docs)
+The system is built around the App Router, Server Components by default, and a modular adapter model that keeps domain-specific behavior out of the core.
 
-### All Essential Integrations - DB, Auth, Payment, MDX, and more ⚡
+## Core Architecture
 
-Play Next.js SaaS Starter kit includes all the key integrations required to build a fully functional SaaS platform.
+Canonstrata is structured to remain neutral and reusable:
 
-- **PostgreSQL for Database**: Comes with PostgreSQL integration with Prisma which is a powerful and open-source relational database system ensures data integrity and reliability.
+- App Router–first architecture using file-system routing conventions  
+- Server Components by default, with explicit client boundaries  
+- Central middleware for request handling and tenant resolution  
+- Adapter-based extensibility with a generic baseline  
+- Configuration-driven deployment without encoded scale limits  
 
-- **NextAuth for Authentication**: Play Next.js utilizes NextAuth, a versatile solution that provides secure login and user management.
+The default runtime uses the **generic adapter**, allowing a plain website to run without additional assumptions.
 
-- **MDX for Blogs**: MDX uniquely combines Markdown and JSX, Play Next.js comes with complete blogging solution to create and maintain blog using MDX.
+## Technology Stack
 
-- **Stripe for Subscription Payments**: Stripe, a globally trusted payment processing platform, offers robust security features and smooth checkout experiences.
+The framework is built on a modern, production-grade stack:
 
-These integrations work together to simplify development and enhance the user experience.
+- **Next.js 16.1.1** with Turbopack  
+- **React 19.2.0** with server-first rendering  
+- **TypeScript 5.7.3** for strict typing  
+- **Tailwind CSS 4.1.17** for styling  
+- **PostgreSQL** with **Prisma** for data access  
+- **NextAuth** for authentication  
 
-### Essential SaaS Pages & Components and Styled Using Tailwind CSS 🎨
+All configuration is centralized and validated to support clean deployments across environments.
 
-This Next.js SaaS Boilerplate and Starter Kit is **styled using Tailwind CSS**, a highly flexible and customizable utility-first CSS framework. Leveraging the power of Tailwind, each component and page of this kit, including **login, signup, blog, about, and others, has been handcrafted to offer top-notch aesthetics** while maintaining peak usability.
+## Adapter-Driven Design
 
-### Crafted Using [🎨 TailGrids Components](https://tailgrids.com)
+Core logic is intentionally kept free of trade, industry, or business assumptions. Optional behavior is introduced through adapters that implement well-defined interfaces.
 
-Play Next.js SaaS boilerplate, you can enjoy a professional-looking website that offers seamless operation, all while significantly reducing your web development time and effort.
+The baseline behavior uses:
 
----
 
-### 🚀 Deploy Now
+Additional adapters may be introduced without modifying the core, allowing the same codebase to support different site types while preserving consistency and safety.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FNextJSTemplates%2Fplay-nextjs)
+## Multi-Tenant & Isolation Model
 
-[![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/NextJSTemplates/play-nextjs)
+The framework supports isolated deployments through configuration rather than branching:
 
-### Setup Instructions
+- Domain or subdomain–based resolution via middleware  
+- Tenant-scoped data access  
+- Namespaced caching  
+- Dynamic branding and routing  
+- Clean separation between shared infrastructure and per-site configuration  
 
-Follow these steps to set up and run this template on your local machine:
+No hardcoded limits or assumptions are embedded in the system.
 
-1. Begin by downloading and extracting the template from **Next.js Templates**.
+## Performance & Caching
 
-2. Once you've done that, navigate into the template directory using the **cd** command.
+Canonstrata is optimized for real-world performance:
 
-3. Install the necessary dependencies by running the following commands:
+- Server-side caching with tenant-aware namespacing  
+- Path-, tag-, and time-based revalidation  
+- React cache primitives for memoized data access  
+- Image and font optimization using built-in Next.js tooling  
 
-```bash
-    npm install --legacy-peer-deps
-```
+The result is predictable behavior under load with minimal overhead.
 
-**Note:** As of right now React 19 causes peer dependencies issues with some packages, so the `legacy-peer-deps` flag is required.
+## Content & Integrations
 
-4. Now you're ready to start the project on your local server. Use the following command to get it up and running:
+Content is accessed through adapter interfaces rather than direct coupling. This allows integration with API-based CMS platforms while keeping the application core independent.
 
-```bash
-    npm run dev
-```
+Analytics, email delivery, and other external services are abstracted behind interfaces to avoid vendor lock-in and preserve portability.
 
-This will launch the template on [localhost:3000](http://localhost:3000).
+## Styling & Responsiveness
 
-Our comprehensive documentation includes all the guides you'll need for integrating various features.
+The UI layer is built with Tailwind CSS and follows a mobile-first approach. Layouts and components are designed to scale naturally across breakpoints, maintaining a single responsive codebase for all devices.
 
-### Deployment on PaaS
+## Deployment
 
-If your project is hosted on a GitHub repository, you can deploy it using free and user-friendly platforms like [Vercel](https://vercel.com/) or [Netlify](https://netlify.com/). Both provide generous free tiers for hosting Next.js projects.
+The framework is designed to be deployed on modern platforms that support Next.js. Infrastructure-as-Code workflows are supported, and the repository is structured to integrate cleanly with containerized or serverless environments.
 
-### License Information
+## License
 
-Play is Free is completely free and open-source. Feel free to use it for both personal and commercial projects.
+This project is open-source and may be used for both personal and commercial purposes.
 
-### Show Your Support
+## Project Evolution
 
-If you appreciate this project, please consider starring this repository. Your support encourages our team to continue creating more content like this and helps us to reach more users like you!
+This repository began as a Next.js template and has since been transformed into a **Canonstrata-grade framework** through:
 
-## Explore More Templates
+- Adapter-driven architecture  
+- Centralized registry, cache, and middleware  
+- Strict separation of core and implementation logic  
+- Removal of SaaS-specific assumptions  
+- Alignment with modern Next.js 16 and React 19 patterns  
 
-For a wider range of options, feel free to browse our collection of [Next.js Templates, Boilerplates and Starter Kits](https://nextjstemplates.com/templates).
-
-### Update Log
-
-**03 December 2025** - v2.2.2
-
-- Upgraded to Next.js 16
-- Update prisma latest version
-- Updated tailwindcss latest version
-
-**06 August 2025** - v2.2.1
-
-- fix: [#21](https://github.com/NextJSTemplates/play-nextjs/issues/21) - Moved context providers to `/src/app/providers.tsx`
-- Removed initial loader
-
-**10 April 2025**
-
-- Fix peer deps issue
-- Update Next.js for security patch
-
-**29 Jan 2025**
-
-- Upgraded to Next.js 15
-- Using `Link` instead of `a` tag
-- Fixed all minor bugs
-
-**21 March 2024**
-
-- Upgraded to Next.js 14
-- Updated stripe integration
-- Fixed auth issues
-- Updated all the packages
-- Update ts config & fix all the issues
-- Update signin & signup page Design
-- Integrated Magic link signin
-- & Forgot password
+It is intended to continue evolving as a stable foundation rather than a disposable starter.
