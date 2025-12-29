@@ -1,0 +1,53 @@
+import type { ITradeAdapter, TradeConfig, RouteDefinition, ComponentRegistry } from '@/types/core';
+import { HeroSection } from './components/HeroSection';
+import { ContactForm } from './components/ContactForm';
+import { ServicesGrid } from './components/ServicesGrid';
+
+class GenericAdapter implements ITradeAdapter {
+  readonly name = 'generic';
+
+  getConfig(): TradeConfig {
+    return {
+      name: this.name,
+      displayName: 'Generic Service Provider',
+      features: {
+        multiLocation: true,
+        booking: true,
+        payments: true,
+        crmSync: true,
+      },
+      routes: this.getRoutes(),
+      branding: {
+        logo: '/logo.svg',
+        colors: {
+          primary: '#3b82f6',
+          secondary: '#10b981',
+        },
+        fonts: {
+          heading: 'Inter',
+          body: 'Inter',
+        },
+      },
+    };
+  }
+
+  getRoutes(): RouteDefinition[] {
+    return [
+      { path: '/', component: 'HomePage' },
+      { path: '/services', component: 'ServicesPage' },
+      { path: '/contact', component: 'ContactPage' },
+      { path: '/about', component: 'AboutPage' },
+    ];
+  }
+
+  getComponents(): ComponentRegistry {
+    return {
+      HeroSection,
+      ContactForm,
+      ServicesGrid,
+    };
+  }
+}
+
+export const genericAdapter = new GenericAdapter();
+export default genericAdapter;

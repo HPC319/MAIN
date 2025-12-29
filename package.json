@@ -31,7 +31,9 @@
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
     "stripe": "^14.7.0",
-    "tailgrids": "^2.2.7"
+    "tailgrids": "^2.2.7",
+    "ioredis": "latest",
+    "zod": "latest"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.17",
