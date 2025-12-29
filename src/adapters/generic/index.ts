@@ -13,7 +13,6 @@ class GenericAdapter implements ITradeAdapter {
       features: {
         multiLocation: true,
         booking: true,
-        payments: true,
         crmSync: true,
       },
       routes: this.getRoutes(),

@@ -46,7 +46,6 @@ export interface ComponentRegistry {
 export interface FeatureFlags {
   readonly multiLocation: boolean;
   readonly booking: boolean;
-  readonly payments: boolean;
   readonly crmSync: boolean;
 }
 
