@@ -1,8 +1,65 @@
+"use client";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState, useTransition } from "react";
+import toast from "react-hot-toast";
+
+import { contactSchema, ContactFormData } from "@/lib/schemas/contact-schema";
+import { submitContactForm } from "@/lib/actions/form-actions";
+import { FadeIn } from "@/components/motion/fade-in";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { FormError } from "@/components/ui/form-error";
+import { FormSuccess } from "@/components/ui/form-success";
+
 const Contact = () => {
+  const [isPending, startTransition] = useTransition();
+  const [successMessage, setSuccessMessage] = useState<string>("");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    setSuccessMessage("");
+    
+    startTransition(async () => {
+      try {
+        const result = await submitContactForm(data);
+
+        if (!result.success) {
+          toast.error(result.message);
+          return;
+        }
+
+        setSuccessMessage(result.message);
+        toast.success("Message sent successfully!");
+        reset();
+      } catch (error) {
+        toast.error("An unexpected error occurred");
+        console.error("Contact form error:", error);
+      }
+    });
+  };
+
   return (
     <section id="contact" className="relative py-20 md:py-[120px]">
       <div className="absolute left-0 top-0 -z-[1] h-full w-full dark:bg-dark"></div>
-      <div className="absolute left-0 top-0 -z-[1] h-1/2 w-full bg-[#E9F9FF] dark:bg-dark-700 lg:h-[45%] xl:h-1/2"></div>
+      <div className="absolute left-0 top-0 -z-[1] h-1/2 w-full bg-primary-50 dark:bg-dark-700 lg:h-[45%] xl:h-1/2"></div>
       <div className="container px-4">
         <div className="-mx-4 flex flex-wrap items-center">
           <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
@@ -64,81 +121,99 @@ const Contact = () => {
             </div>
           </div>
           <div className="w-full px-4 lg:w-5/12 xl:w-4/12">
-            <div
-              className="wow fadeInUp rounded-lg bg-white px-8 py-10 shadow-testimonial dark:bg-dark-2 dark:shadow-none sm:px-10 sm:py-12 md:p-[60px] lg:p-10 lg:px-10 lg:py-12 2xl:p-[60px]"
-              data-wow-delay=".2s
-              "
-            >
-              <h3 className="mb-8 text-2xl font-semibold text-dark dark:text-white md:text-[28px] md:leading-[1.42]">
-                Send us a Message
-              </h3>
-              <form>
-                <div className="mb-[22px]">
-                  <label
-                    htmlFor="fullName"
-                    className="mb-4 block text-sm text-body-color dark:text-dark-6"
-                  >
-                    Full Name*
-                  </label>
-                  <input
-                    type="text"
-                    name="fullName"
-                    placeholder="Adam Gelius"
-                    className="w-full border-0 border-b border-[#f1f1f1] bg-transparent pb-3 text-dark placeholder:text-body-color/60 focus:border-primary focus:outline-none dark:border-dark-3 dark:text-white"
-                  />
-                </div>
-                <div className="mb-[22px]">
-                  <label
-                    htmlFor="email"
-                    className="mb-4 block text-sm text-body-color dark:text-dark-6"
-                  >
-                    Email*
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="example@yourmail.com"
-                    className="w-full border-0 border-b border-[#f1f1f1] bg-transparent pb-3 text-dark placeholder:text-body-color/60 focus:border-primary focus:outline-none dark:border-dark-3 dark:text-white"
-                  />
-                </div>
-                <div className="mb-[22px]">
-                  <label
-                    htmlFor="phone"
-                    className="mb-4 block text-sm text-body-color dark:text-dark-6"
-                  >
-                    Phone*
-                  </label>
-                  <input
-                    type="text"
-                    name="phone"
-                    placeholder="+885 1254 5211 552"
-                    className="w-full border-0 border-b border-[#f1f1f1] bg-transparent pb-3 text-dark placeholder:text-body-color/60 focus:border-primary focus:outline-none dark:border-dark-3 dark:text-white"
-                  />
-                </div>
-                <div className="mb-[30px]">
-                  <label
-                    htmlFor="message"
-                    className="mb-4 block text-sm text-body-color dark:text-dark-6"
-                  >
-                    Message*
-                  </label>
-                  <textarea
-                    name="message"
-                    rows={1}
-                    placeholder="type your message here"
-                    className="w-full resize-none border-0 border-b border-[#f1f1f1] bg-transparent pb-3 text-dark placeholder:text-body-color/60 focus:border-primary focus:outline-none dark:border-dark-3 dark:text-white"
-                  ></textarea>
-                </div>
-                <div className="mb-0">
-                  <button
-                    type="submit"
-                    className="inline-flex items-center justify-center rounded-md bg-primary px-10 py-3 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-primary/90"
-                  >
-                    Send
-                  </button>
-                </div>
-              </form>
-            </div>
+            <FadeIn direction="up" delay={0.2}>
+              <div className="rounded-lg bg-white px-8 py-10 shadow-testimonial dark:bg-dark-2 dark:shadow-none sm:px-10 sm:py-12 md:p-[60px] lg:p-10 lg:px-10 lg:py-12 2xl:p-[60px]">
+                <h3 className="mb-8 text-2xl font-semibold text-dark dark:text-white md:text-[28px] md:leading-[1.42]">
+                  Send us a Message
+                </h3>
+                
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                  {successMessage && <FormSuccess message={successMessage} />}
+
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-sm text-body-color dark:text-dark-6">
+                      Full Name*
+                    </Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      placeholder="Adam Gelius"
+                      {...register("name")}
+                      aria-invalid={!!errors.name}
+                      disabled={isPending}
+                      className="border-0 border-b border-gray-200 bg-transparent pb-3 rounded-none px-0 focus:border-primary dark:border-dark-3"
+                    />
+                    {errors.name && (
+                      <FormError message={errors.name.message} />
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-sm text-body-color dark:text-dark-6">
+                      Email*
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="example@yourmail.com"
+                      {...register("email")}
+                      aria-invalid={!!errors.email}
+                      disabled={isPending}
+                      className="border-0 border-b border-gray-200 bg-transparent pb-3 rounded-none px-0 focus:border-primary dark:border-dark-3"
+                    />
+                    {errors.email && (
+                      <FormError message={errors.email.message} />
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="phone" className="text-sm text-body-color dark:text-dark-6">
+                      Phone*
+                    </Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="+885 1254 5211 552"
+                      {...register("phone")}
+                      aria-invalid={!!errors.phone}
+                      disabled={isPending}
+                      className="border-0 border-b border-gray-200 bg-transparent pb-3 rounded-none px-0 focus:border-primary dark:border-dark-3"
+                    />
+                    {errors.phone && (
+                      <FormError message={errors.phone.message} />
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="text-sm text-body-color dark:text-dark-6">
+                      Message*
+                    </Label>
+                    <Textarea
+                      id="message"
+                      rows={3}
+                      placeholder="Type your message here"
+                      {...register("message")}
+                      aria-invalid={!!errors.message}
+                      disabled={isPending}
+                      className="border-0 border-b border-gray-200 bg-transparent pb-3 rounded-none px-0 resize-none focus:border-primary dark:border-dark-3"
+                    />
+                    {errors.message && (
+                      <FormError message={errors.message.message} />
+                    )}
+                  </div>
+
+                  <div>
+                    <Button
+                      type="submit"
+                      disabled={isPending}
+                      className="w-full sm:w-auto"
+                    >
+                      {isPending ? "Sending..." : "Send Message"}
+                    </Button>
+                  </div>
+                </form>
+              </div>
+            </FadeIn>
           </div>
         </div>
       </div>

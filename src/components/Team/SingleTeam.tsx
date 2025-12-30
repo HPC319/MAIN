@@ -1,13 +1,14 @@
 import { TeamType } from "@/types/team";
 import Image from "next/image";
 import Link from "next/link";
+import { MotionWrapper } from "@/components/motion/motion-wrapper";
 
 const SingleTeam = ({ team }: { team: TeamType }) => {
   const { image, name, designation, facebookLink, twitterLink, instagramLink } =
     team;
   return (
     <div className="w-full px-4 sm:w-1/2 lg:w-1/4 xl:w-1/4">
-      <div className="group mb-8 rounded-xl bg-white px-5 pb-10 pt-12 shadow-testimonial dark:bg-dark dark:shadow-none">
+      <MotionWrapper preset="card-hover" className="group mb-8 rounded-xl bg-white px-5 pb-10 pt-12 shadow-testimonial dark:bg-dark dark:shadow-none">
         <div className="relative z-10 mx-auto mb-5 h-[120px] w-[120px]">
           <Image
             src={image}
@@ -226,13 +227,13 @@ const SingleTeam = ({ team }: { team: TeamType }) => {
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M42.4875 53.0001C43.3438 53.0001 44.038 52.3059 44.038 51.4496C44.038 50.5933 43.3438 49.8992 42.4875 49.8992C41.6312 49.8992 40.9371 50.5933 40.9371 51.4496C40.9371 52.3059 41.6312 53.0001 42.4875 53.0001Z"
+                d="M42.4875 53.0001C43.3438 53.0001 44.038 52.3059 44.038 51.4496C44.038 50.5933 43.3438 49.8992 42.4875 49.8992C41.6312 49.8992 40.9371 40.6136 40.9371 51.4496C40.9371 52.3059 41.6312 53.0203 42.4875 53.0203Z"
                 fill="#3758F9"
               />
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M52.4795 53.0001C53.3358 53.0001 54.03 52.3059 54.03 51.4496C54.03 50.5933 53.3358 49.8992 52.4795 49.8992C51.6233 49.8992 50.9291 50.5933 50.9291 51.4496C50.9291 52.3059 51.6233 53.0001 52.4795 53.0001Z"
+                d="M52.4795 53.0001C53.3358 53.0001 54.03 52.3059 54.03 51.4496C54.03 50.5933 53.3358 49.8992 52.4795 49.8992C51.6233 49.8992 50.9291 50.5933 50.9291 51.4496C50.9291 52.3059 51.6233 53.0203 52.4795 53.0203Z"
                 fill="#3758F9"
               />
             </svg>
@@ -313,7 +314,7 @@ const SingleTeam = ({ team }: { team: TeamType }) => {
             </Link>
           </div>
         </div>
-      </div>
+      </MotionWrapper>
     </div>
   );
 };

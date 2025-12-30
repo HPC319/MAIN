@@ -2,12 +2,13 @@ import { Blog } from "@/types/blog";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import { MotionWrapper } from "@/components/motion/motion-wrapper";
 
 const SingleBlog = ({ blog }: { blog: Blog }) => {
   const { title, coverImage, excerpt, date, slug } = blog;
 
   return (
-    <div className="wow fadeInUp group mb-10" data-wow-delay=".1s">
+    <MotionWrapper preset="card-hover" className="group mb-10">
       <div className="mb-8 overflow-hidden rounded">
         <Link href={`/blogs/${slug}`} aria-label="blog cover" className="block">
           <Image
@@ -33,7 +34,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
         </h3>
         <p className="text-base text-body-color dark:text-dark-6">{excerpt}</p>
       </div>
-    </div>
+    </MotionWrapper>
   );
 };
 

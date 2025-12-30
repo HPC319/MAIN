@@ -1,3 +1,5 @@
+import { MotionWrapper } from "@/components/motion/motion-wrapper";
+
 const SectionTitle = ({
   subtitle,
   title,
@@ -13,11 +15,12 @@ const SectionTitle = ({
 }) => {
   return (
     <div className="-mx-4 flex flex-wrap">
-      <div
-        className={`wow fadeInUp w-full px-4 ${
+      <MotionWrapper
+        preset="fade"
+        delay={0.1}
+        className={`w-full px-4 ${
           center ? "mx-auto text-center" : ""
         }`}
-        data-wow-delay=".1s"
         style={{ maxWidth: width }}
       >
         {subtitle && (
@@ -31,7 +34,7 @@ const SectionTitle = ({
         <p className="text-base leading-relaxed text-body-color dark:text-dark-6 sm:leading-relaxed">
           {paragraph}
         </p>
-      </div>
+      </MotionWrapper>
     </div>
   );
 };
