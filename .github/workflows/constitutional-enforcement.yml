@@ -23,13 +23,13 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      # GATE 1: DEPENDENCY LAW
-      - name: 'GATE 1: Dependency Preflight'
-        run: npm run gatekeeper:dependencies
-
-      # GATE 2: INSTALL
-      - name: 'GATE 2: Install Dependencies'
+      # GATE 1: INSTALL FIRST
+      - name: 'GATE 1: Install Dependencies'
         run: npm ci
+
+      # GATE 2: DEPENDENCY LAW
+      - name: 'GATE 2: Dependency Preflight'
+        run: npm run gatekeeper:dependencies
 
       # GATE 3: IMMUTABILITY ENFORCEMENT
       - name: 'GATE 3: Immutability Check'
