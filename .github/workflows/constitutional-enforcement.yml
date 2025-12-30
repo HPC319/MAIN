@@ -25,7 +25,7 @@ jobs:
 
       # GATE 1: DEPENDENCY LAW
       - name: 'GATE 1: Dependency Preflight'
-        run: npm run gatekeeper:dependency
+        run: npm run gatekeeper:dependencies
 
       # GATE 2: INSTALL
       - name: 'GATE 2: Install Dependencies'
