@@ -30,16 +30,16 @@ jobs:
         run: npm run lint
       
       - name: Token Completeness
-        run: node scripts/ast-validators/token-completeness.js
+        run: node scripts/ast-validators/token-completeness.ts
       
       - name: Motion Kernel Enforcement
-        run: node scripts/ast-validators/motion-kernel-guard.js
+        run: node scripts/ast-validators/motion-kernel-guard.ts
       
       - name: Inline Style Prohibition
-        run: node scripts/ast-validators/inline-style-guard.js
+        run: node scripts/ast-validators/inline-style-guard.ts
       
       - name: Client Boundary Enforcement
-        run: node scripts/ast-validators/client-boundary-guard.js
+        run: node scripts/ast-validators/client-boundary-guard.ts
       
       - name: Build Validation
         run: npm run build
@@ -47,4 +47,4 @@ jobs:
           CI: true
       
       - name: Architecture Documentation Sync
-        run: node scripts/verify-architecture-sync.js
+        run: node scripts/verify-architecture-sync.ts
