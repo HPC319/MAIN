@@ -21,7 +21,7 @@ const SectionTitle = ({
         className={`w-full px-4 ${
           center ? "mx-auto text-center" : ""
         }`}
-        style={{ maxWidth: width }}
+        
       >
         {subtitle && (
           <span className="mb-2 block text-lg font-semibold text-primary">

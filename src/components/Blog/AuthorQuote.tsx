@@ -1,94 +1,82 @@
-import React from "react";
-import { FadeIn } from "@/components/motion/fade-in";
+import Image from "next/image";
 
 const AuthorQuote = () => {
   return (
-    <FadeIn direction="up" delay={0.1}>
-      <div className="relative z-10 mb-10 overflow-hidden rounded bg-primary/5 px-6 py-8 text-center sm:p-10 md:px-[60px]">
-        <div className="mx-auto max-w-[530px]">
-          <span className="mb-6 flex justify-center text-primary">
-            <svg
-              width="44"
-              height="26"
-              viewBox="0 0 44 26"
-              className="fill-current"
-            >
-              <path d="M10.1101 0.00124908C5.46698 -0.0701833 1.25247 2.92998 0.252417 7.00162C-0.319041 9.50175 0.180985 12.0019 1.68106 14.002C3.25258 16.145 5.68128 17.5022 8.39571 17.8593L10.8958 24.0025C11.1816 24.6454 11.8245 25.074 12.5388 25.074C13.2531 25.074 13.896 24.6454 14.1817 24.0025C14.6103 22.931 15.1103 21.7881 15.6104 20.7166C16.8247 18.0022 18.0391 15.2163 18.9677 12.359C19.9677 9.35889 19.5392 6.14443 17.8248 3.71573C16.1104 1.35846 13.396 0.0726814 10.1101 0.00124908ZM16.6104 11.6447C15.6818 14.3592 14.4675 17.145 13.3245 19.788C13.1102 20.3595 12.8245 20.8595 12.6102 21.431L10.1815 15.5735L9.39576 15.5021C7.10992 15.3592 4.96695 14.2163 3.7526 12.5733C2.68112 11.1447 2.32396 9.35889 2.75255 7.64451C3.46687 4.71579 6.53846 2.57281 10.0386 2.57281H10.1101C12.5388 2.57281 14.5389 3.57287 15.8247 5.28724C17.039 7.00162 17.3247 9.43032 16.6104 11.6447Z" />
-              <path d="M42.3267 3.78726C40.6124 1.35856 37.8979 0.00134277 34.612 0.00134277C34.5406 0.00134277 34.5406 0.00134277 34.4692 0.00134277C29.8975 0.00134277 25.7544 3.0015 24.7544 7.00171C24.1829 9.50185 24.6829 12.002 26.183 14.0735C27.7545 16.2165 30.1832 17.5737 32.8977 17.9309L35.3978 24.074C35.6835 24.7169 36.3264 25.1455 37.0407 25.1455C37.7551 25.1455 38.398 24.7169 38.6837 24.074C39.1123 23.0026 39.6123 21.8596 40.1123 20.7882C41.3267 18.0737 42.541 15.2879 43.4696 12.4306C44.4697 9.50184 44.0411 6.21596 42.3267 3.78726ZM41.1124 11.6448C40.1838 14.3592 38.9694 17.1451 37.8265 19.7881C37.6122 20.3596 37.3265 20.8596 37.1122 21.431L34.6835 15.5736L33.8977 15.5022C31.6119 15.3593 29.4689 14.2164 28.2546 12.5734C27.1831 11.1448 26.8259 9.35898 27.2545 7.57317C27.9688 4.64445 31.0404 2.50147 34.5406 2.50147H34.612C37.0407 2.50147 39.0408 3.50153 40.3266 5.2159C41.541 7.00171 41.8267 9.43041 41.1124 11.6448Z" />
-            </svg>
-          </span>
-          <p className="mb-4 text-base font-medium italic leading-[26px] text-dark">
-            A spring of truth shall flow from it: like a new star it shall scatter
-            the darkness of ignorance, and cause a light heretofore unknown to
-            shine amongst men.
-          </p>
-          <span className="text-sm italic text-body-color">"Andrio Domeco"</span>
+    <div className="mb-10 overflow-hidden rounded-[10px] bg-primary/[0.05] px-7 py-8 sm:p-9">
+      <div className="mb-6 flex flex-wrap items-center">
+        <div className="mb-6 mr-6 flex items-center md:mb-0">
+          <div className="mr-5 h-20 w-20 overflow-hidden rounded-full">
+            <Image
+              src="/images/blog/author-05.png"
+              alt="author"
+              className="w-full"
+              width={80}
+              height={80}
+            />
+          </div>
+          <div>
+            <h4 className="mb-2 text-lg font-semibold text-dark dark:text-white">
+              Samuyl Joshi
+            </h4>
+            <p className="text-body-color text-base">
+              CEO &amp; Founder at <span>Lineicons</span>
+            </p>
+          </div>
         </div>
+
         <div>
-          <span className="absolute left-0 top-0">
-            <svg
-              width="103"
-              height="109"
-              viewBox="0 0 103 109"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <ellipse
-                cx="0.483916"
-                cy="3.5"
-                rx="102.075"
-                ry="105.5"
-                transform="rotate(180 0.483916 3.5)"
-                fill="url(#paint0_linear)"
-              />
-              <defs>
-                <linearGradient
-                  id="paint0_linear"
-                  x1="-101.591"
-                  y1="-50.4346"
-                  x2="49.1618"
-                  y2="-49.6518"
-                  gradientUnits="userSpaceOnUse"
+          <p className="mb-1 text-sm leading-relaxed text-body-color">
+            Rating
+          </p>
+          <div className="flex items-center space-x-1">
+            <span className="text-[#FBB040]">
+              {[...Array(5)].map((_, i) => (
+                <svg
+                  key={i}
+                  width="18"
+                  height="16"
+                  viewBox="0 0 18 16"
+                  className="fill-current inline-block"
                 >
-                  <stop stopColor="#3056D3" stopOpacity="0.15" />
-                  <stop offset="1" stopColor="white" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </span>
-          <span className="absolute bottom-0 right-0">
-            <svg
-              width="102"
-              height="106"
-              viewBox="0 0 102 106"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <ellipse
-                cx="102.484"
-                cy="105.5"
-                rx="102.075"
-                ry="105.5"
-                fill="url(#paint0_linear)"
-              />
-              <defs>
-                <linearGradient
-                  id="paint0_linear"
-                  x1="0.409163"
-                  y1="51.5654"
-                  x2="151.162"
-                  y2="52.3482"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stopColor="#3056D3" stopOpacity="0.5" />
-                  <stop offset="1" stopColor="white" stopOpacity=".2" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </span>
+                  <path d="M9.09815 0.360596L11.1054 6.06493H17.601L12.3459 9.5904L14.3532 15.2947L9.09815 11.7693L3.84309 15.2947L5.85035 9.5904L0.595291 6.06493H7.0909L9.09815 0.360596Z" />
+                </svg>
+              ))}
+            </span>
+          </div>
         </div>
       </div>
-    </FadeIn>
+
+      <div>
+        <p className="mb-8 text-base italic leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
+          ipsum suspendisse ultrices gravida. Risus commodo viverra
+        </p>
+        <a
+          href="/#"
+          className="text-dark dark:text-white text-base font-medium underline underline-offset-2 transition hover:text-primary dark:hover:text-primary"
+        >
+          View More Details
+        </a>
+      </div>
+
+      <div>
+        <span className="absolute right-8 top-6">
+          <svg
+            width="103"
+            height="78"
+            viewBox="0 0 103 78"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.4687 28.1406C7.46875 33.1406 3.53125 39.6094 0.65625 47.5469C6.71875 44.6719 12.7812 43.2344 18.8437 43.2344C23.3854 43.2344 27.4062 44.4115 30.9062 46.7656C34.4062 49.0156 37.125 52.1302 39.0625 56.1094C40.8958 59.9844 41.8125 64.3646 41.8125 69.25C41.8125 74.5521 40.6875 79.2969 38.4375 83.4844C36.1875 87.6719 33.0208 90.9323 29.9375 93.2656C26.8542 95.4948 22.8229 96.6094 17.8438 96.6094C12.2396 96.6094 7.46875 95.0781 3.53125 92.0156C-0.40625 88.9531 -3.38542 84.9219 -5.40625 79.9219C-7.42708 74.9219 -8.4375 69.1615 -8.4375 62.6406C-8.4375 54.8073 -6.65625 46.9219 -3.09375 38.9844C0.46875 31.0469 5.67708 23.4219 12.5312 16.1094L12.4687 28.1406ZM73.0312 28.1406C68.0312 33.1406 64.0938 39.6094 61.2188 47.5469C67.2812 44.6719 73.3438 43.2344 79.4063 43.2344C83.9479 43.2344 87.9688 44.4115 91.4688 46.7656C94.9688 49.0156 97.6875 52.1302 99.625 56.1094C101.458 59.9844 102.375 64.3646 102.375 69.25C102.375 74.5521 101.25 79.2969 99 83.4844C96.75 87.6719 93.5833 90.9323 90.5 93.2656C87.4167 95.4948 83.3854 96.6094 78.4063 96.6094C72.8021 96.6094 68.0312 95.0781 64.0938 92.0156C60.1562 88.9531 57.1771 84.9219 55.1563 79.9219C53.1354 74.9219 52.125 69.1615 52.125 62.6406C52.125 54.8073 53.9062 46.9219 57.4688 38.9844C61.0312 31.0469 66.2396 23.4219 73.0938 16.1094L73.0312 28.1406Z"
+              className="fill-primary"
+            />
+          </svg>
+        </span>
+      </div>
+    </div>
   );
 };
 

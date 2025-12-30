@@ -16,7 +16,7 @@ export function HeroSection({
   return (
     <section
       className="relative min-h-[600px] flex items-center justify-center bg-gradient-to-br from-blue-600 to-blue-800 text-white"
-      style={backgroundImage ? { backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
+      className="hero-background"
     >
       <div className="absolute inset-0 bg-black/40" />
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">

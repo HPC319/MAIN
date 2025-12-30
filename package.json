@@ -70,8 +70,6 @@
     "clean": "rm -rf .next out dist build storybook-static .turbo node_modules/.cache",
     "clean:artifacts": "tsx scripts/clean-artifacts.ts",
     "clean:all": "npm run clean && rm -rf node_modules",
-    "postinstall": "prisma generate",
-    "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "check:deps": "npx npm-check-updates",
     "check:security": "npm audit --audit-level=moderate",
     "validate:tokens": "tsx scripts/enforcement/validate-tokens.ts",

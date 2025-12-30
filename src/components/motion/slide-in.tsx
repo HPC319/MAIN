@@ -8,7 +8,7 @@
 'use client'
 
 import * as React from 'react'
-import { motion, type HTMLMotionProps, type Variants } from 'framer-motion'
+import { motion, type HTMLMotionProps, type Variants } from '@/lib/motion-kernel'
 import { usePrefersReducedMotion } from '@/lib/hooks/use-media-query'
 
 type Direction = 'top' | 'bottom' | 'left' | 'right'

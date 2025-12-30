@@ -19,8 +19,8 @@ class GenericAdapter implements ITradeAdapter {
       branding: {
         logo: '/logo.svg',
         colors: {
-          primary: '#3b82f6',
-          secondary: '#10b981',
+          primary: theme.colors.primary.main,
+          secondary: theme.colors.primary.main,
         },
         fonts: {
           heading: 'Inter',

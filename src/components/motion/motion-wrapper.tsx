@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, Variants } from "@/lib/motion-kernel";
+
 import { ReactNode, useEffect, useState } from "react";
 
 interface MotionWrapperProps {

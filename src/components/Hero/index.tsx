@@ -76,7 +76,7 @@ const Hero = () => {
                 >
                   <mask
                     id="mask0_2005_10788"
-                    style={{ maskType: "luminance" }}
+                    
                     maskUnits="userSpaceOnUse"
                     x="0"
                     y="0"
@@ -106,7 +106,7 @@ const Hero = () => {
                 >
                   <mask
                     id="mask0_2005_10783"
-                    style={{ maskType: "luminance" }}
+                    
                     maskUnits="userSpaceOnUse"
                     x="0"
                     y="0"
