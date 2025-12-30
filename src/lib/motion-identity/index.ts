@@ -16,7 +16,7 @@ import { animationDuration, type AnimationDuration } from '../invariants';
  * Canonstrata Spring - The signature elastic feel
  * More pronounced than standard springs
  */
-export const canonstrata Spring = {
+export const canonstrataSpring = {
   type: 'spring' as const,
   damping: 18,
   stiffness: 150,

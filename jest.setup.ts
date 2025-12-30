@@ -1,17 +1,18 @@
 import '@testing-library/jest-dom';
 import 'jest-axe/extend-expect';
+import React from 'react';
 
 // Mock framer-motion for tests
 jest.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-    span: ({ children, ...props }: any) => <span {...props}>{children}</span>,
-    p: ({ children, ...props }: any) => <p {...props}>{children}</p>,
-    section: ({ children, ...props }: any) => <section {...props}>{children}</section>,
-    article: ({ children, ...props }: any) => <article {...props}>{children}</article>,
+    div: ({ children, ...props }: any) => React.createElement('div', props, children),
+    button: ({ children, ...props }: any) => React.createElement('button', props, children),
+    span: ({ children, ...props }: any) => React.createElement('span', props, children),
+    p: ({ children, ...props }: any) => React.createElement('p', props, children),
+    section: ({ children, ...props }: any) => React.createElement('section', props, children),
+    article: ({ children, ...props }: any) => React.createElement('article', props, children),
   },
-  AnimatePresence: ({ children }: any) => <>{children}</>,
+  AnimatePresence: ({ children }: any) => children,
   useAnimation: () => ({
     start: jest.fn(),
     stop: jest.fn(),

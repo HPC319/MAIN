@@ -1,4 +1,4 @@
-import { lazy, Suspense, ComponentType, ReactNode } from 'react';
+import { lazy, Suspense, ComponentType, ReactNode, createElement } from 'react';
 
 /**
  * Lazy load component with custom fallback
@@ -9,11 +9,10 @@ export function lazyLoad<T extends ComponentType<any>>(
 ) {
   const LazyComponent = lazy(importFunc);
 
-  return (props: React.ComponentProps<T>) => (
-    <Suspense fallback={fallback || <div>Loading...</div>}>
-      <LazyComponent {...props} />
-    </Suspense>
-  );
+  return (props: React.ComponentProps<T>) =>
+    createElement(Suspense, { fallback: fallback || createElement('div', null, 'Loading...') },
+      createElement(LazyComponent, props)
+    );
 }
 
 /**
@@ -45,11 +44,10 @@ export function lazyLoadWithRetry<T extends ComponentType<any>>(
 
   const LazyComponent = lazy(() => retry(importFunc, retries));
 
-  return (props: React.ComponentProps<T>) => (
-    <Suspense fallback={fallback || <div>Loading...</div>}>
-      <LazyComponent {...props} />
-    </Suspense>
-  );
+  return (props: React.ComponentProps<T>) =>
+    createElement(Suspense, { fallback: fallback || createElement('div', null, 'Loading...') },
+      createElement(LazyComponent, props)
+    );
 }
 
 /**
@@ -60,10 +58,9 @@ export function createLazyWrapper(fallback?: ReactNode) {
     importFunc: () => Promise<{ default: T }>
   ) => {
     const LazyComponent = lazy(importFunc);
-    return (props: React.ComponentProps<T>) => (
-      <Suspense fallback={fallback || <div>Loading...</div>}>
-        <LazyComponent {...props} />
-      </Suspense>
-    );
+    return (props: React.ComponentProps<T>) =>
+      createElement(Suspense, { fallback: fallback || createElement('div', null, 'Loading...') },
+        createElement(LazyComponent, props)
+      );
   };
 }
