@@ -34,7 +34,7 @@ function scanDirectory(dir: string): void {
     const fullPath = join(dir, entry);
     const stat = statSync(fullPath);
 
-    if (stat.isDirectory() && !entry.startsWith('.') && entry !== 'node_modules') {
+    if (stat.isDirectory() && !entry.startsWith('.') && entry !== 'node_modules' && entry !== 'dist') {
       scanDirectory(fullPath);
     } else if (stat.isFile() && ['.ts', '.tsx', '.js', '.jsx'].includes(extname(entry))) {
       validateFile(fullPath);
@@ -43,6 +43,16 @@ function scanDirectory(dir: string): void {
 }
 
 function validateFile(filePath: string): void {
+  // Skip .storybook, node_modules, dist, etc.
+  if (filePath.includes('.storybook') || filePath.includes('node_modules') || filePath.includes('dist')) {
+    return;
+  }
+  
+  // Only parse src/** files
+  if (!filePath.includes('/src/')) {
+    return;
+  }
+  
   // Kernel files are exempt
   if (filePath.includes(KERNEL_MOTION_DIR)) {
     return;

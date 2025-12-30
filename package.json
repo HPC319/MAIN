@@ -61,7 +61,7 @@
     "introspect:forms": "tsx scripts/cli/introspect.ts forms",
     "introspect:health": "tsx scripts/cli/introspect.ts health",
     "gatekeeper:check": "tsx scripts/gatekeeper/check.ts",
-    "gatekeeper:ast": "tsx scripts/gatekeeper/ast-validator.ts",
+    "gatekeeper:ast": "tsx scripts/ast-validators/run.ts",
     "gatekeeper:storybook": "npm run build-storybook && tsx scripts/gatekeeper/storybook-validator.ts",
     "clean": "rm -rf .next out dist build storybook-static .turbo node_modules/.cache",
     "clean:artifacts": "tsx scripts/clean-artifacts.ts",

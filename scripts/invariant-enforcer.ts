@@ -23,3 +23,4 @@ for (const check of checks) {
 
 console.log("✅ ALL CANONSTRATA INVARIANTS ENFORCED");
 process.exit(0);
+
