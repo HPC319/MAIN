@@ -7,55 +7,13 @@ const config: StorybookConfig = {
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
-    '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/addon-a11y',
-    {
-      name: '@storybook/addon-styling-webpack',
-      options: {
-        rules: [
-          {
-            test: /\.css$/,
-            use: [
-              'style-loader',
-              'css-loader',
-              {
-                loader: 'postcss-loader',
-                options: {
-                  postcssOptions: {
-                    plugins: [require('tailwindcss'), require('autoprefixer')],
-                  },
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
   ],
   framework: {
     name: '@storybook/nextjs',
-    options: {
-      builder: {
-        useSWC: true,
-      },
-    },
-  },
-  docs: {
-    autodocs: 'tag',
+    options: {}
   },
   staticDirs: ['../public'],
-  webpackFinal: async (config) => {
-    if (config.resolve) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@': path.resolve(__dirname, '../src'),
-        '@/design-system': path.resolve(__dirname, '../design-system'),
-      };
-    }
-    return config;
-  },
   typescript: {
     check: false,
     reactDocgen: 'react-docgen-typescript',
