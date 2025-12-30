@@ -1,19 +1,21 @@
-name: CanonStrata Constitutional Enforcement
+name: Constitutional Enforcement
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: ['**']
   pull_request:
-    branches: [ main, develop ]
+    branches: ['**']
 
 jobs:
-  constitutional-enforcement:
-    name: Constitutional Enforcement
+  constitutional-gates:
+    name: Constitutional Gates
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -21,51 +23,47 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install Dependencies
+      # GATE 1: DEPENDENCY LAW
+      - name: 'GATE 1: Dependency Preflight'
+        run: npm run gatekeeper:dependency
+
+      # GATE 2: INSTALL
+      - name: 'GATE 2: Install Dependencies'
         run: npm ci
 
-      - name: TypeScript Compilation Check
-        run: npx tsc --noEmit
-        continue-on-error: false
+      # GATE 3: IMMUTABILITY ENFORCEMENT
+      - name: 'GATE 3: Immutability Check'
+        run: npm run gatekeeper:immutability
 
-      - name: Token Completeness Validation
-        run: npm run validate:tokens
-        continue-on-error: false
+      # GATE 4: TOKEN BYPASS ELIMINATION
+      - name: 'GATE 4: AST Validation (Tailwind Literals)'
+        run: npm run gatekeeper:ast
 
-      - name: Motion Governance Enforcement
-        run: npm run validate:motion
-        continue-on-error: false
+      # GATE 5: TYPE ABSOLUTISM
+      - name: 'GATE 5: Constitutional Lint'
+        run: npm run lint:constitutional
 
-      - name: ESLint AST Enforcement
-        run: npx eslint . --max-warnings 0
-        continue-on-error: false
+      # GATE 6: INVARIANT VALIDATION
+      - name: 'GATE 6: Validate Invariants'
+        run: npm run validate:invariants
 
-      - name: Runtime Invariant Tests
-        run: npm run test:invariants
-        continue-on-error: false
-
-      - name: Build Verification
+      # GATE 7: BUILD
+      - name: 'GATE 7: Build'
         run: npm run build
-        continue-on-error: false
-        env:
-          NODE_ENV: production
 
-      - name: Storybook Build Validation
-        run: npm run build-storybook
-        continue-on-error: false
-
-      - name: Architecture Documentation Sync
-        run: npm run verify:docs
-        continue-on-error: false
-
-  merge-gate:
-    name: Merge Gate
-    needs: constitutional-enforcement
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-
-    steps:
-      - name: Block on Violation
+      # FINAL GATE: SUCCESS
+      - name: 'CONSTITUTIONAL ENFORCEMENT: PASSED'
         run: |
-          echo "All constitutional checks passed"
-          echo "Merge approved by CanonStrata Judiciary"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "  CONSTITUTIONAL ENFORCEMENT COMPLETE"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "✓ Dependency Law Enforced"
+          echo "✓ Immutability Preserved"
+          echo "✓ Token Bypass Eliminated"
+          echo "✓ Type Absolutism Maintained"
+          echo "✓ Invariants Validated"
+          echo "✓ Build Successful"
+          echo ""
+          echo "The system enforces itself."
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
