@@ -24,7 +24,7 @@ class CIValidator {
     console.log('='.repeat(60));
   }
 
-  private async runStep(name: string, command: string, critical: boolean = true): Promise<ValidationResult> {
+  private async runStep(name: string, command: string, _critical: boolean = true): Promise<ValidationResult> {
     const stepStart = Date.now();
     console.log(`\n▶ ${name}...`);
     try {
