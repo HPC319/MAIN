@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { FormField } from './form-field';
 import { useForm } from 'react-hook-form';
+import type { ComponentProps } from 'react';
 
 const meta: Meta<typeof FormField> = {
   title: 'UI/Form/FormField',
@@ -14,7 +15,7 @@ const meta: Meta<typeof FormField> = {
 export default meta;
 type Story = StoryObj<typeof FormField>;
 
-const FormFieldWrapper = (args: any) => {
+const FormFieldWrapper = (args: ComponentProps<typeof FormField>) => {
   const form = useForm({
     defaultValues: {
       email: '',

@@ -58,16 +58,16 @@ export interface FormIntelligence<T extends FieldValues> {
 // AUTO-SAVE MANAGER
 // ============================================================================
 
-interface AutoSaveConfig {
+interface AutoSaveConfig<T = unknown> {
   enabled: boolean;
   debounceMs: number;
   storageKey: string;
-  onSave?: (data: any) => Promise<void>;
+  onSave?: (data: T) => Promise<void>;
 }
 
 function useAutoSave<T extends FieldValues>(
   form: UseFormReturn<T>,
-  config: AutoSaveConfig
+  config: AutoSaveConfig<T>
 ) {
   const [saving, setSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<number>();
@@ -114,7 +114,7 @@ function useAutoSave<T extends FieldValues>(
     if (!config.enabled) return;
 
     const subscription = form.watch((data) => {
-      debouncedSave(data as T);
+      debouncedSave(data);
     });
 
     return () => subscription.unsubscribe();
@@ -233,9 +233,9 @@ function useFieldMeta<T extends FieldValues>(
 // ============================================================================
 
 interface UseFormIntelligenceConfig<T extends FieldValues> {
-  autoSave?: Partial<AutoSaveConfig>;
+  autoSave?: Partial<AutoSaveConfig<T>>;
   requiredFields?: (keyof T)[];
-  onConflict?: (field: keyof T, local: any, remote: any) => any;
+  onConflict?: (field: keyof T, local: T[keyof T], remote: T[keyof T]) => T[keyof T];
 }
 
 export function useFormIntelligence<T extends FieldValues>(
@@ -244,7 +244,7 @@ export function useFormIntelligence<T extends FieldValues>(
 ): FormIntelligence<T> {
   const state = useValidationState(form);
   
-  const autoSaveConfig: AutoSaveConfig = {
+  const autoSaveConfig: AutoSaveConfig<T> = {
     enabled: config.autoSave?.enabled ?? false,
     debounceMs: config.autoSave?.debounceMs ?? 1000,
     storageKey: config.autoSave?.storageKey ?? 'form-auto-save',

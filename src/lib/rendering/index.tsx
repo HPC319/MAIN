@@ -53,7 +53,16 @@ function detectDeviceCapabilities() {
     };
   }
 
-  const nav = navigator as any;
+  interface NavigatorWithCapabilities extends Navigator {
+    hardwareConcurrency?: number;
+    deviceMemory?: number;
+    connection?: {
+      effectiveType?: '4g' | '3g' | '2g' | 'slow-2g';
+      saveData?: boolean;
+    };
+  }
+
+  const nav = navigator as NavigatorWithCapabilities;
   
   return {
     cores: nav.hardwareConcurrency || 2,
@@ -73,9 +82,20 @@ function detectUserPreferences() {
     };
   }
 
+  // Type guard for NetworkInformation API
+  interface NavigatorWithConnection extends Navigator {
+    connection?: {
+      saveData?: boolean;
+      effectiveType?: string;
+      downlink?: number;
+    };
+  }
+
+  const nav = navigator as NavigatorWithConnection;
+
   return {
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    reducedData: (navigator as any).connection?.saveData || false,
+    reducedData: nav.connection?.saveData || false,
     colorScheme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' as const : 'light' as const,
   };
 }
@@ -116,6 +136,18 @@ function detectRenderingMode(): RenderingMode {
 
   // Default to balanced
   return 'balanced';
+}
+
+// ============================================================================
+// DEVICE INTERFACE EXTENSION
+// ============================================================================
+
+interface NavigatorWithBattery extends Navigator {
+  getBattery?: () => Promise<{
+    level: number;
+    charging: boolean;
+    addEventListener: (event: string, handler: () => void) => void;
+  }>;
 }
 
 // ============================================================================
@@ -245,11 +277,12 @@ export function RenderingProvider({ children, defaultMode }: RenderingProviderPr
 
   // Monitor battery level
   useEffect(() => {
-    if (typeof navigator === 'undefined' || !(navigator as any).getBattery) {
+    const nav = navigator as NavigatorWithBattery;
+    if (typeof navigator === 'undefined' || !nav.getBattery) {
       return;
     }
 
-    (navigator as any).getBattery().then((battery: any) => {
+    nav.getBattery().then((battery) => {
       const updateBatteryMode = () => {
         if (battery.level < 0.2 && !battery.charging && mode !== 'minimal') {
           setMode('low-power');
@@ -264,11 +297,22 @@ export function RenderingProvider({ children, defaultMode }: RenderingProviderPr
 
   // Monitor network changes
   useEffect(() => {
-    if (typeof navigator === 'undefined' || !(navigator as any).connection) {
+    interface NavigatorWithConnection extends Navigator {
+      connection?: {
+        saveData?: boolean;
+        effectiveType?: string;
+        downlink?: number;
+        addEventListener?: (event: string, handler: () => void) => void;
+        removeEventListener?: (event: string, handler: () => void) => void;
+      };
+    }
+
+    const nav = navigator as NavigatorWithConnection;
+    if (typeof navigator === 'undefined' || !nav.connection) {
       return;
     }
 
-    const connection = (navigator as any).connection;
+    const connection = nav.connection;
     
     const handleConnectionChange = () => {
       const newMode = detectRenderingMode();

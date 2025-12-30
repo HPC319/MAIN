@@ -15,7 +15,7 @@ export { cva, type VariantProps }
 /**
  * Helper type to extract variant props from a CVA component
  */
-export type ExtractVariantProps<T> = T extends (...args: any[]) => any
+export type ExtractVariantProps<T> = T extends (...args: unknown[]) => infer R
   ? VariantProps<T>
   : never
 
@@ -62,13 +62,19 @@ export interface VariantConfig<V extends Record<string, any>> {
 /**
  * Create a variant function with enhanced type safety
  */
-export function createVariants<V extends Record<string, any>>(
+export function createVariants<V extends Record<string, Record<string, ClassValue>>>(
   config: VariantConfig<V>
 ) {
-  return cva(config.base, {
-    variants: config.variants as any,
-    compoundVariants: config.compoundVariants as any,
-    defaultVariants: config.defaultVariants as any,
+  return cva(config.base || '', {
+    variants: config.variants as V,
+    compoundVariants: config.compoundVariants as Array<{
+      [K in keyof V]?: V[K] extends Record<string, ClassValue> ? keyof V[K] : never
+    } & {
+      class: ClassValue
+    }>,
+    defaultVariants: config.defaultVariants as {
+      [K in keyof V]?: V[K] extends Record<string, ClassValue> ? keyof V[K] : never
+    },
   })
 }
 

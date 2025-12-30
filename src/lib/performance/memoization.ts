@@ -44,7 +44,7 @@ export function shallowEqual<T extends Record<string, any>>(
 /**
  * Deep comparison for memo
  */
-export function deepEqual(objA: any, objB: any): boolean {
+export function deepEqual(objA: unknown, objB: unknown): boolean {
   if (Object.is(objA, objB)) return true;
 
   if (
@@ -63,7 +63,7 @@ export function deepEqual(objA: any, objB: any): boolean {
 
   for (const key of keysA) {
     if (!Object.prototype.hasOwnProperty.call(objB, key)) return false;
-    if (!deepEqual(objA[key], objB[key])) return false;
+    if (!deepEqual((objA as Record<string, unknown>)[key], (objB as Record<string, unknown>)[key])) return false;
   }
 
   return true;
@@ -83,10 +83,10 @@ export const memoize = {
   /**
    * Create a memoized callback with useCallback
    */
-  callback: <T extends (...args: any[]) => any>(
-    callback: T,
+  callback: <TArgs extends unknown[], TReturn>(
+    callback: (...args: TArgs) => TReturn,
     deps: DependencyList
-  ): T => {
+  ): ((...args: TArgs) => TReturn) => {
     return useCallback(callback, deps) as T;
   },
 
@@ -118,10 +118,10 @@ export function useStableReference<T>(value: T): T {
 /**
  * Create a function that only runs once
  */
-export function useOnce<T extends (...args: any[]) => any>(callback: T): T {
+export function useOnce<T extends (...args: unknown[]) => unknown>(callback: T): T {
   const hasRun = useMemo(() => ({ current: false }), []);
   
-  return useCallback((...args: any[]) => {
+  return useCallback((...args: unknown[]) => {
     if (!hasRun.current) {
       hasRun.current = true;
       return callback(...args);

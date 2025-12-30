@@ -39,6 +39,12 @@ jobs:
       - name: 'GATE 4: AST Validation (Tailwind Literals)'
         run: npm run gatekeeper:ast
 
+      - name: 'Validate No Any Types'
+        run: npm run validate:no-any
+
+      - name: 'Validate No TS Suppressions'
+        run: npm run validate:no-suppressions
+
       # GATE 5: TYPE ABSOLUTISM
       - name: 'GATE 5: Constitutional Lint'
         run: npm run lint:constitutional

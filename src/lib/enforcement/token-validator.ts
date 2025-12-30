@@ -34,7 +34,11 @@ export function validateTokenSystem(tokens: Record<string, unknown>): TokenValid
   }
   
   // Check for hardcoded values in token definitions
-  function scanForHardcoded(obj: any, path: string = ''): void {
+  function scanForHardcoded(obj: unknown, path: string = ''): void {
+    if (typeof obj !== 'object' || obj === null) {
+      return;
+    }
+    
     for (const [key, value] of Object.entries(obj)) {
       const currentPath = path ? `${path}.${key}` : key;
       
@@ -52,9 +56,7 @@ export function validateTokenSystem(tokens: Record<string, unknown>): TokenValid
     }
   }
   
-  if (typeof tokens === 'object' && tokens !== null) {
-    scanForHardcoded(tokens);
-  }
+  scanForHardcoded(tokens);
   
   return {
     valid: violations.length === 0 && missing.length === 0,

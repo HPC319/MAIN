@@ -17,11 +17,10 @@ export default [
     },
     rules: {
       "@typescript-eslint/ban-ts-comment": ["error", {
-        "ts-expect-error": "allow-with-description",
+        "ts-expect-error": false,
         "ts-ignore": false,
         "ts-nocheck": false,
-        "ts-check": false,
-        minimumDescriptionLength: 10
+        "ts-check": false
       }],
       "@typescript-eslint/no-explicit-any": "error"
     }

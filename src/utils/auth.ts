@@ -8,6 +8,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import { prisma } from "./prismaDB";
 import type { Adapter } from "next-auth/adapters";
+import type { JWT } from "next-auth/jwt";
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -87,7 +88,7 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    jwt: async (payload: any) => {
+    jwt: async (payload: { token: JWT; user?: { id: string } }) => {
       const { token } = payload;
       const user = payload.user;
 

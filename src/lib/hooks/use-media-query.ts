@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react'
  * @example
  * const isDesktop = useMediaQuery('(min-width: 1024px)')
  * const isMobile = useMediaQuery('(max-width: 767px)')
- * const prefersD arkMode = useMediaQuery('(prefers-color-scheme: dark)')
+ * const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
  */
 export function useMediaQuery(query: string): boolean {
   // Initialize with undefined to prevent hydration mismatch
@@ -43,12 +43,15 @@ export function useMediaQuery(query: string): boolean {
       mediaQuery.addEventListener('change', handler)
       return () => mediaQuery.removeEventListener('change', handler)
     }
-    // Legacy browsers
-    else {
-      // @ts-ignore - deprecated but still needed for old browsers
-      mediaQuery.addListener(handler)
-      // @ts-ignore
-      return () => mediaQuery.removeListener(handler)
+    // Legacy browsers - type guard for deprecated API
+    else if ('addListener' in mediaQuery && typeof mediaQuery.addListener === 'function') {
+      // Legacy MediaQueryList with deprecated methods
+      const legacyMediaQuery = mediaQuery as MediaQueryList & {
+        addListener: (listener: (event: MediaQueryListEvent) => void) => void;
+        removeListener: (listener: (event: MediaQueryListEvent) => void) => void;
+      };
+      legacyMediaQuery.addListener(handler);
+      return () => legacyMediaQuery.removeListener(handler);
     }
   }, [query])
 

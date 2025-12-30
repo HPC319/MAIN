@@ -84,7 +84,7 @@ export type AccessibleComponent<T = {}> = T & (
 export function enforceAccessibleName<T>(
   props: T
 ): asserts props is AccessibleComponent<T> {
-  const p = props as any;
+  const p = props as Record<string, unknown>;
   if (!p['aria-label'] && !p['aria-labelledby']) {
     throw new InvariantViolation(
       'Component must have aria-label or aria-labelledby'
