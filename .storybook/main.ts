@@ -1,18 +1,38 @@
-import type { StorybookConfig } from '@storybook/nextjs'
+import type { StorybookConfig } from '@storybook/nextjs';
+import path from 'path';
 
 const config: StorybookConfig = {
   stories: [
     '../src/**/*.mdx',
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '../design-system/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
-    '@storybook/addon-themes',
+    {
+      name: '@storybook/addon-styling-webpack',
+      options: {
+        rules: [
+          {
+            test: /\.css$/,
+            use: [
+              'style-loader',
+              'css-loader',
+              {
+                loader: 'postcss-loader',
+                options: {
+                  postcssOptions: {
+                    plugins: [require('tailwindcss'), require('autoprefixer')],
+                  },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
   ],
   framework: {
     name: '@storybook/nextjs',
@@ -26,6 +46,16 @@ const config: StorybookConfig = {
     autodocs: 'tag',
   },
   staticDirs: ['../public'],
+  webpackFinal: async (config) => {
+    if (config.resolve) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@': path.resolve(__dirname, '../src'),
+        '@/design-system': path.resolve(__dirname, '../design-system'),
+      };
+    }
+    return config;
+  },
   typescript: {
     check: false,
     reactDocgen: 'react-docgen-typescript',
@@ -33,25 +63,12 @@ const config: StorybookConfig = {
       shouldExtractLiteralValuesFromEnum: true,
       propFilter: (prop) => {
         if (prop.parent) {
-          return !prop.parent.fileName.includes('node_modules')
+          return !prop.parent.fileName.includes('node_modules');
         }
-        return true
+        return true;
       },
     },
   },
-  webpackFinal: async (config) => {
-    // Add path aliases
-    if (config.resolve) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@': require('path').resolve(__dirname, '../src'),
-        '@/components': require('path').resolve(__dirname, '../src/components'),
-        '@/lib': require('path').resolve(__dirname, '../src/lib'),
-        '@/design-system': require('path').resolve(__dirname, '../design-system'),
-      }
-    }
-    return config
-  },
-}
+};
 
-export default config
+export default config;

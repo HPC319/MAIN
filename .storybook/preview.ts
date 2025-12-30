@@ -1,6 +1,5 @@
-import type { Preview } from '@storybook/react'
-import { withThemeByClassName } from '@storybook/addon-themes'
-import '../src/app/globals.css'
+import type { Preview } from '@storybook/react';
+import '../src/app/globals.css';
 
 const preview: Preview = {
   parameters: {
@@ -11,7 +10,6 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    layout: 'centered',
     backgrounds: {
       default: 'light',
       values: [
@@ -21,24 +19,102 @@ const preview: Preview = {
         },
         {
           name: 'dark',
-          value: '#0a0a0a',
+          value: '#1a1a1a',
+        },
+        {
+          name: 'gray',
+          value: '#f3f4f6',
         },
       ],
     },
-    nextjs: {
-      appDirectory: true,
+    viewport: {
+      viewports: {
+        mobile: {
+          name: 'Mobile',
+          styles: {
+            width: '375px',
+            height: '667px',
+          },
+        },
+        tablet: {
+          name: 'Tablet',
+          styles: {
+            width: '768px',
+            height: '1024px',
+          },
+        },
+        desktop: {
+          name: 'Desktop',
+          styles: {
+            width: '1440px',
+            height: '900px',
+          },
+        },
+      },
+    },
+    a11y: {
+      element: '#storybook-root',
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            enabled: true,
+          },
+          {
+            id: 'aria-allowed-attr',
+            enabled: true,
+          },
+          {
+            id: 'button-name',
+            enabled: true,
+          },
+          {
+            id: 'landmark-one-main',
+            enabled: false,
+          },
+          {
+            id: 'page-has-heading-one',
+            enabled: false,
+          },
+          {
+            id: 'region',
+            enabled: false,
+          },
+        ],
+      },
+      manual: false,
+    },
+  },
+  globalTypes: {
+    theme: {
+      description: 'Global theme for components',
+      defaultValue: 'light',
+      toolbar: {
+        title: 'Theme',
+        icon: 'circlehollow',
+        items: ['light', 'dark'],
+        dynamicTitle: true,
+      },
     },
   },
   decorators: [
-    withThemeByClassName({
-      themes: {
-        light: '',
-        dark: 'dark',
-      },
-      defaultTheme: 'light',
-    }),
-  ],
-  tags: ['autodocs'],
-}
+    (Story, context) => {
+      const theme = context.globals.theme || 'light';
+      
+      if (typeof document !== 'undefined') {
+        document.documentElement.classList.remove('light', 'dark');
+        document.documentElement.classList.add(theme);
+      }
 
-export default preview
+      return (
+        <div className={`${theme} min-h-screen bg-background text-foreground`}>
+          <div className="p-8">
+            <Story />
+          </div>
+        </div>
+      );
+    },
+  ],
+};
+
+export default preview;

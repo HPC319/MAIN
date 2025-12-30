@@ -1,14 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-} from './dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './dialog';
 import { Button } from './button';
 
 const meta = {
@@ -33,20 +24,14 @@ export const Default: Story = {
         <DialogHeader>
           <DialogTitle>Dialog Title</DialogTitle>
           <DialogDescription>
-            This is a description of the dialog content. It provides context about what the dialog is for.
+            This is a dialog description. You can put any content here.
           </DialogDescription>
         </DialogHeader>
-        <div className="py-4">
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            Dialog body content goes here. This can contain forms, text, or any other content.
+        <div className="space-y-4">
+          <p className="text-sm text-muted-foreground">
+            Dialog content goes here. This could be a form, confirmation message, or any other content.
           </p>
         </div>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DialogClose>
-          <Button>Confirm</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   ),
@@ -73,24 +58,23 @@ export const WithForm: Story = {
             <input
               id="name"
               defaultValue="John Doe"
-              className="col-span-3 rounded-md border border-neutral-300 px-3 py-2 text-sm dark:border-neutral-700"
+              className="col-span-3 rounded-md border border-input bg-background px-3 py-2"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <label htmlFor="email" className="text-right text-sm font-medium">
-              Email
+            <label htmlFor="username" className="text-right text-sm font-medium">
+              Username
             </label>
             <input
-              id="email"
-              defaultValue="john@example.com"
-              type="email"
-              className="col-span-3 rounded-md border border-neutral-300 px-3 py-2 text-sm dark:border-neutral-700"
+              id="username"
+              defaultValue="@johndoe"
+              className="col-span-3 rounded-md border border-input bg-background px-3 py-2"
             />
           </div>
         </div>
-        <DialogFooter>
+        <div className="flex justify-end">
           <Button type="submit">Save changes</Button>
-        </DialogFooter>
+        </div>
       </DialogContent>
     </Dialog>
   ),
@@ -109,43 +93,10 @@ export const Destructive: Story = {
             This action cannot be undone. This will permanently delete your account and remove your data from our servers.
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DialogClose>
-          <Button variant="destructive">Delete Account</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  ),
-};
-
-export const ScrollableContent: Story = {
-  render: () => (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>Terms & Conditions</Button>
-      </DialogTrigger>
-      <DialogContent className="max-h-[80vh]">
-        <DialogHeader>
-          <DialogTitle>Terms and Conditions</DialogTitle>
-          <DialogDescription>
-            Please read our terms and conditions carefully.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="max-h-[400px] overflow-y-auto py-4">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <p key={i} className="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          ))}
+        <div className="flex justify-end gap-3">
+          <Button variant="outline">Cancel</Button>
+          <Button variant="destructive">Delete</Button>
         </div>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Decline</Button>
-          </DialogClose>
-          <Button>Accept</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   ),
