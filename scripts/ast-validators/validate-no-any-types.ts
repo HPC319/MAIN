@@ -53,7 +53,7 @@ function validateFile(filePath: string): void {
     // Check for explicit 'any' type keyword
     if (node.kind === ts.SyntaxKind.AnyKeyword) {
       const { line, character } = sourceFile.getLineAndCharacterOfPosition(node.getStart());
-      const lineText = content.split('\n')[line].trim();
+      const lineText = content.split("\n")[line]?.trim() ?? "";
       
       violations.push({
         file: filePath,
