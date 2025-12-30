@@ -1,0 +1,71 @@
+name: CanonStrata Constitutional Enforcement
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  constitutional-enforcement:
+    name: Constitutional Enforcement
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: TypeScript Compilation Check
+        run: npx tsc --noEmit
+        continue-on-error: false
+
+      - name: Token Completeness Validation
+        run: npm run validate:tokens
+        continue-on-error: false
+
+      - name: Motion Governance Enforcement
+        run: npm run validate:motion
+        continue-on-error: false
+
+      - name: ESLint AST Enforcement
+        run: npx eslint . --max-warnings 0
+        continue-on-error: false
+
+      - name: Runtime Invariant Tests
+        run: npm run test:invariants
+        continue-on-error: false
+
+      - name: Build Verification
+        run: npm run build
+        continue-on-error: false
+        env:
+          NODE_ENV: production
+
+      - name: Storybook Build Validation
+        run: npm run build-storybook
+        continue-on-error: false
+
+      - name: Architecture Documentation Sync
+        run: npm run verify:docs
+        continue-on-error: false
+
+  merge-gate:
+    name: Merge Gate
+    needs: constitutional-enforcement
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Block on Violation
+        run: |
+          echo "All constitutional checks passed"
+          echo "Merge approved by CanonStrata Judiciary"

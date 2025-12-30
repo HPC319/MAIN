@@ -1,0 +1,50 @@
+name: CanonStrata Judiciary
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  constitutional-enforcement:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install Dependencies
+        run: npm ci
+      
+      - name: TypeScript Invariants
+        run: npm run typecheck
+      
+      - name: Lint Enforcement
+        run: npm run lint
+      
+      - name: Token Completeness
+        run: node scripts/ast-validators/token-completeness.js
+      
+      - name: Motion Kernel Enforcement
+        run: node scripts/ast-validators/motion-kernel-guard.js
+      
+      - name: Inline Style Prohibition
+        run: node scripts/ast-validators/inline-style-guard.js
+      
+      - name: Client Boundary Enforcement
+        run: node scripts/ast-validators/client-boundary-guard.js
+      
+      - name: Build Validation
+        run: npm run build
+        env:
+          CI: true
+      
+      - name: Architecture Documentation Sync
+        run: node scripts/verify-architecture-sync.js
