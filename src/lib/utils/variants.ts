@@ -22,7 +22,7 @@ export type ExtractVariantProps<T> = T extends (...args: unknown[]) => infer R
 /**
  * Helper to create a compound variant configuration
  */
-export function createCompoundVariants<T extends Record<string, any>>(
+export function createCompoundVariants<T extends Record<string, unknown>>(
   variants: Array<{
     condition: Partial<T>
     className: ClassValue
@@ -37,7 +37,7 @@ export function createCompoundVariants<T extends Record<string, any>>(
 /**
  * Helper to create default variants configuration
  */
-export function createDefaultVariants<T extends Record<string, any>>(
+export function createDefaultVariants<T extends Record<string, unknown>>(
   defaults: Partial<T>
 ): Partial<T> {
   return defaults
@@ -46,16 +46,16 @@ export function createDefaultVariants<T extends Record<string, any>>(
 /**
  * Type-safe variant creator with better TypeScript inference
  */
-export interface VariantConfig<V extends Record<string, any>> {
+export interface VariantConfig<V extends Record<string, unknown>> {
   base?: ClassValue
   variants?: V
   compoundVariants?: Array<{
-    [K in keyof V]?: V[K] extends Record<string, any> ? keyof V[K] : never
+    [K in keyof V]?: V[K] extends Record<string, unknown> ? keyof V[K] : never
   } & {
     class: ClassValue
   }>
   defaultVariants?: {
-    [K in keyof V]?: V[K] extends Record<string, any> ? keyof V[K] : never
+    [K in keyof V]?: V[K] extends Record<string, unknown> ? keyof V[K] : never
   }
 }
 

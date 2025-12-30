@@ -13,7 +13,7 @@ export function memoWithComparison<P extends object>(
 /**
  * Shallow comparison for memo
  */
-export function shallowEqual<T extends Record<string, any>>(
+export function shallowEqual<T extends Record<string, unknown>>(
   objA: T,
   objB: T
 ): boolean {

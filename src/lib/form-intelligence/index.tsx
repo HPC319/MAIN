@@ -300,7 +300,7 @@ interface SmartFormContextValue<T extends FieldValues> {
   getFieldProgress: () => number;
 }
 
-const SmartFormContext = createContext<SmartFormContextValue<any> | null>(null);
+const SmartFormContext = createContext<SmartFormContextValue<Record<string, unknown>> | null>(null);
 
 export function useSmartForm<T extends FieldValues>(): SmartFormContextValue<T> {
   const context = useContext(SmartFormContext);

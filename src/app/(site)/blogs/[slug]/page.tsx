@@ -16,7 +16,6 @@ type Props = {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
 
-  const posts = getAllPosts(["title", "date", "excerpt", "coverImage", "slug"]);
   const post = getPostBySlug(slug, ["title", "author", "content", "metadata"]);
 
   const siteName = process.env.SITE_NAME || "Your Site Name";

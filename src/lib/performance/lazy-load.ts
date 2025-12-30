@@ -3,7 +3,7 @@ import { lazy, Suspense, ComponentType, ReactNode, createElement } from 'react';
 /**
  * Lazy load component with custom fallback
  */
-export function lazyLoad<T extends ComponentType<any>>(
+export function lazyLoad<T extends ComponentType<Record<string, unknown>>>(
   importFunc: () => Promise<{ default: T }>,
   fallback?: ReactNode
 ) {
@@ -27,12 +27,12 @@ export function preloadComponent<T>(
 /**
  * Lazy load with retry logic
  */
-export function lazyLoadWithRetry<T extends ComponentType<any>>(
+export function lazyLoadWithRetry<T extends ComponentType<Record<string, unknown>>>(
   importFunc: () => Promise<{ default: T }>,
   retries = 3,
   fallback?: ReactNode
 ) {
-  const retry = async (fn: () => Promise<any>, retriesLeft: number): Promise<any> => {
+  const retry = async (fn: () => Promise<unknown>, retriesLeft: number): Promise<unknown> => {
     try {
       return await fn();
     } catch (error) {
@@ -54,7 +54,7 @@ export function lazyLoadWithRetry<T extends ComponentType<any>>(
  * Create a lazy loading wrapper with custom loading state
  */
 export function createLazyWrapper(fallback?: ReactNode) {
-  return <T extends ComponentType<any>>(
+  return <T extends ComponentType<Record<string, unknown>>>(
     importFunc: () => Promise<{ default: T }>
   ) => {
     const LazyComponent = lazy(importFunc);
