@@ -1,18 +1,25 @@
 #!/usr/bin/env tsx
+
 import { execSync } from "child_process";
 
-console.log("🔒 Running invariant enforcement checks...");
+console.log("🔒 CANONSTRATA INVARIANT ENFORCEMENT\n");
 
-try {
-  // Run ESLint with strict settings
-  execSync("eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 0", { 
-    stdio: "inherit",
-    cwd: process.cwd()
-  });
-  
-  console.log("✅ All invariants enforced successfully");
-  process.exit(0);
-} catch (error) {
-  console.error("❌ Invariant enforcement failed");
-  process.exit(1);
+const checks = [
+  { name: "Token Validation", cmd: "npm run validate:tokens" },
+  { name: "Motion Validation", cmd: "npm run validate:motion" },
+  { name: "Gatekeeper AST", cmd: "npm run gatekeeper:ast" },
+];
+
+for (const check of checks) {
+  try {
+    console.log(`▶ ${check.name}`);
+    execSync(check.cmd, { stdio: "inherit" });
+    console.log(`✅ ${check.name} PASSED\n`);
+  } catch {
+    console.error(`❌ ${check.name} FAILED`);
+    process.exit(1);
+  }
 }
+
+console.log("✅ ALL CANONSTRATA INVARIANTS ENFORCED");
+process.exit(0);
