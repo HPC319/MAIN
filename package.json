@@ -74,7 +74,10 @@
     "check:security": "npm audit --audit-level=moderate",
     "validate:tokens": "tsx scripts/enforcement/validate-tokens.ts",
     "validate:all": "npm run validate:tokens && npm run validate:motion",
-    "prebuild": "npm run validate:all"
+    "prebuild": "npm run validate:all",
+    "test:invariants": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 0",
+    "verify:docs": "node scripts/verify-docs.js",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.5.0",

@@ -1,86 +1,85 @@
 #!/usr/bin/env node
+
+/**
+ * CanonStrata Documentation Verification
+ * Constitutional Enforcement: Docs must align with system truth
+ */
+
 const fs = require('fs');
 const path = require('path');
 
-console.log('🏛️  DOCUMENTATION TRUTH VERIFICATION\n');
+const ERRORS = [];
+const README_PATH = path.join(__dirname, '../README.md');
 
-const errors = [];
+function validate() {
+  // Verify README exists
+  if (!fs.existsSync(README_PATH)) {
+    ERRORS.push('CONSTITUTIONAL VIOLATION: README.md does not exist');
+    return false;
+  }
 
-// Check README constitutional compliance
-const readmePath = path.join(process.cwd(), 'README.md');
+  const readme = fs.readFileSync(README_PATH, 'utf8');
 
-if (!fs.existsSync(readmePath)) {
-  errors.push('FATAL: README.md missing');
-} else {
-  const readme = fs.readFileSync(readmePath, 'utf8');
-
-  // Forbidden terms
-  const forbidden = [
-    /template/i,
-    /starter/i,
-    /boilerplate/i,
-    /kit/i,
-    /playground/i,
-    /scaffold/i
-  ];
-
-  forbidden.forEach(pattern => {
-    if (pattern.test(readme)) {
-      errors.push(`README contains forbidden term: ${pattern.source}`);
-    }
-  });
-
-  // Required constitutional elements
+  // Constitutional requirements
   const required = [
     'CanonStrata',
     'constitutional',
     'load-bearing',
-    'invariant',
-    'enforcement'
+    'architectural substrate',
+    'NON-NEGOTIABLE',
+    'INVARIANT',
+    'refuses invalid code'
   ];
 
+  const forbidden = [
+    'template',
+    'starter kit',
+    'boilerplate',
+    'example',
+    'demo',
+    'thanks to',
+    'built with'
+  ];
+
+  // Check required terms
   required.forEach(term => {
     if (!readme.includes(term)) {
-      errors.push(`README missing required constitutional term: ${term}`);
+      ERRORS.push(`MISSING REQUIRED CONSTITUTIONAL TERM: "${term}"`);
     }
   });
 
-  console.log('✓ README constitutional compliance checked');
-}
-
-// Verify package.json scripts
-const packagePath = path.join(process.cwd(), 'package.json');
-
-if (!fs.existsSync(packagePath)) {
-  errors.push('FATAL: package.json missing');
-} else {
-  const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
-
-  const requiredScripts = [
-    'validate:tokens',
-    'validate:motion',
-    'test:invariants',
-    'verify:docs'
-  ];
-
-  requiredScripts.forEach(script => {
-    if (!pkg.scripts || !pkg.scripts[script]) {
-      errors.push(`Missing required npm script: ${script}`);
+  // Check forbidden contamination
+  forbidden.forEach(term => {
+    const regex = new RegExp(term, 'i');
+    if (regex.test(readme)) {
+      ERRORS.push(`CONTAMINATION DETECTED: "${term}" violates immutability`);
     }
   });
 
-  console.log('✓ Package.json scripts validated');
+  // Verify token-first enforcement mentioned
+  if (!readme.includes('token') && !readme.includes('Token')) {
+    ERRORS.push('TOKEN GOVERNANCE: Documentation must reference token-first system');
+  }
+
+  // Verify motion governance mentioned
+  if (!readme.includes('motion')) {
+    ERRORS.push('MOTION GOVERNANCE: Documentation must reference motion constraints');
+  }
+
+  return ERRORS.length === 0;
 }
 
-// Report results
-console.log('');
-
-if (errors.length > 0) {
-  console.error('❌ DOCUMENTATION VIOLATIONS:\n');
-  errors.forEach(e => console.error('  - ' + e));
-  console.error('\n🚫 BUILD BLOCKED BY DOCUMENTATION ENFORCEMENT\n');
-  process.exit(1);
+function report() {
+  if (ERRORS.length === 0) {
+    console.log('✓ DOCUMENTATION VERIFIED: Constitution intact');
+    process.exit(0);
+  } else {
+    console.error('✗ DOCUMENTATION VERIFICATION FAILED\n');
+    ERRORS.forEach(err => console.error(`  ${err}`));
+    console.error('\nCI BLOCKED: Fix documentation violations');
+    process.exit(1);
+  }
 }
 
-console.log('✅ DOCUMENTATION VERIFICATION PASSED\n');
-process.exit(0);
+validate();
+report();

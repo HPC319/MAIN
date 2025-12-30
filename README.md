@@ -8,7 +8,7 @@ CanonStrata is a constitutional, load-bearing architectural substrate for websit
 - A stack
 - A framework
 - A toolkit
-- A starter, template, theme, or library
+- A starter, theme, or library
 
 **CanonStrata IS:**
 - A permanent foundation that outlives vendors
