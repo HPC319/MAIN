@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Container } from './container'
+import type { Meta, StoryObj } from '@storybook/react';
+import { Container } from './container';
 
 const meta = {
   title: 'Layout/Container',
@@ -11,107 +11,70 @@ const meta = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'xl', '2xl', 'full', 'prose'],
-    },
-    padding: {
-      control: 'select',
-      options: ['none', 'sm', 'md', 'lg', 'xl'],
+      options: ['sm', 'md', 'lg', 'xl', 'full'],
     },
   },
-} satisfies Meta<typeof Container>
+} satisfies Meta<typeof Container>;
 
-export default meta
-type Story = StoryObj<typeof meta>
-
-export const Default: Story = {
-  args: {
-    children: (
-      <div className="bg-muted p-8 rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">Container Content</h2>
-        <p className="text-muted-foreground">
-          This content is constrained within a container with responsive max-width and padding.
-        </p>
-      </div>
-    ),
-  },
-}
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Small: Story = {
   args: {
     size: 'sm',
     children: (
-      <div className="bg-muted p-8 rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">Small Container (640px)</h2>
-        <p className="text-muted-foreground">Perfect for focused content and forms.</p>
+      <div className="rounded-lg bg-primary p-8 text-primary-foreground">
+        <h2 className="text-2xl font-bold">Small Container</h2>
+        <p className="mt-4">This is a small container with max-width constraints.</p>
       </div>
     ),
   },
-}
+};
+
+export const Medium: Story = {
+  args: {
+    size: 'md',
+    children: (
+      <div className="rounded-lg bg-secondary p-8 text-secondary-foreground">
+        <h2 className="text-2xl font-bold">Medium Container</h2>
+        <p className="mt-4">This is a medium container (default size).</p>
+      </div>
+    ),
+  },
+};
 
 export const Large: Story = {
   args: {
-    size: '2xl',
+    size: 'lg',
     children: (
-      <div className="bg-muted p-8 rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">Large Container (1536px)</h2>
-        <p className="text-muted-foreground">Great for wide layouts and dashboards.</p>
+      <div className="rounded-lg bg-accent p-8 text-accent-foreground">
+        <h2 className="text-2xl font-bold">Large Container</h2>
+        <p className="mt-4">This is a large container for wide content.</p>
       </div>
     ),
   },
-}
+};
 
-export const Prose: Story = {
+export const ExtraLarge: Story = {
   args: {
-    size: 'prose',
+    size: 'xl',
     children: (
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Article Title</h1>
-        <p className="text-lg text-muted-foreground">
-          The prose container is optimized for reading, with a comfortable line length
-          of approximately 65 characters.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-          nostrud exercitation ullamco laboris.
-        </p>
+      <div className="rounded-lg bg-muted p-8 text-muted-foreground">
+        <h2 className="text-2xl font-bold">Extra Large Container</h2>
+        <p className="mt-4">This is an extra large container for maximum width content.</p>
       </div>
     ),
   },
-}
+};
 
-export const NoPadding: Story = {
+export const Full: Story = {
   args: {
-    padding: 'none',
+    size: 'full',
     children: (
-      <div className="bg-muted p-8 rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">No Padding</h2>
-        <p className="text-muted-foreground">
-          Container without horizontal padding, useful when child elements need full width.
-        </p>
+      <div className="rounded-lg bg-primary p-8 text-primary-foreground">
+        <h2 className="text-2xl font-bold">Full Width Container</h2>
+        <p className="mt-4">This container spans the full width with padding.</p>
       </div>
     ),
   },
-}
-
-export const AllSizes: Story = {
-  render: () => (
-    <div className="space-y-8 p-4">
-      <Container size="sm">
-        <div className="bg-primary text-primary-foreground p-4 rounded">Small (sm)</div>
-      </Container>
-      <Container size="md">
-        <div className="bg-secondary text-secondary-foreground p-4 rounded">Medium (md)</div>
-      </Container>
-      <Container size="lg">
-        <div className="bg-accent text-accent-foreground p-4 rounded">Large (lg)</div>
-      </Container>
-      <Container size="xl">
-        <div className="bg-primary text-primary-foreground p-4 rounded">Extra Large (xl)</div>
-      </Container>
-      <Container size="2xl">
-        <div className="bg-secondary text-secondary-foreground p-4 rounded">2X Large (2xl)</div>
-      </Container>
-    </div>
-  ),
-}
+};
