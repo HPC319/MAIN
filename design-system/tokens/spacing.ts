@@ -134,5 +134,5 @@ export function getSemanticSpacing(
   category: SemanticSpacingCategory,
   size: SemanticSpacingSize
 ): string {
-  return semanticSpacing[category][size]
+  return semanticSpacing[category][size as keyof (typeof semanticSpacing)[typeof category]]
 }

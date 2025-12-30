@@ -20,7 +20,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/ui/form-error";
 import { FormSuccess } from "@/components/ui/form-success";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 
 const SignUp = () => {
   const router = useRouter();
@@ -143,7 +143,7 @@ const SignUp = () => {
                         disabled={isPending}
                       />
                       {errors.email && (
-                        <FormError message={errors.email.message} />
+                        <FormError message={errors.email.message ?? ""} />
                       )}
                     </div>
 
@@ -158,7 +158,7 @@ const SignUp = () => {
                         disabled={isPending}
                       />
                       {errors.password && (
-                        <FormError message={errors.password.message} />
+                        <FormError message={errors.password.message ?? ""} />
                       )}
                     </div>
 
@@ -173,7 +173,7 @@ const SignUp = () => {
                         disabled={isPending}
                       />
                       {errors.confirmPassword && (
-                        <FormError message={errors.confirmPassword.message} />
+                        <FormError message={errors.confirmPassword.message ?? ""} />
                       )}
                     </div>
 
@@ -181,7 +181,7 @@ const SignUp = () => {
                       <Checkbox
                         id="acceptTerms"
                         checked={acceptTerms}
-                        onCheckedChange={(checked) =>
+                        onCheckedChange={(checked: boolean) =>
                           setValue("acceptTerms", checked as boolean)
                         }
                         disabled={isPending}

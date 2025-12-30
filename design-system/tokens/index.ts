@@ -7,12 +7,14 @@
 export * from './colors'
 export * from './spacing'
 export * from './typography'
-export * from './motion'
 export * from './breakpoints'
 export * from './borders'
 export * from './radii'
-export * from './transitions'
 export * from './shadows'
+
+// Export motion and transitions separately to avoid naming conflicts
+export * as motionTokens from './motion'
+export * as transitionTokens from './transitions'
 
 /**
  * Default theme object combining all tokens

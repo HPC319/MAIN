@@ -23,7 +23,6 @@ const SingleTestimonial = ({ testimonial }: { testimonial: Testimonial }) => {
   return (
     <div className="w-full px-4 md:w-1/2 lg:w-1/3">
       <MotionWrapper
-        variant="scaleIn"
         delay={0.1}
         className="rounded-xl bg-card px-4 py-[30px] shadow-testimonial dark:bg-dark sm:px-[30px]"
       >

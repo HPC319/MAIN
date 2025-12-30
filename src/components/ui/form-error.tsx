@@ -10,7 +10,7 @@ import { AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 
 export interface FormErrorProps extends React.HTMLAttributes<HTMLDivElement> {
-  message?: string
+  message?: string | undefined
 }
 
 export const FormError = React.forwardRef<HTMLDivElement, FormErrorProps>(

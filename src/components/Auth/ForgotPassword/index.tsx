@@ -104,7 +104,7 @@ const ForgotPassword = () => {
                       disabled={isPending}
                     />
                     {errors.email && (
-                      <FormError message={errors.email.message} />
+                      <FormError message={errors.email.message ?? ""} />
                     )}
                   </div>
 

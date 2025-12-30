@@ -1,4 +1,4 @@
-import ResetPassword from "@/components/Auth/ResetPassword";
+// import ResetPassword from "@/components/Auth/ResetPassword";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { Metadata } from "next";
 

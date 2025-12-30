@@ -68,7 +68,7 @@ function validateFile(filePath: string): void {
             file: filePath,
             line: index + 1,
             column: match.index + 1,
-            value: match[1],
+            value: match[1]!,
             type: 'HARDCODED_VALUE',
           });
         }

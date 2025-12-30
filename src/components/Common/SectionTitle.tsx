@@ -16,7 +16,6 @@ const SectionTitle = ({
   return (
     <div className="-mx-4 flex flex-wrap">
       <MotionWrapper
-        preset="fade"
         delay={0.1}
         className={`w-full px-4 ${
           center ? "mx-auto text-center" : ""

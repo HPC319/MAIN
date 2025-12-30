@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/ui/form-error";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 
 const Signin = () => {
   const router = useRouter();
@@ -121,7 +121,7 @@ const Signin = () => {
                         disabled={isPending}
                       />
                       {errors.email && (
-                        <FormError message={errors.email.message} />
+                        <FormError message={errors.email.message ?? ""} />
                       )}
                     </div>
 
@@ -136,7 +136,7 @@ const Signin = () => {
                         disabled={isPending}
                       />
                       {errors.password && (
-                        <FormError message={errors.password.message} />
+                        <FormError message={errors.password.message ?? ""} />
                       )}
                     </div>
 
@@ -144,7 +144,7 @@ const Signin = () => {
                       <Checkbox
                         id="rememberMe"
                         checked={rememberMe}
-                        onCheckedChange={(checked) =>
+                        onCheckedChange={(checked: boolean) =>
                           setValue("rememberMe", checked as boolean)
                         }
                         disabled={isPending}

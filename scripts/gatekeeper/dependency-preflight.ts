@@ -13,7 +13,7 @@
  * FAILURE MODE: Exit code 1, explicit incompatibility report
  */
 
-import { execSync } from 'child_process';
+// import { execSync } from 'child_process';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 
@@ -217,7 +217,7 @@ class DependencyPreflightValidator {
       this.violations.push({
         valid: false,
         package: this.packageJson.name,
-        required: allDeps[this.packageJson.name],
+        required: allDeps[this.packageJson.name] ?? "",
         reason: 'CIRCULAR: Package depends on itself',
       });
     }

@@ -11,12 +11,11 @@ export function HeroSection({
   subtitle,
   ctaText = 'Get Started',
   ctaHref = '/contact',
-  backgroundImage,
+  // backgroundImage,
 }: HeroProps) {
   return (
     <section
       className="relative min-h-[600px] flex items-center justify-center bg-gradient-to-br from-blue-600 to-blue-800 text-white"
-      className="hero-background"
     >
       <div className="absolute inset-0 bg-black/40" />
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">

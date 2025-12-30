@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label'
 export interface FormFieldProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string
   htmlFor?: string
-  error?: string
+  error?: string | undefined
   required?: boolean
   description?: string
 }

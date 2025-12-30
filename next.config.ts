@@ -1,13 +1,12 @@
 import type { NextConfig } from 'next'
 
 // Bundle analyzer
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// })
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   
   experimental: {
     // React 19 Server Components support
@@ -34,9 +33,6 @@ const nextConfig: NextConfig = {
   },
 
   // ESLint configuration
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
 
   // Headers for security
   async headers() {

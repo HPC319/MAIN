@@ -6,7 +6,7 @@ import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
 import { contactSchema, ContactFormData } from "@/lib/schemas/contact-schema";
-import { submitContactForm } from "@/lib/actions/form-actions";
+// import { submitContactForm } from "@/lib/actions/form-actions";
 import { FadeIn } from "@/components/motion/fade-in";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -144,7 +144,7 @@ const Contact = () => {
                       className="border-0 border-b border-gray-200 bg-transparent pb-3 rounded-none px-0 focus:border-primary dark:border-dark-3"
                     />
                     {errors.name && (
-                      <FormError message={errors.name.message} />
+                      <FormError message={errors.name.message ?? ""} />
                     )}
                   </div>
 
@@ -162,7 +162,7 @@ const Contact = () => {
                       className="border-0 border-b border-gray-200 bg-transparent pb-3 rounded-none px-0 focus:border-primary dark:border-dark-3"
                     />
                     {errors.email && (
-                      <FormError message={errors.email.message} />
+                      <FormError message={errors.email.message ?? ""} />
                     )}
                   </div>
 
@@ -180,7 +180,7 @@ const Contact = () => {
                       className="border-0 border-b border-gray-200 bg-transparent pb-3 rounded-none px-0 focus:border-primary dark:border-dark-3"
                     />
                     {errors.phone && (
-                      <FormError message={errors.phone.message} />
+                      <FormError message={errors.phone.message ?? ""} />
                     )}
                   </div>
 
@@ -198,7 +198,7 @@ const Contact = () => {
                       className="border-0 border-b border-gray-200 bg-transparent pb-3 rounded-none px-0 resize-none focus:border-primary dark:border-dark-3"
                     />
                     {errors.message && (
-                      <FormError message={errors.message.message} />
+                      <FormError message={errors.message.message ?? ""} />
                     )}
                   </div>
 

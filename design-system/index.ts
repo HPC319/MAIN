@@ -5,5 +5,7 @@
  */
 
 export * from './tokens'
-export * from './motion'
 export * from './interaction-contracts'
+
+// Re-export motion under a namespace to avoid conflicts
+export * as motion from './motion'

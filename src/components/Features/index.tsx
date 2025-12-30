@@ -1,6 +1,6 @@
 import SectionTitle from "../Common/SectionTitle";
 import SingleFeature from "./SingleFeature";
-import featuresData from "./featuresData";
+// import featuresData from "./featuresData";
 
 const Features = () => {
   return (
@@ -13,9 +13,9 @@ const Features = () => {
         />
 
         <div className="-mx-4 mt-12 flex flex-wrap lg:mt-20">
-          {featuresData.map((feature, i) => (
-            <SingleFeature key={i} feature={feature} />
-          ))}
+          //           {featuresData.map((feature: any, i: number) => (
+          //             <SingleFeature key={i} feature={feature} />
+          //           ))}
         </div>
       </div>
     </section>

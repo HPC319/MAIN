@@ -8,7 +8,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
   const { title, coverImage, excerpt, date, slug } = blog;
 
   return (
-    <MotionWrapper preset="card-hover" className="group mb-10">
+    <MotionWrapper className="group mb-10">
       <div className="mb-8 overflow-hidden rounded">
         <Link href={`/blogs/${slug}`} aria-label="blog cover" className="block">
           <Image
