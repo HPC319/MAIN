@@ -86,3 +86,69 @@ VERIFICATION_*.md
 COMPLETION_*.md
 TASK_*.md
 PROJECT_STATUS*.md
+
+# === REPOSITORY IMMUTABILITY ENFORCEMENT ===
+# Block all generated artifacts, reports, backups, and contamination
+
+# Audit & Report Files
+*.audit.*
+*.report.*
+*_audit.*
+*_report.*
+AUDIT_*.md
+AUDIT*.md
+COMPREHENSIVE_*.md
+REPORT_*.md
+EXECUTIVE_*.md
+SUMMARY_*.md
+audit-*
+report-*
+reports/
+audits/
+
+# Backup & Temp Files
+*.backup.*
+*.temp.*
+*.tmp.*
+*_backup.*
+*_temp.*
+*_generated.*
+*.old
+*.orig
+backup-*
+temp-*
+backups/
+temp/
+tmp/
+
+# Generated Artifacts
+*_GENERATED.*
+GENERATED_*.md
+generated/
+dist-test/
+build-temp/
+
+# Status & Tracking Files (non-source)
+STATUS_*.md
+PHASE_*.md
+IMPLEMENTATION_*.md
+AGENT_*.md
+EXECUTION_*.md
+COMPLETE_*.md
+FINAL_*.md
+MISSION_*.md
+DEPLOYMENT_*.md
+VERIFICATION_*.md
+COMPLETION_*.md
+TASK_*.md
+PROJECT_STATUS*.md
+
+# Ad-hoc Scripts & Artifacts
+*_adhoc.*
+adhoc-*
+scratch.*
+test-output/
+debug-output/
+
+# Only source-of-truth code is committed
+# Everything else is ignored or blocked

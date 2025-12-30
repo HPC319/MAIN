@@ -1,520 +1,462 @@
-# Next.js 16 Enterprise Application - v1.0.0
+# Canonstrata Design System
 
-**Production-Ready** | **Accessible** | **Performant** | **Type-Safe**
+> Enterprise-grade design system with signature motion identity, invariant enforcement, and adaptive rendering.
 
-A modern, enterprise-grade Next.js 16 application built with React 19, featuring a comprehensive design system, form validation infrastructure, motion governance, and full accessibility compliance.
+[![Version](https://img.shields.io/badge/version-2.2.2-blue.svg)](https://github.com/canonstrata)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/canonstrata/actions)
 
----
+## 🚀 Features
 
-## ✨ Features
+### Core Systems
 
-### 🎨 Design System
-- **Atomic Design Tokens** - Colors, typography, spacing, border-radius
-- **Semantic Color System** - Light/dark mode with consistent theming
-- **Motion System** - Framer Motion with accessibility controls
-- **Interaction Contracts** - Standardized hover, focus, press, and keyboard states
+- **🎯 Invariant Enforcement Layer** - System-level constraint guarantees
+- **🎬 Signature Motion Identity** - Instantly recognizable animation patterns
+- **⚡ Adaptive Rendering Modes** - Device-optimized rendering strategies
+- **🧠 Form State Intelligence** - Smart form validation and state management
+- **♿ Accessibility First** - WCAG 2.1 AA compliant
+- **📊 Bundle Size Monitoring** - Automated size tracking and optimization
+- **🔒 Storybook Gatekeeper** - CI-enforced component standards
 
-### 📋 Forms & Validation
-- **React Hook Form** - Performant form management
-- **Zod Schemas** - Type-safe validation
-- **Server Actions** - Next.js 16 server-side form handling
-- **Multi-Step Forms** - Complex form flows with state management
+### Technology Stack
 
-### ♿ Accessibility
-- **WCAG AA Compliant** - Meets international accessibility standards
-- **Keyboard Navigation** - Full keyboard support throughout
-- **Screen Reader Optimized** - Proper ARIA labels and live regions
-- **Color Contrast** - All combinations meet 4.5:1 minimum ratio
-- **Reduced Motion Support** - Respects user preferences
+- **Next.js 16** - React framework with App Router
+- **React 19** - Latest React with Server Components
+- **TypeScript 5.9** - Full type safety
+- **Tailwind CSS 4** - Utility-first styling
+- **Framer Motion 12** - Advanced animations
+- **Prisma 7** - Type-safe database ORM
+- **Vitest** - Fast unit testing
+- **Playwright** - E2E and visual testing
+- **Storybook 10** - Component documentation
 
-### 🚀 Performance
-- **Image Optimization** - Next.js Image component with lazy loading
-- **Font Optimization** - Self-hosted fonts with next/font
-- **Code Splitting** - Automatic route-based splitting
-- **Server Components** - Reduced JavaScript bundle size
-- **Suspense Boundaries** - Progressive loading states
-
-### 🧪 Quality Assurance
-- **TypeScript** - 100% type coverage
-- **ESLint** - Consistent code style
-- **Prettier** - Automated formatting
-- **CI/CD Pipeline** - GitHub Actions with automated testing
-- **Lighthouse CI** - Performance and accessibility audits
-
----
-
-## 📦 Tech Stack
-
-### Core
-- **Next.js 16.1.1** - React framework with App Router
-- **React 19.0.0** - UI library
-- **TypeScript 5.9.3** - Type safety
-- **Tailwind CSS 4.1.18** - Utility-first CSS
-
-### UI Components
-- **Radix UI** - Accessible component primitives
-  - Dialog, Dropdown Menu, Select, Accordion, Tooltip
-- **Shadcn/ui** - Re-usable component library
-- **Framer Motion 12.23.26** - Animation library
-- **Lucide React** - Icon library
-
-### Forms & Validation
-- **React Hook Form 7.69.0** - Form management
-- **Zod 4.2.1** - Schema validation
-- **@hookform/resolvers** - Zod integration
-
-### Database & Auth
-- **Prisma 7.0.1** - ORM and database toolkit
-- **NextAuth 4.24.13** - Authentication
-- **Bcrypt** - Password hashing
-
-### Development Tools
-- **Storybook 10.1.11** - Component documentation
-- **ESLint** - Linting
-- **Prettier** - Code formatting
-- **Lighthouse CI** - Performance auditing
-
----
-
-## 🚀 Getting Started
+## 📦 Quick Start
 
 ### Prerequisites
+
 - Node.js >= 20
-- npm or yarn
-- PostgreSQL database (or other Prisma-supported DB)
+- npm >= 10
+- PostgreSQL (for database features)
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd MAIN
+# Clone repository
+git clone https://github.com/your-org/canonstrata.git
+cd canonstrata
 
 # Install dependencies
 npm install
 
-# Set up environment variables
+# Setup environment
 cp .env.example .env.local
+# Edit .env.local with your configuration
 
-# Configure your database URL in .env.local
-# DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
-
-# Generate Prisma Client
+# Generate Prisma client
 npm run db:generate
 
-# Run database migrations
-npm run db:push
-
-# Start development server
+# Run development server
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
----
-
-## 📜 Available Scripts
+## 🛠️ Development Scripts
 
 ### Development
+
 ```bash
 npm run dev              # Start development server
-npm run db:studio        # Open Prisma Studio (database GUI)
-npm run storybook        # Start Storybook on port 6006
+npm run dev:turbo        # Start with Turbo mode
+npm run dev:https        # Start with HTTPS
 ```
 
 ### Building
+
 ```bash
 npm run build            # Production build
-npm start                # Start production server
+npm run build:analyze    # Build with bundle analysis
+npm run start            # Start production server
+npm run start:prod       # Start production server on port 3000
 ```
 
 ### Code Quality
+
 ```bash
 npm run lint             # Run ESLint
+npm run lint:fix         # Fix linting issues
 npm run typecheck        # TypeScript type checking
 npm run format           # Format code with Prettier
 npm run format:check     # Check code formatting
-npm run ci:all           # Run all CI checks (lint + typecheck + build)
+```
+
+### Testing
+
+```bash
+# Unit Tests
+npm run test             # Run unit tests
+npm run test:watch       # Watch mode
+npm run test:ui          # Visual UI for tests
+npm run test:coverage    # Generate coverage report
+npm run test:unit        # Unit tests only
+npm run test:integration # Integration tests
+
+# E2E Tests
+npm run test:e2e         # Run E2E tests
+npm run test:e2e:ui      # Interactive UI mode
+npm run test:e2e:headed  # See browser
+npm run test:e2e:debug   # Debug mode
+
+# Visual Regression
+npm run test:visual      # Run visual tests
+npm run test:visual:update # Update snapshots
+
+# Accessibility
+npm run test:a11y        # All a11y tests
+npm run test:a11y:axe    # Axe-core tests
+npm run test:a11y:lighthouse # Lighthouse audit
+```
+
+### Storybook
+
+```bash
+npm run storybook        # Start Storybook dev server
+npm run storybook:build  # Build Storybook
+npm run storybook:test   # Run Storybook tests
+npm run storybook:visual # Visual regression for stories
 ```
 
 ### Database
+
 ```bash
-npm run db:generate      # Generate Prisma Client
-npm run db:push          # Push schema changes to database
-npm run db:migrate       # Run production migrations
+npm run db:generate      # Generate Prisma client
+npm run db:push          # Push schema to database
+npm run db:migrate       # Run migrations (production)
+npm run db:migrate:dev   # Run migrations (development)
 npm run db:studio        # Open Prisma Studio
+npm run db:seed          # Seed database
+npm run db:reset         # Reset database
 ```
 
-### Testing & Auditing
+### Monitoring
+
 ```bash
-npm test                 # Run tests (when configured)
-npm run lighthouse       # Run Lighthouse CI audit
-npm run build-storybook  # Build Storybook for deployment
+npm run monitor:bundle   # Analyze bundle size
+npm run monitor:perf     # Performance metrics
+npm run monitor:vitals   # Web Vitals tracking
+npm run lighthouse       # Lighthouse audit
+npm run lighthouse:ci    # Lighthouse CI audit
 ```
 
----
+### Validation
+
+```bash
+npm run validate:invariants  # Check invariant enforcement
+npm run validate:motion      # Validate motion system
+npm run validate:forms       # Validate form intelligence
+npm run validate:rendering   # Check rendering modes
+```
+
+### CI/CD
+
+```bash
+npm run ci:validate      # Run all validations
+npm run ci:test          # Run all tests
+npm run ci:build         # Full CI build
+npm run ci:full          # Complete CI pipeline
+npm run pre-commit       # Pre-commit validation
+npm run pre-push         # Pre-push validation
+```
+
+### CLI Tools
+
+```bash
+npm run introspect                  # System introspection
+npm run introspect:components       # Component analysis
+npm run introspect:tokens           # Token analysis
+npm run introspect:motion           # Motion system analysis
+npm run introspect:forms            # Form intelligence analysis
+npm run introspect:health           # Health check
+
+npm run gatekeeper:check            # Check gatekeeper rules
+npm run gatekeeper:ast              # AST validation
+npm run gatekeeper:storybook        # Storybook validation
+```
+
+### Maintenance
+
+```bash
+npm run clean            # Clean build artifacts
+npm run clean:artifacts  # Remove generated artifacts
+npm run clean:all        # Deep clean (includes node_modules)
+npm run check:deps       # Check for dependency updates
+npm run check:security   # Security audit
+```
 
 ## 📁 Project Structure
 
 ```
-MAIN/
-├── .github/
-│   └── workflows/
-│       └── ci.yml                     # CI/CD pipeline
-├── .storybook/                        # Storybook configuration
-│   └── stories/                       # Component stories
-├── design-system/                     # Design system foundation
-│   ├── tokens/
-│   │   ├── colors.ts                  # Color tokens
-│   │   ├── typography.ts              # Typography scale
-│   │   ├── spacing.ts                 # Spacing scale
-│   │   └── border-radius.ts           # Border radius tokens
-│   ├── motion/
-│   │   ├── config.ts                  # Motion configuration
-│   │   └── presets.ts                 # Animation presets
-│   └── interaction-contracts/
-│       ├── hover.ts                   # Hover states
-│       ├── focus.ts                   # Focus states
-│       ├── press.ts                   # Press/active states
-│       └── keyboard.ts                # Keyboard navigation
-├── prisma/
-│   └── schema.prisma                  # Database schema
-├── public/                            # Static assets
-│   └── images/                        # Optimized images
+canonstrata/
+├── .github/workflows/          # CI/CD pipelines
+├── .storybook/                 # Storybook configuration
+│   └── enforcement/            # Gatekeeper rules
+├── cli/                        # CLI tools
+│   └── canonstrata.js          # System introspection CLI
+├── design-system/              # Design tokens & contracts
+│   ├── tokens/                 # Design tokens
+│   ├── motion/                 # Motion specifications
+│   └── interaction-contracts/  # Interaction patterns
+├── docs/                       # Documentation
+├── prisma/                     # Database schema
+├── public/                     # Static assets
+├── scripts/                    # Build & utility scripts
 ├── src/
-│   ├── app/                           # Next.js App Router
-│   │   ├── layout.tsx                 # Root layout
-│   │   ├── page.tsx                   # Home page
-│   │   ├── (site)/                    # Site routes
-│   │   └── api/                       # API routes
-│   ├── components/
-│   │   ├── ui/                        # Shadcn/Radix primitives
-│   │   │   ├── button.tsx
-│   │   │   ├── input.tsx
-│   │   │   ├── form.tsx
-│   │   │   ├── dialog.tsx
-│   │   │   └── ...
-│   │   ├── motion/                    # Motion components
-│   │   │   ├── fade-in.tsx
-│   │   │   └── motion-wrapper.tsx
-│   │   ├── forms/                     # Complex form components
-│   │   │   ├── multi-step-form.tsx
-│   │   │   └── lead-intake-flow.tsx
-│   │   ├── layout/                    # Layout components
-│   │   ├── Hero/                      # Hero section
-│   │   ├── Footer/                    # Footer
-│   │   ├── Header/                    # Header/nav
-│   │   ├── Auth/                      # Authentication
-│   │   └── ...                        # Other components
-│   ├── lib/
-│   │   ├── actions/                   # Server Actions
-│   │   │   └── form-actions.ts
-│   │   ├── schemas/                   # Zod schemas
-│   │   │   ├── contact-schema.ts
-│   │   │   └── auth-schema.ts
-│   │   ├── hooks/                     # Custom React hooks
-│   │   └── utils/                     # Utility functions
-│   ├── styles/                        # Global styles
-│   ├── types/                         # TypeScript types
-│   └── utils/                         # Utility functions
-├── .env.example                       # Example environment variables
-├── .eslintrc.json                     # ESLint configuration
-├── .prettierrc.json                   # Prettier configuration
-├── lighthouserc.json                  # Lighthouse CI config
-├── next.config.ts                     # Next.js configuration
-├── tailwind.config.ts                 # Tailwind configuration
-├── tsconfig.json                      # TypeScript configuration
-├── package.json                       # Dependencies and scripts
-├── PROJECT_STATUS.md                  # Implementation status
-├── DEPLOYMENT_CHECKLIST.md            # Pre-deployment checklist
-└── README.md                          # This file
+│   ├── app/                    # Next.js App Router
+│   ├── components/             # React components
+│   │   ├── ui/                 # Base UI components
+│   │   ├── forms/              # Form components
+│   │   ├── layout/             # Layout components
+│   │   └── motion/             # Motion components
+│   ├── lib/                    # Libraries & utilities
+│   │   ├── invariants/         # Invariant enforcement
+│   │   ├── motion-identity/    # Motion system
+│   │   ├── rendering/          # Adaptive rendering
+│   │   ├── form-intelligence/  # Form intelligence
+│   │   ├── a11y/               # Accessibility utilities
+│   │   └── utils/              # General utilities
+│   ├── styles/                 # Global styles
+│   └── types/                  # TypeScript types
+└── tests/                      # Test suites
+    ├── e2e/                    # E2E tests
+    └── visual/                 # Visual regression tests
 ```
-
----
 
 ## 🎨 Design System
 
-### Color Tokens
-Located in `design-system/tokens/colors.ts`, the color system includes:
-- **Brand colors** - Primary, secondary, accent
-- **Neutral colors** - Gray scale for UI elements
-- **Semantic colors** - Success, warning, error, info
-- **Light/Dark modes** - Automatic theme switching
+### Design Tokens
 
-Usage:
-```tsx
-import { colors } from '@/design-system/tokens/colors';
+Access design tokens via:
 
-// In Tailwind
-<div className="bg-brand-primary text-neutral-50" />
-
-// In JavaScript
-const primaryColor = colors.brand.primary;
+```typescript
+import { colors, spacing, typography, motion } from '@/design-system/tokens';
 ```
 
-### Motion System
-Located in `design-system/motion/`, includes:
-- **Duration scales** - fast (150ms), normal (300ms), slow (500ms)
-- **Easing functions** - ease, easeIn, easeOut, easeInOut
-- **Presets** - fadeIn, slideIn, scaleIn, stagger
+### Component Usage
 
-Usage:
-```tsx
-import { MotionWrapper } from '@/components/motion/motion-wrapper';
-import { fadeIn } from '@/design-system/motion/presets';
+```typescript
+import { Button, Input, Card } from '@/components/ui';
 
-<MotionWrapper preset={fadeIn}>
-  <YourComponent />
-</MotionWrapper>
-```
-
-### Interaction Contracts
-Standardized interaction patterns:
-- **Hover** - Smooth color/transform transitions
-- **Focus** - Keyboard-visible focus indicators
-- **Press** - Active state feedback
-- **Keyboard** - Arrow navigation, Enter/Space activation
-
----
-
-## 📋 Form Handling
-
-### Basic Form Example
-```tsx
-'use client';
-
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { contactSchema } from '@/lib/schemas/contact-schema';
-import { submitContactForm } from '@/lib/actions/form-actions';
-import { FormField } from '@/components/ui/form-field';
-import { Button } from '@/components/ui/button';
-
-export default function ContactForm() {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
-    resolver: zodResolver(contactSchema),
-  });
-
-  const onSubmit = async (data) => {
-    await submitContactForm(data);
-  };
-
+export default function Example() {
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FormField
-        label="Name"
-        error={errors.name?.message}
-        {...register('name')}
-      />
-      
-      <FormField
-        label="Email"
-        type="email"
-        error={errors.email?.message}
-        {...register('email')}
-      />
-      
-      <Button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Sending...' : 'Submit'}
+    <Card>
+      <Input placeholder="Enter email" />
+      <Button variant="primary" size="lg">
+        Submit
       </Button>
-    </form>
+    </Card>
   );
 }
 ```
 
-### Creating New Schemas
-```tsx
-// src/lib/schemas/my-schema.ts
-import { z } from 'zod';
+### Motion Identity
 
-export const mySchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  age: z.number().min(18, 'Must be 18 or older'),
-});
+```typescript
+import { 
+  canostrataReveal, 
+  canostrataDrawer,
+  canostrataRipple 
+} from '@/lib/motion-identity';
 
-export type MySchemaType = z.infer<typeof mySchema>;
+<motion.div {...canostrataReveal}>
+  Content with signature reveal animation
+</motion.div>
 ```
-
----
-
-## ♿ Accessibility Guidelines
-
-### Keyboard Navigation
-- **Tab** - Move focus forward
-- **Shift + Tab** - Move focus backward
-- **Enter/Space** - Activate buttons, links
-- **Arrow keys** - Navigate menus, selects, accordions
-- **Escape** - Close modals, dropdowns
-
-### ARIA Labels
-Always provide accessible names:
-```tsx
-// Good
-<button aria-label="Close menu">
-  <XIcon />
-</button>
-
-// Good
-<button>
-  <XIcon />
-  <span>Close menu</span>
-</button>
-```
-
-### Color Contrast
-All text meets WCAG AA standards:
-- Normal text: 4.5:1 minimum
-- Large text: 3:1 minimum
-- UI components: 3:1 minimum
-
-Test with browser dev tools or online contrast checkers.
-
----
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Login
-vercel login
-
-# Deploy
-vercel --prod
-```
-
-### Environment Variables
-Set these in your hosting platform:
-- `DATABASE_URL` - Database connection string
-- `NEXTAUTH_URL` - Production domain
-- `NEXTAUTH_SECRET` - Generate with `openssl rand -base64 32`
-- Email service credentials (if using)
-
-### Pre-Deployment Checklist
-See [DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md) for comprehensive pre-deployment verification steps.
-
----
-
-## 📊 CI/CD Pipeline
-
-The project includes a GitHub Actions workflow (`.github/workflows/ci.yml`) that runs on every push and pull request:
-
-1. **Lint** - ESLint code quality checks
-2. **Type Check** - TypeScript compilation
-3. **Build** - Production build verification
-4. **Accessibility Audit** - Lighthouse CI tests
-5. **Tests** - Unit/integration tests (when configured)
-
-All checks must pass before merging to main branch.
-
----
 
 ## 🧪 Testing
 
-### Unit Tests (To Be Configured)
-```bash
-# Install Jest and React Testing Library
-npm install --save-dev jest @testing-library/react @testing-library/jest-dom
+Comprehensive testing strategy with 85%+ coverage target:
 
-# Run tests
-npm test
+- **Unit Tests** - Vitest for functions, hooks, utilities
+- **Integration Tests** - Component interactions
+- **E2E Tests** - Playwright for user workflows
+- **Visual Regression** - Automated screenshot comparison
+- **Accessibility Tests** - Axe-core + Lighthouse
+- **Storybook Tests** - Component isolation testing
+
+See [docs/TESTING.md](docs/TESTING.md) for details.
+
+## 📊 Performance Targets
+
+### Core Web Vitals
+
+- **LCP** (Largest Contentful Paint): < 2.5s
+- **FID** (First Input Delay): < 100ms
+- **CLS** (Cumulative Layout Shift): < 0.1
+- **FCP** (First Contentful Paint): < 1.8s
+- **TTFB** (Time to First Byte): < 600ms
+
+### Lighthouse Scores
+
+- **Performance**: 90+
+- **Accessibility**: 100
+- **Best Practices**: 90+
+- **SEO**: 90+
+
+### Bundle Size
+
+- **First Load JS**: < 200KB
+- **Per Page**: < 100KB additional
+
+## 🔒 Gatekeeper Rules
+
+All components must pass these rules before merging:
+
+1. ✅ Have a Storybook story
+2. ✅ Use TypeScript with proper types
+3. ✅ Define Props interface
+4. ✅ Use forwardRef for refs
+5. ✅ Have accessibility attributes
+6. ✅ Use design tokens (CVA/Tailwind)
+7. ✅ Have displayName
+8. ✅ Export types
+
+See [docs/STORYBOOK_GATEKEEPER.md](docs/STORYBOOK_GATEKEEPER.md) for details.
+
+## 🔧 Configuration Files
+
+- `next.config.ts` - Next.js configuration
+- `tailwind.config.ts` - Tailwind CSS configuration
+- `tsconfig.json` - TypeScript configuration
+- `vitest.config.ts` - Vitest configuration
+- `playwright.config.ts` - Playwright configuration
+- `.eslintrc.json` - ESLint configuration
+- `.prettierrc.json` - Prettier configuration
+- `prisma/schema.prisma` - Database schema
+
+## 🌐 Environment Variables
+
+```bash
+# Database
+DATABASE_URL="postgresql://..."
+
+# Authentication
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-key"
+
+# Email (optional)
+SMTP_HOST="smtp.example.com"
+SMTP_PORT="587"
+SMTP_USER="your-email@example.com"
+SMTP_PASSWORD="your-password"
+
+# Analytics (optional)
+NEXT_PUBLIC_GA_ID="G-XXXXXXXXXX"
 ```
 
-### E2E Tests (To Be Configured)
-```bash
-# Install Playwright
-npm install --save-dev @playwright/test
+See `.env.example` for all available variables.
 
-# Run E2E tests
-npx playwright test
-```
+## 📚 Documentation
 
-### Accessibility Testing
-```bash
-# Run Lighthouse CI
-npm run lighthouse
-
-# Or use browser extensions:
-# - axe DevTools
-# - WAVE
-# - Lighthouse (Chrome DevTools)
-```
-
----
-
-## 📖 Documentation
-
-### Storybook
-View component documentation:
-```bash
-npm run storybook
-```
-
-Navigate to [http://localhost:6006](http://localhost:6006)
-
-### Design System
-- Color tokens: `design-system/tokens/colors.ts`
-- Typography: `design-system/tokens/typography.ts`
-- Motion: `design-system/motion/`
-- Interactions: `design-system/interaction-contracts/`
-
-### Project Status
-See [PROJECT_STATUS.md](./PROJECT_STATUS.md) for detailed implementation status and metrics.
-
----
+- [Architecture](docs/ARCHITECTURE.md) - System architecture and design
+- [Testing](docs/TESTING.md) - Testing strategy and guidelines
+- [CLI Usage](docs/CLI_USAGE.md) - CLI tool documentation
+- [Storybook Gatekeeper](docs/STORYBOOK_GATEKEEPER.md) - Gatekeeper rules
+- [Contributing](docs/CONTRIBUTING.md) - Contribution guidelines
+- [Performance](docs/PERFORMANCE.md) - Performance optimization
+- [Deployment](docs/DEPLOYMENT.md) - Deployment guide
+- [File Structure](docs/FILE_STRUCTURE.md) - Directory structure
 
 ## 🤝 Contributing
 
-### Code Style
-- Use TypeScript for all new files
-- Follow ESLint rules (automatically enforced)
-- Format with Prettier before committing
-- Write meaningful commit messages
+We welcome contributions! Please see [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
 
-### Pull Request Process
-1. Create feature branch from `main`
-2. Make changes and test locally
-3. Run `npm run ci:all` to verify
-4. Create PR with description
-5. Wait for CI checks to pass
-6. Request review from team
-7. Merge after approval
+### Development Workflow
 
-### Component Guidelines
-- Use design system tokens
-- Include TypeScript types
-- Add accessibility features (ARIA, keyboard nav)
-- Write Storybook stories
-- Test in multiple browsers
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests (`npm run test`)
+5. Run linting (`npm run lint`)
+6. Commit changes (`git commit -m 'Add amazing feature'`)
+7. Push to branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
 
----
+### Code Standards
 
-## 📝 License
+- TypeScript for all code
+- ESLint + Prettier for formatting
+- 85%+ test coverage
+- Accessibility compliance
+- Performance budgets
+- Gatekeeper validation
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+## 🔐 Security
 
----
+- Regular dependency audits (`npm run check:security`)
+- Input validation with Zod
+- CSRF protection via NextAuth
+- SQL injection prevention via Prisma
+- XSS protection in Next.js
+- Environment variable security
+
+## 📈 Monitoring
+
+- Web Vitals tracking
+- Bundle size monitoring
+- Performance metrics
+- Error tracking
+- Lighthouse CI
+- Automated accessibility audits
+
+## 🗺️ Roadmap
+
+### Phase 1: Foundation ✅
+- Core component library
+- Design token system
+- Basic testing infrastructure
+
+### Phase 2: Enhancement ✅
+- Motion identity system
+- Invariant enforcement
+- Storybook gatekeeper
+- Form intelligence layer
+
+### Phase 3: Excellence (Current)
+- Complete test coverage
+- Visual regression testing
+- Performance optimization
+- Production monitoring
+
+### Phase 4: Scale (Next)
+- Micro-frontend architecture
+- Advanced analytics
+- AI-powered insights
+- Multi-theme support
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- **Next.js Team** - Amazing React framework
-- **Vercel** - Hosting and deployment platform
-- **Radix UI** - Accessible component primitives
-- **Shadcn** - Beautiful component library
-- **Tailwind CSS** - Utility-first CSS framework
-
----
+- Next.js team for the amazing framework
+- Radix UI for accessible primitives
+- Tailwind CSS for utility-first styling
+- Framer Motion for animation library
+- Vercel for hosting and deployment
+- Open source community
 
 ## 📞 Support
 
-For questions or issues:
-- Open an issue on GitHub
-- Contact: [your-email@example.com]
-- Documentation: [PROJECT_STATUS.md](./PROJECT_STATUS.md)
+- **Issues**: [GitHub Issues](https://github.com/canonstrata/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/canonstrata/discussions)
+- **Email**: support@canonstrata.dev
+- **Docs**: [Documentation](https://docs.canonstrata.dev)
+
+## 🌟 Show Your Support
+
+Give a ⭐️ if this project helped you!
 
 ---
 
-**Built with ❤️ using Next.js 16 and React 19**
+**Built with ❤️ by the Canonstrata Team**
