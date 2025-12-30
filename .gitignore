@@ -4,7 +4,6 @@
 /node_modules
 /.pnp
 .pnp.js
-.yarn/install-state.gz
 
 # testing
 /coverage
@@ -27,6 +26,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
@@ -35,5 +35,24 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# storybook
+storybook-static
 
-.env
+# IMMUTABILITY ENFORCEMENT
+*.backup
+*.temp
+*.log
+reports/
+artifacts/
+temp/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
