@@ -2,9 +2,9 @@
 import { execSync } from "child_process";
 
 const validators = [
-  "tsx scripts/ast-validators/validate-tokens.ts",
-  "tsx scripts/ast-validators/validate-motion.ts",
-  "tsx scripts/ast-validators/validate-rendering.ts",
+  "tsx scripts/ast-validators/validate-tokens.ts src design-system",
+  "tsx scripts/ast-validators/validate-motion.ts src design-system",
+  "tsx scripts/ast-validators/validate-rendering.ts src design-system",
 ];
 
 for (const cmd of validators) {
