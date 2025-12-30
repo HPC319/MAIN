@@ -13,9 +13,9 @@ const Features = () => {
         />
 
         <div className="-mx-4 mt-12 flex flex-wrap lg:mt-20">
-          //           {featuresData.map((feature: any, i: number) => (
-          //             <SingleFeature key={i} feature={feature} />
-          //           ))}
+          {/* {featuresData.map((feature: any, i: number) => (
+            <SingleFeature key={i} feature={feature} />
+          ))} */}
         </div>
       </div>
     </section>
