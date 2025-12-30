@@ -123,7 +123,14 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    function({ addVariant }: any) {
+      // Add prefers-reduced-motion support
+      addVariant('motion-safe', '@media (prefers-reduced-motion: no-preference)')
+      addVariant('motion-reduce', '@media (prefers-reduced-motion: reduce)')
+    }
+  ],
 }
 
 export default config

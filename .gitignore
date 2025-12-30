@@ -56,3 +56,17 @@ temp/
 # OS
 .DS_Store
 Thumbs.db
+
+# Contamination prevention
+*.backup
+*.temp
+*.log
+.DS_Store
+reports/
+artifacts/
+temp/
+*.md.backup
+PHASE_*.md
+STATUS*.md
+IMPLEMENTATION*.md
+design-system/migrations/

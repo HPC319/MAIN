@@ -1,65 +1,97 @@
 "use client";
-import { useState } from "react";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState, useTransition } from "react";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
-import { validateEmail } from "@/utils/validateEmail";
+
+import { magicLinkSchema, MagicLinkFormData } from "@/lib/schemas/auth-schema";
+import { sendMagicLink } from "@/lib/actions/form-actions";
 import Loader from "@/components/Common/Loader";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { FormError } from "@/components/ui/form-error";
+import { FormSuccess } from "@/components/ui/form-success";
 
 const MagicLink = () => {
-  const [email, setEmail] = useState("");
-  const [loader, setLoader] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [successMessage, setSuccessMessage] = useState<string>("");
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<MagicLinkFormData>({
+    resolver: zodResolver(magicLinkSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
 
-    if (!email) {
-      return toast.error("Please enter your email address.");
-    }
-
-    setLoader(true);
-    if (!validateEmail(email)) {
-      setLoader(false);
-      return toast.error("Please enter a valid email address.");
-    } else {
-      signIn("email", {
-        redirect: false,
-        email: email,
-      })
-        .then((callback) => {
-          if (callback?.ok) {
-            toast.success("Email sent");
-            setEmail("");
-            setLoader(false);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Unable to send email!");
-          setLoader(false);
+  const onSubmit = async (data: MagicLinkFormData) => {
+    setSuccessMessage("");
+    
+    startTransition(async () => {
+      try {
+        // Use next-auth's email provider for magic link
+        const result = await signIn("email", {
+          email: data.email,
+          redirect: false,
         });
-    }
+
+        if (result?.error) {
+          toast.error("Unable to send magic link");
+          return;
+        }
+
+        if (result?.ok) {
+          setSuccessMessage("Magic link sent! Check your email.");
+          toast.success("Magic link sent!");
+          reset();
+        }
+      } catch (error) {
+        toast.error("An unexpected error occurred");
+        console.error("Magic link error:", error);
+      }
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="mb-[22px]">
-        <input
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      {successMessage && <FormSuccess message={successMessage} />}
+
+      <div className="space-y-2 text-left">
+        <Label htmlFor="email">Email Address</Label>
+        <Input
+          id="email"
           type="email"
-          placeholder="Email"
-          name="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value.toLowerCase())}
-          className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-dark outline-none transition placeholder:text-dark-6 focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:text-white dark:focus:border-primary"
+          placeholder="Enter your email"
+          {...register("email")}
+          aria-invalid={!!errors.email}
+          disabled={isPending}
         />
+        {errors.email && (
+          <FormError message={errors.email.message} />
+        )}
       </div>
-      <div className="mb-9">
-        <button
+
+      <div>
+        <Button
           type="submit"
-          className="flex w-full cursor-pointer items-center justify-center rounded-md border border-primary bg-primary px-5 py-3 text-base text-white transition duration-300 ease-in-out hover:bg-blue-dark"
+          className="w-full"
+          disabled={isPending}
         >
-          Send Magic Link {loader && <Loader />}
-        </button>
+          {isPending ? (
+            <>
+              Sending Magic Link... <Loader />
+            </>
+          ) : (
+            "Send Magic Link"
+          )}
+        </Button>
       </div>
     </form>
   );

@@ -4,6 +4,23 @@ import ScrollToTop from "@/components/ScrollToTop";
 import "../styles/index.css";
 import "../styles/prism-vsc-dark-plus.css";
 import Providers from "./providers";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    default: "Play Next.js - SaaS Starter Kit and Boilerplate",
+    template: "%s | Play Next.js",
+  },
+  description:
+    "This SaaS Boilerplate and Starter Kit for Next.js is designed specifically for SaaS startups. It's a free resource complete with all the necessary integrations, pages, and components you require to build and launch a comprehensive SaaS website with robust features.",
+  icons: {
+    icon: "/images/favicon.ico",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
+};
 
 export default function RootLayout({
   children,
