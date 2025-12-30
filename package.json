@@ -6,7 +6,7 @@
     "dev": "next dev",
     "dev:https": "next dev --experimental-https",
     "dev:turbo": "next dev --turbo",
-    "build": "npm run db:generate && npm run typecheck && next build",
+    "build": "npm run db:generate && npm run typecheck && npm run validate:all && next build",
     "build:analyze": "ANALYZE=true npm run build",
     "build:storybook": "storybook build --output-dir=.storybook-build",
     "start": "next start",
@@ -49,7 +49,7 @@
     "lighthouse": "lhci autorun --config=lighthouserc.json",
     "lighthouse:ci": "lhci autorun --config=lighthouserc.ci.json",
     "validate:invariants": "tsx scripts/invariant-enforcer.ts",
-    "validate:motion": "tsx scripts/motion-validator.ts",
+    "validate:motion": "tsx scripts/enforcement/motion-validator.ts",
     "validate:forms": "tsx scripts/form-state-validator.ts",
     "validate:rendering": "tsx scripts/rendering-validator.ts",
     "ci:validate": "tsx scripts/ci-validate.ts",
@@ -73,7 +73,10 @@
     "postinstall": "prisma generate",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "check:deps": "npx npm-check-updates",
-    "check:security": "npm audit --audit-level=moderate"
+    "check:security": "npm audit --audit-level=moderate",
+    "validate:tokens": "tsx scripts/enforcement/validate-tokens.ts",
+    "validate:all": "npm run validate:tokens && npm run validate:motion",
+    "prebuild": "npm run validate:all"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.5.0",

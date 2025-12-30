@@ -1,84 +1,184 @@
-# CanonStrata
+# CANONSTRATA
 
-Constitutional, load-bearing architectural substrate.
+## SYSTEM IDENTITY
 
-## System Identity
+CanonStrata is a constitutional, load-bearing architectural substrate for websites.
 
-1. Not a stack
-2. Not a framework
-3. Not a toolkit
-4. Not a starter, template, theme, or library
-5. Outlives vendors
-6. Refuses invalid code
+**CanonStrata is NOT:**
+- A stack
+- A framework
+- A toolkit
+- A starter, template, theme, or library
 
-## Non-Negotiable Invariants
+**CanonStrata IS:**
+- A permanent foundation that outlives vendors
+- A self-defending system that refuses invalid code
+- A structural operating system for infinite future architectures
 
-### Existence Test
+---
+
+## NON-NEGOTIABLE INVARIANTS
+
+### EXISTENCE TEST
+The system must hold under all conditions:
 1. Analytics disappear → system holds
 2. CRM disappear → system holds
 3. Cache disappear → system holds
 4. Motion disabled → layout holds
 5. Tokens missing → build fails
 6. Rules broken → compile fails
+7. **If and only if all pass → CanonStrata exists**
 
-### Repository Immutability
+### REPOSITORY IMMUTABILITY
 1. Only source-of-truth code may exist
-2. No generated artifacts
-3. No backups, temp scripts, reports, ad-hoc files
+2. No generated artifacts in repository
+3. No backups, temp scripts, reports, or ad-hoc files
 4. Artifact drift causes immediate build failure
 5. No discretionary retention
 
-### System Prohibitions (Compile-Time)
+### SYSTEM PROHIBITIONS
+Violations cause **compile-time failure**:
 1. No inline styles
 2. No non-token CSS
 3. No SaaS coupling
 4. No unauthorized motion
-5. Client misuse → lint error
+5. Client boundary violations → lint error
 
-### Design System
-1. Token-first system
-2. No hardcoded styles
-3. No business logic in UI
+---
 
-### Motion Governance
-1. Reduced-motion support mandatory
-2. Motion disabled → layout intact
-3. Only CanonStrata kernel motion allowed
+## REFUSAL CONTRACT
 
-### Token Gates
-1. Missing token → build fails
-2. Hardcoded value → lint failure
+CanonStrata enforces invariants through:
 
-## Refusal Contract
+### 1. TOKEN GATES
+- Missing token → **build fails**
+- Hardcoded value → **lint failure**
+- Non-token CSS → **rejected**
 
-The system refuses to compile on violation.
+### 2. MOTION GOVERNANCE
+- Only kernel-authorized motion allowed
+- Reduced-motion support mandatory
+- Motion disabled → layout remains intact
+- Unauthorized imports → **build fails**
 
-Enforcement mechanisms:
-- AST checks
-- CI rules
-- Runtime assertions
+### 3. TYPE ENFORCEMENT
+- Strict TypeScript configuration
+- No implicit any
+- No unchecked indexed access
+- No unused variables
+- All violations → **compile failure**
 
-## Immutability Clause
+### 4. RUNTIME ASSERTIONS
+- Server/client boundary violations → **runtime error**
+- Missing configuration → **runtime error**
+- Invalid token structure → **runtime error**
 
-This is a structural operating system for websites.
-A permanent load-bearing architecture.
-A foundation that never changes.
+---
 
-It hosts without change:
-- Contractor sites
-- SaaS sites
+## ENFORCEMENT MECHANISMS
+
+### AST-Level Prohibitions
+```
+Inline styles → REJECTED
+Unauthorized motion → REJECTED
+Hardcoded colors → REJECTED
+Client hook in server component → REJECTED
+```
+
+### CI as Judiciary
+- Validates all invariants before merge
+- Zero warnings policy
+- Zero exceptions
+- Documentation must match system truth
+
+### Build-Time Validation
+```bash
+npm run validate:tokens    # Token completeness check
+npm run validate:motion    # Motion governance check
+npm run build             # Full enforcement chain
+```
+
+---
+
+## IMMUTABILITY CLAUSE
+
+This system is designed to:
+1. Never require refactoring
+2. Host infinite future structures without change
+3. Operate without human discipline
+4. Make ambiguity impossible
+
+**The foundation is locked. No additions. Only perfection.**
+
+---
+
+## ARCHITECTURE GUARANTEES
+
+### Design Tokens = Concrete Raft
+All visual properties derive from immutable token system
+
+### Strict TypeScript = Deep Piles
+Type system prevents structural failure before runtime
+
+### Server Components Default = Load Distribution
+Optimal rendering strategy enforced by architecture
+
+### Adapter Architecture = Future Height Tolerance
+System accommodates unknown future requirements without modification
+
+---
+
+## WHAT CANONSTRATA HOSTS
+
+Without modification, CanonStrata supports:
+- Contractor websites
+- SaaS platforms
 - Internal tools
-- Public platforms
+- Public applications
 
-It is not:
-- A marketing site
-- A theme
-- A component library
+### Core Contractor Capabilities
+- Service taxonomy
+- Service areas/locations
+- Quote/estimate pipelines
+- Job classification
+- Proof & trust signals
+- Lead routing (non-SaaS)
+- Image & media governance
 
-## Prime Directive
+### Prohibited (Compile Failure)
+- Billing systems
+- Subscription management
+- SaaS-specific dashboards
+- CRM implementations
+- Marketing automation
 
-1. Do not add
-2. Lock everything
-3. Perfect the foundation
-4. This is not a website
-5. This is a load-bearing megastructure
+---
+
+## SYSTEM INTROSPECTION
+
+Query the system for explanations:
+```bash
+npm run explain:violation <file>  # Why code was rejected
+npm run explain:invariant <rule>  # Constitutional basis
+```
+
+Every refusal cites:
+1. Violated invariant
+2. Constitutional clause
+3. Correction path
+
+---
+
+## FINAL STATE
+
+**This is not a website.**  
+**This is a load-bearing megastructure.**
+
+The system is:
+- Self-defending
+-永久的 (permanent)
+- Constitutional
+- Complete
+
+No gratitude. No vendors. No maintenance.  
+Only **structural law**.
