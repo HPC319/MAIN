@@ -241,12 +241,8 @@ export type SearchIndex = z.infer<typeof searchIndexSchema>;
  * @param query - Raw search query object
  * @returns Validated and sanitized search query
  * @throws {z.ZodError} If validation fails
- * 
- * FIX 3: Use ReturnType for Zod v4 compatibility
  */
-export function validateSearchQuery(
-  query: unknown
-): ReturnType<typeof searchQuerySchema.safeParse> {
+export function validateSearchQuery(query: unknown) {
   return searchQuerySchema.safeParse(query);
 }
 
@@ -255,12 +251,8 @@ export function validateSearchQuery(
  * @param results - Raw search results object
  * @returns Validated search results
  * @throws {z.ZodError} If validation fails
- * 
- * FIX 3: Use ReturnType for Zod v4 compatibility
  */
-export function validateSearchResults(
-  results: unknown
-): ReturnType<typeof searchResultsSchema.safeParse> {
+export function validateSearchResults(results: unknown) {
   return searchResultsSchema.safeParse(results);
 }
 
@@ -269,12 +261,8 @@ export function validateSearchResults(
  * @param index - Raw search index object
  * @returns Validated search index
  * @throws {z.ZodError} If validation fails
- * 
- * FIX 3: Use ReturnType for Zod v4 compatibility
  */
-export function validateSearchIndex(
-  index: unknown
-): ReturnType<typeof searchIndexSchema.safeParse> {
+export function validateSearchIndex(index: unknown) {
   return searchIndexSchema.safeParse(index);
 }
 

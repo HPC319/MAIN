@@ -175,18 +175,32 @@ function processMarkdownFile(
 
     // FIX 2: Extract slug with proper type safety
     const fileName = path.basename(filePath, path.extname(filePath));
-    const slug: string = (frontmatter.slug as string | undefined) ?? fileName;
+    const slug: string = typeof frontmatter.slug === 'string'
+      ? frontmatter.slug
+      : fileName;
 
     // Build search index entry
     const entry: SearchIndexEntry = {
       id: slug,
-      title: (frontmatter.title as string) || fileName,
-      excerpt: frontmatter.excerpt as string | undefined,
+      title: typeof frontmatter.title === 'string'
+        ? frontmatter.title
+        : fileName,
+      excerpt: typeof frontmatter.excerpt === 'string'
+        ? frontmatter.excerpt
+        : undefined,
       slug,
-      author: frontmatter.author as string | undefined,
-      publishDate: frontmatter.date as string | undefined,
-      tags: frontmatter.tags as string[] | undefined,
-      image: frontmatter.image as string | undefined,
+      author: typeof frontmatter.author === 'string'
+        ? frontmatter.author
+        : undefined,
+      publishDate: typeof frontmatter.date === 'string'
+        ? frontmatter.date
+        : undefined,
+      tags: Array.isArray(frontmatter.tags) && frontmatter.tags.every(t => typeof t === 'string')
+        ? frontmatter.tags
+        : undefined,
+      image: typeof frontmatter.image === 'string'
+        ? frontmatter.image
+        : undefined,
       tokens: tokenizeContent(bodyContent),
       metadata: {
         wordCount: bodyContent.split(/\s+/).length,
