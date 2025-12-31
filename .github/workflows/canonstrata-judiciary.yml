@@ -24,7 +24,7 @@ jobs:
         run: npm ci
         env:
           DATABASE_URL: "postgres://ci_stub/brain"
-          SECRET: ${{ secrets.SECRET }}
+          SECRET: "ci-build-secret-dummy-value-not-for-production"
       
       - name: React Import Governance
         run: npm run validate:react-imports
@@ -46,4 +46,4 @@ jobs:
         env:
           CI: true
           DATABASE_URL: "postgres://ci_stub/brain"
-          SECRET: ${{ secrets.SECRET }}
+          SECRET: "ci-build-secret-dummy-value-not-for-production"

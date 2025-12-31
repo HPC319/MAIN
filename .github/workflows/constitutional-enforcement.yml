@@ -28,7 +28,7 @@ jobs:
         run: npm ci
         env:
           DATABASE_URL: "postgres://ci_stub/brain"
-          SECRET: ${{ secrets.SECRET }}
+          SECRET: "ci-build-secret-dummy-value-not-for-production"
 
       # REACT IMPORT GOVERNANCE (BEFORE GATE 2)
       - name: React Import Governance
@@ -65,7 +65,7 @@ jobs:
         run: npm run build
         env:
           DATABASE_URL: "postgres://ci_stub/brain"
-          SECRET: ${{ secrets.SECRET }}
+          SECRET: "ci-build-secret-dummy-value-not-for-production"
 
       # FINAL GATE: SUCCESS
       - name: 'CONSTITUTIONAL ENFORCEMENT: PASSED'
