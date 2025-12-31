@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     direction: {
       control: 'select',
-      options: ['up', 'down', 'left', 'right'],
+      options: ['top', 'bottom', 'left', 'right'],
     },
     duration: {
       control: { type: 'number', min: 0.1, max: 2, step: 0.1 },
@@ -27,7 +27,7 @@ type Story = StoryObj<typeof meta>;
 
 export const FromBottom: Story = {
   args: {
-    direction: 'up',
+    direction: 'bottom',
     children: (
       <div className="rounded-lg bg-primary p-8 text-primary-foreground">
         <h3 className="text-lg font-semibold">Slide Up</h3>
@@ -39,7 +39,7 @@ export const FromBottom: Story = {
 
 export const FromTop: Story = {
   args: {
-    direction: 'down',
+    direction: 'top',
     children: (
       <div className="rounded-lg bg-secondary p-8 text-secondary-foreground">
         <h3 className="text-lg font-semibold">Slide Down</h3>

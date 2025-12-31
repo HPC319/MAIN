@@ -53,7 +53,6 @@ const Team = () => {
             subtitle="Our Team"
             title="Meet Our Team"
             paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
-            width="640px"
             center
           />
         </div>

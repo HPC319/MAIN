@@ -1,16 +1,18 @@
 import { MotionWrapper } from "@/components/motion/motion-wrapper";
 
+interface SectionTitleProps {
+  subtitle?: string;
+  title: string;
+  paragraph: string;
+  center?: boolean;
+}
+
 const SectionTitle = ({
   subtitle,
   title,
   paragraph,
   center,
-}: {
-  subtitle?: string;
-  title: string;
-  paragraph: string;
-  center?: boolean;
-}) => {
+}: SectionTitleProps) => {
   return (
     <div className="-mx-4 flex flex-wrap">
       <MotionWrapper

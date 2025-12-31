@@ -10,14 +10,17 @@ interface HomeBlogSectionProps {
 
 const HomeBlogSection = ({ posts }: HomeBlogSectionProps) => {
   // Convert Record<string, unknown> to Blog format
-  const blogs: Blog[] = posts.map((post): Blog => ({
-    id: 0,
-    title: (post.title as string) || "",
-    slug: (post.slug as string) || "",
-    excerpt: ((post.excerpt as string) || (post.content as string) || "").slice(0, 150),
-    coverImage: (post.coverImage as string) || undefined,
-    date: (post.date as string) || new Date().toISOString(),
-  }));
+  const blogs: Blog[] = posts.map((post): Blog => {
+    const coverImage = post.coverImage;
+    return {
+      id: 0,
+      title: (post.title as string) || "",
+      slug: (post.slug as string) || "",
+      excerpt: ((post.excerpt as string) || (post.content as string) || "").slice(0, 150),
+      coverImage: typeof coverImage === 'string' ? coverImage : undefined,
+      date: (post.date as string) || new Date().toISOString(),
+    };
+  });
 
   return (
     <section

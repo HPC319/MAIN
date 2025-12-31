@@ -27,49 +27,49 @@ export interface ScaleProps extends Omit<HTMLMotionProps<'div'>, 'variants'> {
    * Initial scale value
    * @default 0.95
    */
-  initialScale?: number
+  initialScale?: number | undefined
   
   /**
    * Animation duration in seconds
    * @default 0.3
    */
-  duration?: number
+  duration?: number | undefined
   
   /**
    * Animation delay in seconds
    * @default 0
    */
-  delay?: number
+  delay?: number | undefined
   
   /**
    * Custom easing function
    * @default 'easeOut'
    */
-  easing?: string | number[]
+  easing?: string | number[] | undefined
   
   /**
    * Whether to animate on mount
    * @default true
    */
-  animateOnMount?: boolean
+  animateOnMount?: boolean | undefined
   
   /**
    * Use spring animation instead of duration
    * @default false
    */
-  useSpring?: boolean
+  useSpring?: boolean | undefined
   
   /**
    * Spring stiffness (if useSpring is true)
    * @default 200
    */
-  stiffness?: number
+  stiffness?: number | undefined
   
   /**
    * Spring damping (if useSpring is true)
    * @default 20
    */
-  damping?: number
+  damping?: number | undefined
 }
 
 export const Scale = React.forwardRef<HTMLDivElement, ScaleProps>(

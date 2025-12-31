@@ -25,25 +25,25 @@ export interface FadeInProps extends Omit<HTMLMotionProps<'div'>, 'variants'> {
    * Animation duration in seconds
    * @default 0.3
    */
-  duration?: number
+  duration?: number | undefined
   
   /**
    * Animation delay in seconds
-   * @default 0\
+   * @default 0
    */
-  delay?: number
+  delay?: number | undefined
   
   /**
    * Custom easing function
    * @default 'easeOut'
    */
-  easing?: Easing | Easing[]
+  easing?: Easing | Easing[] | undefined
   
   /**
    * Whether to animate on mount
    * @default true
    */
-  animateOnMount?: boolean
+  animateOnMount?: boolean | undefined
 }
 
 export const FadeIn = React.forwardRef<HTMLDivElement, FadeInProps>(

@@ -25,8 +25,7 @@ export const Default: Story = {
 
 export const ScaleUp: Story = {
   args: {
-    from: 0.5,
-    to: 1,
+    initialScale: 0.5,
     children: (
       <div className="w-64 h-32 bg-green-500 rounded-lg flex items-center justify-center text-white">
         Scale Up
@@ -37,8 +36,7 @@ export const ScaleUp: Story = {
 
 export const ScaleDown: Story = {
   args: {
-    from: 1.5,
-    to: 1,
+    initialScale: 1.5,
     children: (
       <div className="w-64 h-32 bg-red-500 rounded-lg flex items-center justify-center text-white">
         Scale Down

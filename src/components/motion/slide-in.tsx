@@ -42,37 +42,37 @@ export interface SlideInProps extends Omit<HTMLMotionProps<'div'>, 'variants'> {
    * Direction to slide from
    * @default 'bottom'
    */
-  direction?: Direction
+  direction?: Direction | undefined
   
   /**
    * Distance to slide in pixels
    * @default 20
    */
-  distance?: number
+  distance?: number | undefined
   
   /**
    * Animation duration in seconds
    * @default 0.3
    */
-  duration?: number
+  duration?: number | undefined
   
   /**
    * Animation delay in seconds
    * @default 0
    */
-  delay?: number
+  delay?: number | undefined
   
   /**
    * Custom easing function
    * @default 'easeOut'
    */
-  easing?: string | number[]
+  easing?: string | number[] | undefined
   
   /**
    * Whether to animate on mount
    * @default true
    */
-  animateOnMount?: boolean
+  animateOnMount?: boolean | undefined
 }
 
 export const SlideIn = React.forwardRef<HTMLDivElement, SlideInProps>(

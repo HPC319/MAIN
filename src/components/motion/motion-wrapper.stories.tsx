@@ -23,25 +23,26 @@ export const Default: Story = {
   },
 };
 
-export const Disabled: Story = {
+export const WithDelay: Story = {
   args: {
-    disabled: true,
+    delay: 0.5,
     children: (
       <div className="w-64 h-32 bg-gray-500 rounded-lg flex items-center justify-center text-white">
-        Motion Disabled
+        Motion with Delay
       </div>
     ),
   },
 };
 
-export const WithCustomAnimation: Story = {
+export const WithCustomVariant: Story = {
   args: {
-    initial: { opacity: 0, scale: 0.5 },
-    animate: { opacity: 1, scale: 1 },
-    transition: { duration: 0.5 },
+    variant: {
+      hidden: { opacity: 0, scale: 0.5 },
+      visible: { opacity: 1, scale: 1 },
+    },
     children: (
       <div className="w-64 h-32 bg-purple-500 rounded-lg flex items-center justify-center text-white">
-        Custom Animation
+        Custom Variant
       </div>
     ),
   },

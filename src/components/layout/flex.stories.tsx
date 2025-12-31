@@ -68,7 +68,7 @@ export const SpaceBetween: Story = {
 
 export const WithGap: Story = {
   args: {
-    gap: 4,
+    gap: 'md',
     children: (
       <>
         <Box>Item 1</Box>
@@ -81,8 +81,8 @@ export const WithGap: Story = {
 
 export const Wrap: Story = {
   args: {
-    wrap: true,
-    gap: 2,
+    wrap: 'wrap',
+    gap: 'sm',
     className: 'max-w-md',
     children: (
       <>
@@ -100,7 +100,7 @@ export const Wrap: Story = {
 export const ResponsiveDirection: Story = {
   args: {
     direction: 'col',
-    gap: 4,
+    gap: 'md',
     className: 'md:flex-row',
     children: (
       <>

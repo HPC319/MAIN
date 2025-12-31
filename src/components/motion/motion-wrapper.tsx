@@ -6,9 +6,9 @@ import { ReactNode, useEffect, useState } from "react";
 
 interface MotionWrapperProps {
   children: ReactNode;
-  variant?: Variants;
-  className?: string;
-  delay?: number;
+  variant?: Variants | undefined;
+  className?: string | undefined;
+  delay?: number | undefined;
 }
 
 export const MotionWrapper = ({
@@ -42,7 +42,7 @@ export const MotionWrapper = ({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      variants={variant}
+      variants={variant ?? undefined}
       transition={{ delay }}
       className={className}
     >

@@ -26,7 +26,7 @@ export const Default: Story = {
 
 export const SmallPadding: Story = {
   args: {
-    padding: 'sm',
+    spacing: 'sm',
     children: (
       <div className="text-center">
         <h2 className="text-3xl font-bold mb-4">Small Padding Section</h2>
@@ -38,7 +38,7 @@ export const SmallPadding: Story = {
 
 export const LargePadding: Story = {
   args: {
-    padding: 'lg',
+    spacing: 'lg',
     children: (
       <div className="text-center">
         <h2 className="text-3xl font-bold mb-4">Large Padding Section</h2>
@@ -50,7 +50,7 @@ export const LargePadding: Story = {
 
 export const NoPadding: Story = {
   args: {
-    padding: 'none',
+    spacing: 'none',
     children: (
       <div className="text-center bg-gray-100 p-8">
         <h2 className="text-3xl font-bold mb-4">No Padding Section</h2>
@@ -74,7 +74,7 @@ export const WithBackgroundColor: Story = {
 
 export const FullWidthContent: Story = {
   args: {
-    padding: 'lg',
+    spacing: 'lg',
     children: (
       <div className="w-full">
         <h2 className="text-3xl font-bold mb-8 text-center">Full Width Content</h2>
