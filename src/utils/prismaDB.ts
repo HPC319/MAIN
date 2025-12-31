@@ -1,23 +1,24 @@
-// PrismaClient type - will be available after prisma generate
-type PrismaClientType = import("@prisma/client").PrismaClient
 import { PrismaPg } from '@prisma/adapter-pg'
+
+// PrismaClient type - using dynamic import to handle CI environments
+type PrismaClientType = typeof import("@prisma/client").PrismaClient extends new (...args: unknown[]) => infer T ? T : never
 
 const globalForPrisma = global as unknown as {
   prisma: PrismaClientType | undefined
 }
 
 // Dynamic import for CI environments where Prisma may not be generated
-let PrismaClientConstructor: typeof PrismaClientType;
+let PrismaClientConstructor: new (args?: unknown) => PrismaClientType;
 try {
   const prismaModule = require("@prisma/client");
   PrismaClientConstructor = prismaModule.PrismaClient;
 } catch {
-  // CI stub fallback
+  // CI stub fallback - this will only be used if Prisma client is not available
   PrismaClientConstructor = class {
     constructor() {
       throw new Error("PrismaClient not generated. Run: npx prisma generate");
     }
-  } as unknown as typeof PrismaClientType;
+  } as unknown as new (args?: unknown) => PrismaClientType;
 }
 
 const adapter = new PrismaPg({
