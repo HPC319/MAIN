@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import type { Route } from "next";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
@@ -191,11 +192,11 @@ const SignUp = () => {
                         className="text-sm font-normal cursor-pointer leading-relaxed"
                       >
                         I agree to the{" "}
-                        <Link href="/privacy" className="text-primary hover:underline">
+                        <Link href={"/privacy" as Route} className="text-primary hover:underline">
                           Privacy Policy
                         </Link>{" "}
                         and{" "}
-                        <Link href="/terms" className="text-primary hover:underline">
+                        <Link href={"/terms" as Route} className="text-primary hover:underline">
                           Terms of Service
                         </Link>
                       </Label>
