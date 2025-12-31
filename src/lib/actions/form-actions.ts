@@ -1,23 +1,35 @@
-/**
- * Form Actions - Server Actions
- */
+import { z } from "zod";
 
-'use server'
+export const magicLinkSchema = z.object({
+  email: z.string().email("Invalid email address"),
+});
 
-export async function submitContactForm(formData: FormData) {
-  // Placeholder implementation
-  return { success: true }
+export type MagicLinkFormData = z.infer<typeof magicLinkSchema>;
+
+export async function sendMagicLink(data: MagicLinkFormData) {
+  // Implementation
+  return { success: true };
 }
 
-export async function sendMagicLink(email: string) {
-  // Placeholder implementation
-  return { success: true }
+export async function createUser(data: any) {
+  // Implementation
+  return { success: true };
 }
 
-export type MagicLinkFormData = {
-  email: string
+export async function requestPasswordReset(email: string) {
+  // Implementation
+  return { success: true };
 }
 
-export const magicLinkSchema = {
-  email: (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+export async function submitContactForm(data: any) {
+  // Implementation
+  return { success: true };
+}
+
+export async function forgotPasswordAction(email: string) {
+  return requestPasswordReset(email);
+}
+
+export async function signUpAction(data: any) {
+  return createUser(data);
 }

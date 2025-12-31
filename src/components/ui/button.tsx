@@ -12,7 +12,7 @@ import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils/cn'
-import { hoverStates } from '@/design-system/interaction-contracts/hover'
+import { hoverContracts } from '@/design-system/interaction-contracts/hover'
 import { focusStates } from '@/design-system/interaction-contracts/focus'
 import { pressStates } from '@/design-system/interaction-contracts/press'
 
@@ -33,31 +33,31 @@ const buttonVariants = cva(
       variant: {
         default: [
           'bg-primary text-primary-foreground',
-          hoverStates.scale,
+          hoverContracts.scale,
           'hover:bg-primary/90',
         ].join(' '),
         destructive: [
           'bg-destructive text-destructive-foreground',
-          hoverStates.scale,
+          hoverContracts.scale,
           'hover:bg-destructive/90',
         ].join(' '),
         outline: [
           'border border-input bg-background',
-          hoverStates.lift,
+          hoverContracts.lift,
           'hover:bg-accent hover:text-accent-foreground',
         ].join(' '),
         secondary: [
           'bg-secondary text-secondary-foreground',
-          hoverStates.brighten,
+          hoverContracts.brighten,
           'hover:bg-secondary/80',
         ].join(' '),
         ghost: [
-          hoverStates.fadeIn,
+          hoverContracts.fadeIn,
           'hover:bg-accent hover:text-accent-foreground',
         ].join(' '),
         link: [
           'text-primary underline-offset-4',
-          hoverStates.underline,
+          hoverContracts.underline,
           'hover:underline',
         ].join(' '),
       },

@@ -14,7 +14,7 @@ import { FormField } from '@/components/ui/form-field'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-// import { Checkbox } from '@/components/ui/checkbox'
+import { Checkbox } from '@/components/ui/checkbox'
 import { FormSuccess } from '@/components/ui/form-success'
 import { FormError } from '@/components/ui/form-error'
 

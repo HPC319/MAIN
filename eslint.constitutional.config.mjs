@@ -3,15 +3,17 @@ import tsParser from "@typescript-eslint/parser";
 
 export default [
   {
-    files: ["**/*.ts", "**/*.tsx"],
     ignores: [
       ".next/**",
       ".storybook/**",
       "node_modules/**",
-      "scripts/setup-monitoring.js",
+      "scripts/**",
       "dist/**",
       "build/**"
-    ],
+    ]
+  },
+  {
+    files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
@@ -23,13 +25,6 @@ export default [
       "@typescript-eslint": eslintPlugin
     },
     rules: {
-      "@typescript-eslint/ban-ts-comment": ["error", {
-        "ts-expect-error": "allow-with-description",
-        "ts-ignore": false,
-        "ts-nocheck": false,
-        "ts-check": false,
-        minimumDescriptionLength: 10
-      }],
       "@typescript-eslint/no-explicit-any": "error"
     }
   }

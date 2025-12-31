@@ -1,5 +1,5 @@
 export const focusStates = {
-  default: "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
-  primary: "focus:ring-blue-600",
-  secondary: "focus:ring-gray-400",
+  ring: "focus:ring-2 focus:ring-blue-500 focus:outline-none",
+  underline: "focus:border-b-2 focus:border-blue-500",
+  highlight: "focus:bg-blue-50 dark:focus:bg-blue-900/20",
 };

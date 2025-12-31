@@ -13,7 +13,7 @@ import * as SelectPrimitive from '@radix-ui/react-select'
 import { Check, ChevronDown, ChevronUp } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 import { focusStates } from '@/design-system/interaction-contracts/focus'
-import { hoverStates } from '@/design-system/interaction-contracts/hover'
+import { hoverContracts } from '@/design-system/interaction-contracts/hover'
 import { keyboardHelpers } from '@/design-system/interaction-contracts/keyboard'
 
 const Select = SelectPrimitive.Root
@@ -33,7 +33,7 @@ const SelectTrigger = React.forwardRef<
       'ring-offset-background placeholder:text-muted-foreground',
       'transition-all duration-200',
       focusStates.ring,
-      hoverStates.lift,
+      hoverContracts.lift,
       'disabled:cursor-not-allowed disabled:opacity-50',
       '[&>span]:line-clamp-1',
       className
@@ -141,7 +141,7 @@ const SelectItem = React.forwardRef<
     className={cn(
       'relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm',
       'outline-none transition-colors duration-150',
-      hoverStates.fadeIn,
+      hoverContracts.fadeIn,
       focusStates.accent,
       'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className
