@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
           where: {
             email: credentials.email,
           },
-        });
+        }) as { id: string; email: string; name: string | null; [key: string]: unknown } | null;
 
         // if user was not found
         if (!user) {
