@@ -72,7 +72,7 @@ function useAutoSave<T extends FieldValues>(
   const [saving, setSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<number>();
   const [error, setError] = useState<string>();
-  const saveTimeoutRef = useRef<NodeJS.Timeout>();
+  const saveTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const save = useCallback(async (data: T) => {
     if (!config.enabled) return;
