@@ -211,7 +211,8 @@ function useValidationState<T extends FieldValues>(
 // FIELD META TRACKER
 // ============================================================================
 
-function useFieldMeta<T extends FieldValues>(
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function _useFieldMeta<T extends FieldValues>(
   form: UseFormReturn<T>,
   fieldName: keyof T
 ): FieldMeta {

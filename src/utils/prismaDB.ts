@@ -20,7 +20,7 @@ try {
       findFirst: () => Promise.resolve(null),
       create: () => Promise.resolve({}),
       update: () => Promise.resolve({}),
-    } as PrismaClientType['user'];
+    } as unknown as PrismaClientType['user'];
     constructor() {
       throw new Error("PrismaClient not generated. Run: npx prisma generate");
     }
