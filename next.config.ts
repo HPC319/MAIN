@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
   
   // Turbopack configuration (Next.js 16 default)
+  // Empty config silences the webpack/turbopack conflict warning
   turbopack: {},
 
   // Compiler options for React 19
@@ -60,7 +61,9 @@ const nextConfig: NextConfig = {
     ]
   },
 
-  // Webpack configuration
+  // Webpack configuration (for non-Turbopack builds)
+  // Note: Next.js 16 uses Turbopack by default, but webpack config is kept for compatibility
+  // The empty turbopack config above silences the conflict warning
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
