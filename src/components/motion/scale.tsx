@@ -109,7 +109,7 @@ export const Scale = React.forwardRef<HTMLDivElement, ScaleProps>(
       : {
           duration,
           delay,
-          ease: Array.isArray(easing) ? easing : (typeof easing === 'string' ? easing : [easing]),
+          ease: (Array.isArray(easing) ? easing : (typeof easing === 'string' ? easing : [easing])) as import('framer-motion').Easing | import('framer-motion').Easing[],
         }
 
     return (

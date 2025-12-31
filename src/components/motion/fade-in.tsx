@@ -8,7 +8,8 @@
 'use client'
 
 import * as React from 'react'
-import { motion, type HTMLMotionProps, type Variants, type Easing } from '@/lib/motion-kernel'
+import { motion, type HTMLMotionProps, type Variants } from '@/lib/motion-kernel'
+import type { Easing } from 'framer-motion'
 import { usePrefersReducedMotion } from '@/lib/hooks/use-media-query'
 
 const fadeInVariants: Variants = {
@@ -20,7 +21,8 @@ const fadeInVariants: Variants = {
   },
 }
 
-export interface FadeInProps extends Omit<HTMLMotionProps<'div'>, 'variants'> {
+export interface FadeInProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> {
+  children: React.ReactNode
   /**
    * Animation duration in seconds
    * @default 0.3

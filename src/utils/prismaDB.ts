@@ -1,4 +1,5 @@
-import type { PrismaClient as PrismaClientType } from "@prisma/client"
+// PrismaClient type - will be available after prisma generate
+type PrismaClientType = import("@prisma/client").PrismaClient
 import { PrismaPg } from '@prisma/adapter-pg'
 
 const globalForPrisma = global as unknown as {

@@ -30,7 +30,9 @@ export const useReducedMotion = () => {
 export const motion = framerMotion
 export type Variants = FramerVariants
 export type HTMLMotionProps<T extends keyof React.JSX.IntrinsicElements = 'div'> = MotionProps
-export type { MotionProps, Transition } from 'framer-motion'
+// Suppress unused type parameter warning
+export type HTMLMotionPropsDiv = HTMLMotionProps<'div'>
+export type { MotionProps, Transition, Easing } from 'framer-motion'
 
 export const motionConfig = {
   reducedMotion: 'user',

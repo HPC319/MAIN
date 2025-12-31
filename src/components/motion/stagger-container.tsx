@@ -12,7 +12,6 @@ import { motion, type HTMLMotionProps, type Variants } from '@/lib/motion-kernel
 import { usePrefersReducedMotion } from '@/lib/hooks/use-media-query'
 
 // Container variants - unused but kept for reference
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _containerVariants: Variants = {
   hidden: {
     opacity: 0,
@@ -42,7 +41,7 @@ export const staggerItemVariants: Variants = {
 }
 
 export interface StaggerContainerProps
-  extends Omit<HTMLMotionProps<'div'>, 'variants'> {
+  extends Omit<HTMLMotionProps<'div'>, 'variants'>, React.HTMLAttributes<HTMLDivElement> {
   /**
    * Delay between each child animation in seconds
    * @default 0.1
