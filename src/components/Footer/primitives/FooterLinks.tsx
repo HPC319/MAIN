@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Route } from "next";
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils/cn";
 
@@ -16,7 +17,7 @@ export const FooterLinks = ({ title, links, className }: FooterLinksProps) => {
         {links.map((link, index) => (
           <li key={index}>
             <Link
-              href={link.href}
+              href={link.href as Route}
               className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
             >
               {link.label}
@@ -38,7 +39,7 @@ interface FooterLinkProps {
 export const FooterLink = ({ href, children, className, target }: FooterLinkProps) => {
   return (
     <Link
-      href={href}
+      href={href as Route}
       target={target}
       className={cn("text-base text-gray-7 hover:text-white hover:underline", className)}
     >

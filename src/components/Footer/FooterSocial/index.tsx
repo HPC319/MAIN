@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Route } from "next";
 
 const socialLinks = [
   {
@@ -48,7 +49,7 @@ export const FooterSocial = () => {
         <Link
           key={social.name}
           aria-label={`${social.name} social link`}
-          href={social.href}
+          href={social.href as Route}
           className="px-3 text-muted-foreground transition-colors hover:text-foreground"
         >
           {social.icon}

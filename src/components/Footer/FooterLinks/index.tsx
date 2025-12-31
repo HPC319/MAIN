@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Route } from "next";
 
 interface LinkItem {
   label: string;
@@ -52,7 +53,7 @@ export const FooterLinks = () => {
               {section.links.map((link) => (
                 <li key={link.label}>
                   <Link
-                    href={link.href}
+                    href={link.href as Route}
                     className="inline-block text-base leading-loose text-muted-foreground transition-colors hover:text-primary"
                   >
                     {link.label}

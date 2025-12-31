@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Route } from "next";
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils/cn";
 
@@ -14,7 +15,7 @@ export const FooterSocial = ({ links, className }: FooterSocialProps) => {
         <Link
           key={index}
           aria-label={link.label || "social link"}
-          href={link.href}
+          href={link.href as Route}
           className="px-3 text-gray-7 hover:text-white"
         >
           {link.icon}
