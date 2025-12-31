@@ -202,7 +202,7 @@ export interface FormFieldInvariants {
 
 export function enforceFormFieldLabel(
   field: FormFieldInvariants
-): asserts field is Required<Pick<FormFieldInvariants, 'label'>> | Required<Pick<FormFieldInvariants, 'aria-label'>> {
+): asserts field is FormFieldInvariants & (Required<Pick<FormFieldInvariants, 'label'>> | Required<Pick<FormFieldInvariants, 'aria-label'>>) {
   if (!field.label && !field['aria-label']) {
     throw new InvariantViolation(
       `Form field "${field.name}" must have label or aria-label`

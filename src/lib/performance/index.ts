@@ -24,14 +24,16 @@ export {
 } from './memoization';
 
 // Debounce and throttle utilities
-export {
-  debounce,
-  throttle,
-  useDebounce,
-  useDebouncedCallback,
-  useThrottledCallback,
-  rafThrottle,
-  useRafCallback,
-  idleCallback,
-  cancelIdleCallback,
-} from './debounce';
+// Note: debounce module not found - commented out for now
+// These exports will be available once the debounce module is created
+// export {
+//   debounce,
+//   throttle,
+//   useDebounce,
+//   useDebouncedCallback,
+//   useThrottledCallback,
+//   rafThrottle,
+//   useRafCallback,
+//   idleCallback,
+//   cancelIdleCallback,
+// } from './debounce';

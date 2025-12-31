@@ -53,7 +53,7 @@ function detectDeviceCapabilities() {
     };
   }
 
-  interface NavigatorWithCapabilities extends Navigator {
+  interface NavigatorWithCapabilities {
     hardwareConcurrency?: number;
     deviceMemory?: number;
     connection?: {
@@ -62,7 +62,7 @@ function detectDeviceCapabilities() {
     };
   }
 
-  const nav = navigator as NavigatorWithCapabilities;
+  const nav = navigator as Navigator & NavigatorWithCapabilities;
   
   return {
     cores: nav.hardwareConcurrency || 2,

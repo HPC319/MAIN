@@ -53,14 +53,14 @@ export function mergeVariants<
   config2: U
 ): VariantConfig<T['variants'] & U['variants']> {
   return {
-    variants: { ...config1.variants, ...config2.variants },
+    variants: { ...config1.variants, ...config2.variants } as T['variants'] & U['variants'],
     defaultVariants: {
       ...config1.defaultVariants,
       ...config2.defaultVariants,
-    },
+    } as Partial<{ [K in keyof (T['variants'] & U['variants'])]?: keyof (T['variants'] & U['variants'])[K] }>,
     compoundVariants: [
       ...(config1.compoundVariants || []),
       ...(config2.compoundVariants || []),
     ],
-  }
+  } as VariantConfig<T['variants'] & U['variants']>
 }

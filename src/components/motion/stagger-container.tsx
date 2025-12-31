@@ -12,6 +12,7 @@ import { motion, type HTMLMotionProps, type Variants } from '@/lib/motion-kernel
 import { usePrefersReducedMotion } from '@/lib/hooks/use-media-query'
 
 // Container variants - unused but kept for reference
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _containerVariants: Variants = {
   hidden: {
     opacity: 0,
@@ -101,7 +102,7 @@ export const StaggerContainer = React.forwardRef<
 
     // Disable animations if user prefers reduced motion
     if (prefersReducedMotion) {
-      return <div ref={ref} {...(props as React.HTMLAttributes<HTMLDivElement>)}>{children}</div>
+      return <div ref={ref} {...(props as unknown as React.HTMLAttributes<HTMLDivElement>)}>{children as React.ReactNode}</div>
     }
 
     return (
@@ -111,9 +112,9 @@ export const StaggerContainer = React.forwardRef<
         animate="visible"
         exit="hidden"
         variants={customContainerVariants}
-        {...(props as React.ComponentProps<typeof motion.div>)}
+        {...(props as unknown as React.ComponentProps<typeof motion.div>)}
       >
-        {children}
+        {children as React.ReactNode}
       </motion.div>
     )
   }
@@ -139,7 +140,7 @@ export const StaggerItem = React.forwardRef<HTMLDivElement, StaggerItemProps>(
 
     // Disable animations if user prefers reduced motion
     if (prefersReducedMotion) {
-      return <div ref={ref} {...(props as React.HTMLAttributes<HTMLDivElement>)}>{children}</div>
+      return <div ref={ref} {...(props as unknown as React.HTMLAttributes<HTMLDivElement>)}>{children as React.ReactNode}</div>
     }
 
     return (

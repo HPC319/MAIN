@@ -5,7 +5,8 @@
  * Anyone can recognize a Canonstrata UI in motion alone.
  */
 
-import { Variants, Transition, MotionProps } from '@/lib/motion-kernel';
+import { Variants } from '@/lib/motion-kernel';
+import type { Transition, MotionProps } from 'framer-motion';
 import { animationDuration, type AnimationDuration } from '../invariants';
 
 // ============================================================================
