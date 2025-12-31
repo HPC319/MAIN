@@ -32,7 +32,7 @@ jobs:
         run: npm run lint:constitutional
       
       - name: Token Completeness
-        run: tsx scripts/ast-validators/token-completeness.ts
+        run: npm run gatekeeper:ast
       
       - name: Motion Kernel Enforcement
         run: tsx scripts/ast-validators/motion-kernel-guard.ts

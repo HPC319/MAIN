@@ -34,6 +34,17 @@ jobs:
       - name: Token Completeness Validation
         run: |
           echo "Validating token system completeness..."
+          npm run gatekeeper:ast|      - name: Token Completeness Validation
+        run: |
+          echo "Validating token system completeness..."
+          npm run gatekeeper:ast|      - name: Token Completeness Validation
+        run: |
+          echo "Validating token system completeness..."
+          npm run gatekeeper:ast|      - name: Token Completeness Validation
+        run: |
+          echo "Validating token system completeness..."
+          npm run gatekeeper:ast|
+          echo "Validating token system completeness..."
           node -e "
             const { validateTokenSystem } = require('./src/lib/enforcement/token-validator');
             // Add token validation logic here when tokens are defined
