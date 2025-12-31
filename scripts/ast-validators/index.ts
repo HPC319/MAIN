@@ -6,3 +6,4 @@ import './validate-rendering';
 import './validate-no-any-types';
 import './validate-no-ts-suppressions';
 import './validate-tokens-ast';
+import './validate-react-imports';

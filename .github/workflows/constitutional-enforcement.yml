@@ -29,6 +29,10 @@ jobs:
         env:
           DATABASE_URL: "postgres://ci_stub/brain"
 
+      # REACT IMPORT GOVERNANCE (BEFORE GATE 2)
+      - name: React Import Governance
+        run: npm run validate:react-imports
+
       # GATE 2: DEPENDENCY LAW
       - name: 'GATE 2: Dependency Preflight'
         run: npm run gatekeeper:dependencies

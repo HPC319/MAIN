@@ -38,14 +38,6 @@ next-env.d.ts
 # storybook
 storybook-static
 
-# IMMUTABILITY ENFORCEMENT
-*.backup
-*.temp
-*.log
-reports/
-artifacts/
-temp/
-
 # IDE
 .vscode/
 .idea/
@@ -54,51 +46,40 @@ temp/
 *~
 
 # OS
-.DS_Store
 Thumbs.db
-
-# Contamination prevention
-*.backup
-*.temp
-*.log
-.DS_Store
-reports/
-artifacts/
-temp/
-*.md.backup
-PHASE_*.md
-STATUS*.md
-IMPLEMENTATION*.md
-design-system/migrations/
-AGENT_*.md
-EXECUTION*.md
-COMPLETE*.md
-FINAL*.md
-MISSION*.md
-
-# IMMUTABILITY ENFORCEMENT - STRICT ARTIFACT BLOCKING
-*.tmp
-*.bak
-backups/
-docs/generated/
-DEPLOYMENT_*.md
-VERIFICATION_*.md
-COMPLETION_*.md
-TASK_*.md
-PROJECT_STATUS*.md
 
 # === REPOSITORY IMMUTABILITY ENFORCEMENT ===
 # Block all generated artifacts, reports, backups, and contamination
+# ONLY SOURCE-OF-TRUTH CODE IS COMMITTED
 
-# Audit & Report Files
-*.audit.*
+# Backup & Temp Files
+*.backup
+*.backup.*
+*.temp
+*.temp.*
+*.tmp
+*.tmp.*
+*.bak
+*.old
+*.orig
+*_backup.*
+*_temp.*
+backup-*
+temp-*
+backups/
+temp/
+tmp/
+
+# Reports & Audit Files
 *.report.*
-*_audit.*
+*.audit.*
 *_report.*
-AUDIT_*.md
+*_audit.*
 AUDIT*.md
-COMPREHENSIVE_*.md
+AUDIT_*.md
+REPORT*.md
 REPORT_*.md
+COMPREHENSIVE_*.md
 EXECUTIVE_*.md
 SUMMARY_*.md
 audit-*
@@ -106,49 +87,48 @@ report-*
 reports/
 audits/
 
-# Backup & Temp Files
-*.backup.*
-*.temp.*
-*.tmp.*
-*_backup.*
-*_temp.*
-*_generated.*
-*.old
-*.orig
-backup-*
-temp-*
-backups/
-temp/
-tmp/
+# Status & Tracking Files
+STATUS*.md
+STATUS_*.md
+PHASE*.md
+PHASE_*.md
+IMPLEMENTATION*.md
+IMPLEMENTATION_*.md
+AGENT*.md
+AGENT_*.md
+EXECUTION*.md
+EXECUTION_*.md
+COMPLETE*.md
+COMPLETION*.md
+COMPLETION_*.md
+FINAL*.md
+MISSION*.md
+DEPLOYMENT*.md
+DEPLOYMENT_*.md
+VERIFICATION*.md
+VERIFICATION_*.md
+TASK*.md
+TASK_*.md
+PROJECT_STATUS*.md
 
 # Generated Artifacts
 *_GENERATED.*
+*_generated.*
 GENERATED_*.md
 generated/
 dist-test/
 build-temp/
+artifacts/
 
-# Status & Tracking Files (non-source)
-STATUS_*.md
-PHASE_*.md
-IMPLEMENTATION_*.md
-AGENT_*.md
-EXECUTION_*.md
-COMPLETE_*.md
-FINAL_*.md
-MISSION_*.md
-DEPLOYMENT_*.md
-VERIFICATION_*.md
-COMPLETION_*.md
-TASK_*.md
-PROJECT_STATUS*.md
-
-# Ad-hoc Scripts & Artifacts
+# Ad-hoc Scripts & Debug Output
 *_adhoc.*
 adhoc-*
 scratch.*
 test-output/
 debug-output/
 
-# Only source-of-truth code is committed
-# Everything else is ignored or blocked
+# Migrations & Temporary Design System Files
+design-system/migrations/
+
+# Log Files
+*.log
