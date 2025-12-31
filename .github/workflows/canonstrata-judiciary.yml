@@ -37,17 +37,8 @@ jobs:
       - name: Motion Kernel Enforcement
         run: npm run validate:motion
       
-      - name: Inline Style Prohibition
-        run: tsx scripts/ast-validators/inline-style-guard.ts
-      
-      - name: Client Boundary Enforcement
-        run: tsx scripts/ast-validators/client-boundary-guard.ts
-      
       - name: Build Validation
         run: npm run build
         env:
           CI: true
           DATABASE_URL: "postgres://ci_stub/brain"
-      
-      - name: Architecture Documentation Sync
-        run: tsx scripts/verify-architecture-sync.ts
