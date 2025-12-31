@@ -28,7 +28,7 @@ jobs:
         continue-on-error: false
       
       - name: ESLint Constitutional Rules
-        run: npm run lint
+        run: npm run lint:constitutional
         continue-on-error: false
       
       - name: Token Completeness Validation
