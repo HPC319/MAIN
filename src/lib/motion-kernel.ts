@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client'
 
 import { motion, type HTMLMotionProps as FramerHTMLMotionProps, type Variants as FramerVariants, type Easing as FramerEasing } from 'framer-motion';

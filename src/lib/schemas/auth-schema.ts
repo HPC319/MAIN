@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * Authentication Schemas
  * Zod validation schemas for authentication forms
@@ -77,6 +76,6 @@ export const magicLinkSchema = z.object({
 export type MagicLinkFormData = z.infer<typeof magicLinkSchema>
 
 // Export sendMagicLink function
-export async function sendMagicLink(data: MagicLinkFormData) {
+export async function sendMagicLink(_data: MagicLinkFormData) {
   return { success: true, message: "Magic link sent successfully" };
 }

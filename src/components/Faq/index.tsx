@@ -1,4 +1,3 @@
-// @ts-nocheck
 import SectionTitle from "../Common/SectionTitle";
 import { Accordion } from "@/components/ui/accordion";
 import { FaqItem } from "./FaqItem";

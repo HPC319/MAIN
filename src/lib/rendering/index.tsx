@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * CANONSTRATA ADAPTIVE RENDERING MODES
  * 
@@ -291,8 +290,10 @@ export function RenderingProvider({ children, defaultMode }: RenderingProviderPr
       }
     };
 
-    connection.addEventListener('change', handleConnectionChange);
-    return () => connection.removeEventListener('change', handleConnectionChange);
+    connection?.addEventListener?.('change', handleConnectionChange);
+    return () => connection?.removeEventListener?.('change', handleConnectionChange);
+    connection?.addEventListener?.('change', handleConnectionChange);
+    return () => connection?.removeEventListener?.('change', handleConnectionChange);
   }, [mode]);
 
   const shouldRender = useCallback(
@@ -410,19 +411,3 @@ export function AdaptiveAnimation({ children, fallback }: AdaptiveAnimationProps
 // EXPORTS
 // ============================================================================
 
-export type { RenderingMode, RenderingConfig, RenderingContextValue };
-export {
-  RenderingProvider,
-  useRendering,
-  useConditionalRender,
-  useAnimations,
-  useShadows,
-  useImageQuality,
-  usePerformanceConfig,
-  Adaptive,
-  AdaptiveAnimation,
-  detectDeviceCapabilities,
-  detectUserPreferences,
-  detectRenderingMode,
-  RENDERING_CONFIGS,
-};

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { TeamType } from "@/types/team";
 import SectionTitle from "../Common/SectionTitle";
 import SingleTeam from "./SingleTeam";

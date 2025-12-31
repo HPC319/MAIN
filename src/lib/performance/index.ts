@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * Performance Optimization Utilities
  * 

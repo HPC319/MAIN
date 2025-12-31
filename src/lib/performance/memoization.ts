@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { memo, useMemo, useCallback, DependencyList } from 'react';
 
 /**

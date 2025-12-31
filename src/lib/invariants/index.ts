@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * CANONSTRATA INVARIANT ENFORCEMENT LAYER
  * 

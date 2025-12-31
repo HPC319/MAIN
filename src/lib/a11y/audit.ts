@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * Accessibility Audit Utilities
  * Integrates axe-core for automated accessibility testing

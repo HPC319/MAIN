@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * Select Component
  * 
@@ -31,7 +30,7 @@ const SelectTrigger = React.forwardRef<
       'flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm',
       'ring-offset-background placeholder:text-muted-foreground',
       'transition-all duration-200',
-    // @ts-expect-error - using hoverContracts for now
+    
       hoverContracts.standard,
       hoverContracts.lift,
       'disabled:cursor-not-allowed disabled:opacity-50',
