@@ -1,103 +1,66 @@
-/**
- * Class Variance Authority (CVA) Helper Functions
- * 
- * Utilities for working with CVA-based component variants
- */
-
-import { cva, type VariantProps } from 'class-variance-authority'
 import type { ClassValue } from 'clsx'
 
 /**
- * Re-export CVA types and utilities
+ * Variant configuration type
  */
-export { cva, type VariantProps }
+export type VariantConfig<V extends Record<string, Record<string, ClassValue>>> = {
+  variants: V
+  defaultVariants?: {
+    [K in keyof V]?: keyof V[K]
+  }
+  compoundVariants?: Array<{
+    condition: {
+      [K in keyof V]?: keyof V[K]
+    }
+    className: ClassValue
+  }>
+}
 
 /**
- * Helper type to extract variant props from a CVA component
+ * Extract variant props from a variant configuration
  */
-export type ExtractVariantProps<T> = T extends (...args: unknown[]) => infer R
-  ? VariantProps<T>
-  : never
+export type VariantProps<T extends VariantConfig<Record<string, Record<string, ClassValue>>>> = {
+  [K in keyof T['variants']]?: keyof T['variants'][K]
+}
 
 /**
  * Helper to create a compound variant configuration
  */
-export function createCompoundVariants<T extends Record<string, unknown>>(
+export function createCompoundVariants<T extends Record<string, Record<string, ClassValue>>>(
   variants: Array<{
-    condition: Partial<T>
+    condition: Partial<{
+      [K in keyof T]?: keyof T[K]
+    }>
     className: ClassValue
   }>
-) {
-  return variants.map(({ condition, className }) => ({
-    ...condition,
-    class: className,
-  }))
-}
-
-/**
- * Helper to create default variants configuration
- */
-export function createDefaultVariants<T extends Record<string, unknown>>(
-  defaults: Partial<T>
-): Partial<T> {
-  return defaults
-}
-
-/**
- * Type-safe variant creator with better TypeScript inference
- */
-export interface VariantConfig<V extends Record<string, unknown>> {
-  base?: ClassValue
-  variants?: V
-  compoundVariants?: Array<{
-    [K in keyof V]?: V[K] extends Record<string, unknown> ? keyof V[K] : never
-  } & {
-    class: ClassValue
+): Array<{
+  condition: Partial<{
+    [K in keyof T]?: keyof T[K]
   }>
-  defaultVariants?: {
-    [K in keyof V]?: V[K] extends Record<string, unknown> ? keyof V[K] : never
+  className: ClassValue
+}> {
+  return variants
+}
+
+/**
+ * Helper to merge variant configurations
+ */
+export function mergeVariants<
+  T extends VariantConfig<Record<string, Record<string, ClassValue>>>,
+  U extends VariantConfig<Record<string, Record<string, ClassValue>>>
+>(
+  config1: T,
+  config2: U
+): VariantConfig<T['variants'] & U['variants']> {
+  return {
+    variants: { ...config1.variants, ...config2.variants },
+    defaultVariants: {
+      ...config1.defaultVariants,
+      ...config2.defaultVariants,
+    },
+    compoundVariants: [
+      ...(config1.compoundVariants || []),
+      ...(config2.compoundVariants || []),
+    ],
   }
 }
-
-/**
- * Create a variant function with enhanced type safety
- */
-export function createVariants<V extends Record<string, Record<string, ClassValue>>>(
-  config: VariantConfig<V>
-) {
-  return cva(config.base || '', {
-    variants: config.variants as V,
-    compoundVariants: config.compoundVariants as Array<{
-      [K in keyof V]?: V[K] extends Record<string, ClassValue> ? keyof V[K] : never
-    } & {
-      class: ClassValue
-    }>,
-    defaultVariants: config.defaultVariants as {
-      [K in keyof V]?: V[K] extends Record<string, ClassValue> ? keyof V[K] : never
-    },
-  })
-}
-
-/**
- * Example usage helper - creates a variant with common patterns
- */
-export const commonVariants = {
-  size: {
-    sm: 'text-sm',
-    md: 'text-base',
-    lg: 'text-lg',
-  },
-  variant: {
-    default: 'bg-primary text-primary-foreground',
-    secondary: 'bg-secondary text-secondary-foreground',
-    outline: 'border border-input bg-background',
-    ghost: 'hover:bg-accent hover:text-accent-foreground',
-  },
-  rounded: {
-    none: 'rounded-none',
-    sm: 'rounded-sm',
-    md: 'rounded-md',
-    lg: 'rounded-lg',
-    full: 'rounded-full',
-  },
-} as const

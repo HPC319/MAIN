@@ -83,10 +83,10 @@ export const memoize = {
   /**
    * Create a memoized callback with useCallback
    */
-  callback: <TArgs extends unknown[], TReturn>(
-    callback: (...args: TArgs) => TReturn,
+  callback: <T extends (...args: unknown[]) => unknown>(
+    callback: T,
     deps: DependencyList
-  ): ((...args: TArgs) => TReturn) => {
+  ): T => {
     return useCallback(callback, deps) as T;
   },
 

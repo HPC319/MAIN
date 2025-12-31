@@ -40,7 +40,7 @@ export interface RouteDefinition {
 }
 
 export interface ComponentRegistry {
-  readonly [key: string]: React.ComponentType<any>;
+  readonly [key: string]: React.ComponentType<Record<string, unknown>>;
 }
 
 export interface FeatureFlags {

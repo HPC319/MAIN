@@ -95,7 +95,7 @@ export function LeadIntakeFlow() {
         ? ['name', 'email', 'phone', 'company'] 
         : ['services', 'budget', 'timeline', 'message']
       
-      const isStepValid = await trigger(fieldsToValidate as Array<keyof typeof formData>)
+      const isStepValid = await trigger(fieldsToValidate as Array<keyof typeof defaultValues>)
       if (!isStepValid) return
     }
     

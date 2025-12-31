@@ -53,16 +53,7 @@ function detectDeviceCapabilities() {
     };
   }
 
-  interface NavigatorWithCapabilities extends Navigator {
-    hardwareConcurrency?: number;
-    deviceMemory?: number;
-    connection?: {
-      effectiveType?: '4g' | '3g' | '2g' | 'slow-2g';
-      saveData?: boolean;
-    };
-  }
-
-  const nav = navigator as NavigatorWithCapabilities;
+  const nav = navigator as Navigator & { connection?: { saveData?: boolean } };
   
   return {
     cores: nav.hardwareConcurrency || 2,
@@ -82,20 +73,9 @@ function detectUserPreferences() {
     };
   }
 
-  // Type guard for NetworkInformation API
-  interface NavigatorWithConnection extends Navigator {
-    connection?: {
-      saveData?: boolean;
-      effectiveType?: string;
-      downlink?: number;
-    };
-  }
-
-  const nav = navigator as NavigatorWithConnection;
-
   return {
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    reducedData: nav.connection?.saveData || false,
+    reducedData: (navigator as Navigator & { connection?: { saveData?: boolean; addEventListener?: (type: string, listener: () => void) => void; removeEventListener?: (type: string, listener: () => void) => void } }).connection?.saveData || false,
     colorScheme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' as const : 'light' as const,
   };
 }
@@ -297,22 +277,11 @@ export function RenderingProvider({ children, defaultMode }: RenderingProviderPr
 
   // Monitor network changes
   useEffect(() => {
-    interface NavigatorWithConnection extends Navigator {
-      connection?: {
-        saveData?: boolean;
-        effectiveType?: string;
-        downlink?: number;
-        addEventListener?: (event: string, handler: () => void) => void;
-        removeEventListener?: (event: string, handler: () => void) => void;
-      };
-    }
-
-    const nav = navigator as NavigatorWithConnection;
-    if (typeof navigator === 'undefined' || !nav.connection) {
+    if (typeof navigator === 'undefined' || !(navigator as Navigator & { connection?: { saveData?: boolean; addEventListener?: (type: string, listener: () => void) => void; removeEventListener?: (type: string, listener: () => void) => void } }).connection) {
       return;
     }
 
-    const connection = nav.connection;
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean; addEventListener?: (type: string, listener: () => void) => void; removeEventListener?: (type: string, listener: () => void) => void } }).connection;
     
     const handleConnectionChange = () => {
       const newMode = detectRenderingMode();
