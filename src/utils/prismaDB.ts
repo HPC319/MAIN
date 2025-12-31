@@ -1,8 +1,19 @@
 import { PrismaPg } from '@prisma/adapter-pg'
 
-// PrismaClient type - using dynamic import to handle CI environments
-// Try to get the type from the generated client, fallback to any for CI
-type PrismaClientType = typeof import("@prisma/client").PrismaClient extends new (...args: unknown[]) => infer T ? T : never
+// PrismaClient type - handle both generated and CI environments
+// Use a type that works when Prisma is generated, with a proper fallback
+type PrismaClientModule = typeof import("@prisma/client");
+type PrismaClientType = 
+  PrismaClientModule extends { PrismaClient: new (...args: unknown[]) => infer T }
+    ? T
+    : {
+        user: {
+          findUnique: (args: { where: Record<string, unknown> }) => Promise<unknown>;
+          findFirst: (args: { where: Record<string, unknown> }) => Promise<unknown>;
+          create: (args: { data: Record<string, unknown> }) => Promise<unknown>;
+          update: (args: { where: Record<string, unknown>; data: Record<string, unknown> }) => Promise<unknown>;
+        };
+      };
 
 const globalForPrisma = global as unknown as {
   prisma: PrismaClientType | undefined
@@ -21,7 +32,7 @@ try {
       findFirst: () => Promise.resolve(null),
       create: () => Promise.resolve({}),
       update: () => Promise.resolve({}),
-    } as unknown as PrismaClientType['user'];
+    } as PrismaClientType['user'];
     constructor() {
       throw new Error("PrismaClient not generated. Run: npx prisma generate");
     }
