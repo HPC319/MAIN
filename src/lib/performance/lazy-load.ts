@@ -11,7 +11,7 @@ export function lazyLoad<T extends ComponentType<Record<string, unknown>>>(
 
   return (props: React.ComponentProps<T>) =>
     createElement(Suspense, { fallback: fallback || createElement('div', null, 'Loading...') },
-      createElement(LazyComponent, props as unknown as React.ComponentPropsWithoutRef<T>)
+      createElement(LazyComponent, props as unknown as React.ComponentPropsWithoutRef<T> & Record<string, unknown>)
     );
 }
 
@@ -46,7 +46,7 @@ export function lazyLoadWithRetry<T extends ComponentType<Record<string, unknown
 
   return (props: React.ComponentProps<T>) =>
     createElement(Suspense, { fallback: fallback || createElement('div', null, 'Loading...') },
-      createElement(LazyComponent, props as unknown as React.ComponentPropsWithoutRef<T>)
+      createElement(LazyComponent, props as unknown as React.ComponentPropsWithoutRef<T> & Record<string, unknown>)
     );
 }
 

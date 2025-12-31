@@ -42,7 +42,7 @@ export const staggerItemVariants: Variants = {
 }
 
 export interface StaggerContainerProps
-  extends Omit<HTMLMotionProps<'div'>, 'variants'>, React.HTMLAttributes<HTMLDivElement> {
+  extends Omit<HTMLMotionProps<'div'>, 'variants' | 'className'>, Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> {
   /**
    * Delay between each child animation in seconds
    * @default 0.1

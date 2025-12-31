@@ -8,7 +8,7 @@
 'use client'
 
 import * as React from 'react'
-import { motion, type HTMLMotionProps, type Variants } from '@/lib/motion-kernel'
+import { motion, type Variants } from '@/lib/motion-kernel'
 import type { Easing } from 'framer-motion'
 import { usePrefersReducedMotion } from '@/lib/hooks/use-media-query'
 

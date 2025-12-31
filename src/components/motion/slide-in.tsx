@@ -110,7 +110,7 @@ export const SlideIn = React.forwardRef<HTMLDivElement, SlideInProps>(
         transition={{
           duration,
           delay,
-          ease: (Array.isArray(easing) ? easing : (typeof easing === 'string' ? easing : [easing])) as import('framer-motion').Easing | import('framer-motion').Easing[] | undefined,
+          ...(easing !== undefined ? { ease: (Array.isArray(easing) ? easing : (typeof easing === 'string' ? easing : [easing])) as import('framer-motion').Easing | import('framer-motion').Easing[] } : {}),
         }}
         {...(props as unknown as React.ComponentProps<typeof motion.div>)}
       >

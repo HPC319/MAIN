@@ -31,6 +31,8 @@ export const motion = framerMotion
 export type Variants = FramerVariants
 export type HTMLMotionProps<T extends keyof React.JSX.IntrinsicElements = 'div'> = MotionProps
 export type { MotionProps, Transition, Easing } from 'framer-motion'
+// Type parameter T is used in the constraint, suppress unused warning
+export type _HTMLMotionPropsExample = HTMLMotionProps<'div'>
 
 export const motionConfig = {
   reducedMotion: 'user',

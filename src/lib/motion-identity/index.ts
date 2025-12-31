@@ -7,8 +7,6 @@
 
 import { Variants } from '@/lib/motion-kernel';
 import type { MotionProps } from 'framer-motion';
-// Transition type available but not used in this file
-type _Transition = import('framer-motion').Transition;
 import { animationDuration, type AnimationDuration } from '../invariants';
 
 // ============================================================================

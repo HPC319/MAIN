@@ -45,11 +45,19 @@ export async function runA11yAudit(
         description: v.description,
         help: v.help,
         helpUrl: v.helpUrl,
-        nodes: v.nodes.map((n) => ({
-          html: n.html,
-          target: Array.isArray(n.target) ? n.target : (typeof n.target === 'string' ? [n.target] : []),
-          failureSummary: n.failureSummary || '',
-        })),
+        nodes: v.nodes.map((n) => {
+          let targetArray: string[] = [];
+          if (Array.isArray(n.target)) {
+            targetArray = n.target.map(t => typeof t === 'string' ? t : String(t));
+          } else if (typeof n.target === 'string') {
+            targetArray = [n.target];
+          }
+          return {
+            html: n.html,
+            target: targetArray,
+            failureSummary: n.failureSummary || '',
+          };
+        }),
       })),
       passes: results.passes.length,
       incomplete: results.incomplete.length,

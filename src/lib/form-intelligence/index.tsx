@@ -128,7 +128,7 @@ function useAutoSave<T extends FieldValues>(
     const saved = localStorage.getItem(config.storageKey);
     if (saved) {
       try {
-        const data = JSON.parse(saved);
+        const data = JSON.parse(saved) as T;
         form.reset(data);
       } catch {
         // Ignore parse errors
@@ -182,7 +182,7 @@ function useValidationState<T extends FieldValues>(
   form: UseFormReturn<T>
 ): FormState {
   const [state, setState] = useState<FormState>('idle');
-  const { formState, watch } = form;
+  const { formState } = form;
 
   useEffect(() => {
     if (formState.isSubmitting) {
@@ -216,15 +216,16 @@ function useFieldMeta<T extends FieldValues>(
   fieldName: keyof T
 ): FieldMeta {
   const { formState, getFieldState } = form;
-  const fieldState = getFieldState(fieldName as string, formState);
-  const [focused, setFocused] = useState(false);
+  const fieldState = getFieldState(fieldName as string as import('react-hook-form').Path<T>, formState);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [focused, _setFocused] = useState(false);
 
   return {
     touched: fieldState.isTouched || false,
     dirty: fieldState.isDirty || false,
     focused,
     validating: formState.isValidating,
-    error: fieldState.error?.message,
+    error: fieldState.error?.message ?? undefined,
     lastModified: Date.now(),
   };
 }
@@ -274,15 +275,14 @@ export function useFormIntelligence<T extends FieldValues>(
     fields,
     autoSave: {
       enabled: autoSaveConfig.enabled,
-      lastSaved: autoSave.lastSaved,
+      ...(autoSave.lastSaved !== undefined ? { lastSaved: autoSave.lastSaved } : {}),
       saving: autoSave.saving,
-      error: autoSave.error,
-    },
+      ...(autoSave.error !== undefined ? { error: autoSave.error } : {}),
+    } as FormIntelligence<T>['autoSave'],
     predictions: {
-      nextField: progress.nextField ?? undefined,
+      ...(progress.nextField !== undefined ? { nextField: progress.nextField } : {}),
       completionPercentage: progress.progress,
-      estimatedTimeRemaining: undefined,
-    },
+    } as FormIntelligence<T>['predictions'],
     conflicts: {
       hasConflict: false,
       conflictedFields: [],
