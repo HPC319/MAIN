@@ -32,22 +32,22 @@ interface IndexerConfig {
    * Directory containing blog markdown files
    */
   contentDir: string;
-  
+
   /**
    * Output path for the generated search index
    */
   outputPath: string;
-  
+
   /**
    * File extensions to index
    */
   extensions: string[];
-  
+
   /**
    * Whether to include full content in index
    */
   includeFullContent: boolean;
-  
+
   /**
    * Maximum content length to index (characters)
    */
@@ -84,6 +84,12 @@ function extractFrontmatter(content: string): {
   }
 
   const [, frontmatterText, bodyContent] = match;
+
+  // FIX 1: Guard against undefined frontmatterText
+  if (!frontmatterText) {
+    return { frontmatter: {}, bodyContent: content };
+  }
+
   const frontmatter: Record<string, unknown> = {};
 
   // Simple YAML parser for common frontmatter fields
@@ -92,7 +98,7 @@ function extractFrontmatter(content: string): {
     if (key && valueParts.length > 0) {
       const value = valueParts.join(":").trim();
       const cleanKey = key.trim();
-      
+
       // Handle arrays (tags)
       if (value.startsWith("[") && value.endsWith("]")) {
         frontmatter[cleanKey] = value
@@ -167,9 +173,9 @@ function processMarkdownFile(
     const content = fs.readFileSync(filePath, "utf-8");
     const { frontmatter, bodyContent } = extractFrontmatter(content);
 
-    // Extract slug from filename or frontmatter
+    // FIX 2: Extract slug with proper type safety
     const fileName = path.basename(filePath, path.extname(filePath));
-    const slug = (frontmatter.slug as string) || fileName;
+    const slug: string = (frontmatter.slug as string | undefined) ?? fileName;
 
     // Build search index entry
     const entry: SearchIndexEntry = {
