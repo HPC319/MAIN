@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 		data: {
 			passwordResetToken: resetToken,
 			passwordResetTokenExp,
-		},
+		} as Parameters<typeof prisma.user.update>[0]['data'],
 	});
 
 	const resetURL = `${process.env.SITE_URL}/reset-password/${resetToken}`;

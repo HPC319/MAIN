@@ -33,7 +33,7 @@ export async function POST(request: Request) {
 				password: hashedPassword,
 				passwordResetToken: null,
 				passwordResetTokenExp: null,
-			},
+			} as Parameters<typeof prisma.user.update>[0]['data'],
 		});
 
 		return NextResponse.json("Password Updated", { status: 200 });

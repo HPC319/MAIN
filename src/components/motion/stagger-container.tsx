@@ -11,9 +11,8 @@ import * as React from 'react'
 import { motion, type HTMLMotionProps, type Variants } from '@/lib/motion-kernel'
 import { usePrefersReducedMotion } from '@/lib/hooks/use-media-query'
 
-// Container variants - unused but kept for reference
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const _containerVariants: Variants = {
+// Container variants - exported for potential future use
+export const containerVariants: Variants = {
   hidden: {
     opacity: 0,
   },

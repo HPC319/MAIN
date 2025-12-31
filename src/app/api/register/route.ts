@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       name,
       email: email.toLowerCase(),
       password: hashedPassword,
-    },
+    } as Parameters<typeof prisma.user.create>[0]['data'],
   });
 
   return NextResponse.json("User created successfully!", { status: 200 });
