@@ -12,6 +12,7 @@
     "start:prod": "NODE_ENV=production next start -p 3000",
     "lint": "eslint . --config eslint.constitutional.config.mjs",
     "lint:fix": "eslint . --config eslint.constitutional.config.mjs --fix",
+    "lint:constitutional": "eslint . --config eslint.constitutional.config.mjs",
     "typecheck": "tsc --noEmit --incremental false",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md,mdx}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md,mdx}\"",
