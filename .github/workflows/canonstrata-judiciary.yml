@@ -24,6 +24,7 @@ jobs:
         run: npm ci
         env:
           DATABASE_URL: "postgres://ci_stub/brain"
+          SECRET: ${{ secrets.SECRET }}
       
       - name: React Import Governance
         run: npm run validate:react-imports
@@ -45,3 +46,4 @@ jobs:
         env:
           CI: true
           DATABASE_URL: "postgres://ci_stub/brain"
+          SECRET: ${{ secrets.SECRET }}

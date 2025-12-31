@@ -28,6 +28,7 @@ jobs:
         run: npm ci
         env:
           DATABASE_URL: "postgres://ci_stub/brain"
+          SECRET: ${{ secrets.SECRET }}
 
       # REACT IMPORT GOVERNANCE (BEFORE GATE 2)
       - name: React Import Governance
@@ -64,6 +65,7 @@ jobs:
         run: npm run build
         env:
           DATABASE_URL: "postgres://ci_stub/brain"
+          SECRET: ${{ secrets.SECRET }}
 
       # FINAL GATE: SUCCESS
       - name: 'CONSTITUTIONAL ENFORCEMENT: PASSED'
