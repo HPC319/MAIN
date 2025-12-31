@@ -121,10 +121,11 @@ export function useStableReference<T>(value: T): T {
 export function useOnce<T extends (...args: unknown[]) => unknown>(callback: T): T {
   const hasRun = useMemo(() => ({ current: false }), []);
   
-  return useCallback((...args: unknown[]) => {
+  return useCallback((...args: Parameters<T>): ReturnType<T> => {
     if (!hasRun.current) {
       hasRun.current = true;
-      return callback(...args);
+      return callback(...args) as ReturnType<T>;
     }
-  }, [callback]) as T;
+    return undefined as ReturnType<T>;
+  }, [callback, hasRun]) as T;
 }

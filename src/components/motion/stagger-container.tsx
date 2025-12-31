@@ -11,7 +11,8 @@ import * as React from 'react'
 import { motion, type HTMLMotionProps, type Variants } from '@/lib/motion-kernel'
 import { usePrefersReducedMotion } from '@/lib/hooks/use-media-query'
 
-const containerVariants: Variants = {
+// Container variants - unused but kept for reference
+const _containerVariants: Variants = {
   hidden: {
     opacity: 0,
   },
@@ -100,7 +101,7 @@ export const StaggerContainer = React.forwardRef<
 
     // Disable animations if user prefers reduced motion
     if (prefersReducedMotion) {
-      return <div ref={ref} {...props}>{children}</div>
+      return <div ref={ref} {...(props as React.HTMLAttributes<HTMLDivElement>)}>{children}</div>
     }
 
     return (
@@ -110,7 +111,7 @@ export const StaggerContainer = React.forwardRef<
         animate="visible"
         exit="hidden"
         variants={customContainerVariants}
-        {...props}
+        {...(props as React.ComponentProps<typeof motion.div>)}
       >
         {children}
       </motion.div>
@@ -138,7 +139,7 @@ export const StaggerItem = React.forwardRef<HTMLDivElement, StaggerItemProps>(
 
     // Disable animations if user prefers reduced motion
     if (prefersReducedMotion) {
-      return <div ref={ref} {...props}>{children}</div>
+      return <div ref={ref} {...(props as React.HTMLAttributes<HTMLDivElement>)}>{children}</div>
     }
 
     return (

@@ -292,43 +292,4 @@ export const invariantSchemas = {
   ),
 } as const;
 
-// ============================================================================
-// EXPORTS
-// ============================================================================
-
-export type {
-  NonEmptyArray,
-  Positive,
-  NonNegative,
-  ValidPercentage,
-  RequiredProps,
-  AccessibleComponent,
-  HexColor,
-  SpacingUnit,
-  FontSize,
-  AnimationDuration,
-  Easing,
-  Email,
-  URL,
-};
-
-export {
-  isNonEmpty,
-  assertNonEmpty,
-  positive,
-  nonNegative,
-  percentage,
-  enforceAccessibleName,
-  hexColor,
-  spacingUnit,
-  fontSize,
-  animationDuration,
-  easing,
-  enforceFormFieldLabel,
-  email,
-  url,
-  InvariantViolation,
-  invariant,
-  assertNever,
-  invariantSchemas,
-};
+// All exports are done inline above - no duplicate exports needed

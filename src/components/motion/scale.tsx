@@ -96,7 +96,7 @@ export const Scale = React.forwardRef<HTMLDivElement, ScaleProps>(
 
     // Disable animations if user prefers reduced motion
     if (prefersReducedMotion) {
-      return <div ref={ref} {...props}>{children}</div>
+      return <div ref={ref} {...(props as React.HTMLAttributes<HTMLDivElement>)}>{children}</div>
     }
 
     const transition = useSpring
@@ -109,7 +109,7 @@ export const Scale = React.forwardRef<HTMLDivElement, ScaleProps>(
       : {
           duration,
           delay,
-          ease: easing,
+          ease: Array.isArray(easing) ? easing : (easing as string),
         }
 
     return (

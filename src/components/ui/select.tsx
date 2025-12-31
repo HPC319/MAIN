@@ -13,6 +13,7 @@ import * as SelectPrimitive from '@radix-ui/react-select'
 import { Check, ChevronDown, ChevronUp } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 import { hoverContracts } from '@/design-system/interaction-contracts/hover'
+import { focusStates } from '@/design-system/interaction-contracts/focus'
 
 const Select = SelectPrimitive.Root
 
@@ -32,7 +33,6 @@ const SelectTrigger = React.forwardRef<
       'transition-all duration-200',
     
       hoverContracts.standard,
-      hoverContracts.lift,
       'disabled:cursor-not-allowed disabled:opacity-50',
       '[&>span]:line-clamp-1',
       className

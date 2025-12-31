@@ -412,24 +412,4 @@ export function AutoSaveIndicator() {
   );
 }
 
-// ============================================================================
-// EXPORTS
-// ============================================================================
-
-export type {
-  FormState,
-  FieldMeta,
-  FormIntelligence,
-  AutoSaveConfig,
-  UseFormIntelligenceConfig,
-  SmartFormContextValue,
-};
-
-export {
-  useFormIntelligence,
-  useSmartForm,
-  SmartFormProvider,
-  SmartFieldIndicator,
-  FormProgressBar,
-  AutoSaveIndicator,
-};
+// All exports are done inline above - no duplicate exports needed

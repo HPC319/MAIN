@@ -37,16 +37,22 @@ export const MotionWrapper = ({
   }
 
   // Apply animation with variant
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={variant ?? undefined}
-      transition={{ delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+  const motionProps = variant
+    ? {
+        initial: "hidden" as const,
+        whileInView: "visible" as const,
+        viewport: { once: true, margin: "-100px" },
+        variants: variant,
+        transition: { delay },
+        className,
+      }
+    : {
+        initial: "hidden" as const,
+        whileInView: "visible" as const,
+        viewport: { once: true, margin: "-100px" },
+        transition: { delay },
+        className,
+      };
+
+  return <motion.div {...motionProps}>{children}</motion.div>;
 };

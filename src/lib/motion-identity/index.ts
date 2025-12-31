@@ -60,7 +60,7 @@ export const canostrataReveal: Variants = {
     y: 0,
     scale: 1,
     transition: {
-      ...canostrataSpring,
+      ...canonstrataSpring,
       opacity: { duration: 0.3, ease: canostrataEase },
     },
   },
@@ -165,7 +165,7 @@ export const canostrataStagger = {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: canostrataSpring,
+      transition: canonstrataSpring,
     },
   },
 } as const;
@@ -342,7 +342,7 @@ export const canostrataModal: Variants = {
     scale: 1,
     y: 0,
     transition: {
-      ...canostrataSpring,
+      ...canonstrataSpring,
       opacity: { duration: 0.2 },
     },
   },
@@ -447,14 +447,6 @@ export const canostrataMotion = {
 
 // ============================================================================
 // EXPORTS
-// ============================================================================
-
-export {
-  canostrataSpring,
-  canostrataEase,
-  canostrataSnap,
-  canostrataFloat,
-  durations,
-};
+// All exports are done inline above - no duplicate exports needed
 
 export type MotionPreset = keyof typeof canostrataMotion;

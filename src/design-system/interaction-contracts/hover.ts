@@ -36,3 +36,6 @@ export const hoverContracts = {
 } as const;
 
 export type HoverContract = keyof typeof hoverContracts;
+
+// Export as hoverStates for backward compatibility
+export const hoverStates = hoverContracts;

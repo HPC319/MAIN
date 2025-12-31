@@ -13,6 +13,8 @@ import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils/cn'
 import { hoverContracts } from '@/design-system/interaction-contracts/hover'
+import { focusStates } from '@/design-system/interaction-contracts/focus'
+import { pressStates } from '@/design-system/interaction-contracts/press'
 
 const buttonVariants = cva(
   [

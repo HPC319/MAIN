@@ -22,21 +22,17 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'outline', 'ghost', 'destructive'],
+      options: ['default', 'secondary', 'outline', 'ghost', 'destructive', 'link'],
       description: 'Visual style variant',
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'icon'],
+      options: ['sm', 'default', 'lg', 'icon'],
       description: 'Size of the button',
     },
     disabled: {
       control: 'boolean',
       description: 'Disabled state',
-    },
-    loading: {
-      control: 'boolean',
-      description: 'Loading state with spinner',
     },
   },
 } satisfies Meta<typeof Button>;
@@ -45,10 +41,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Default button
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     children: 'Button',
-    variant: 'primary',
+    variant: 'default',
   },
 };
 
@@ -91,7 +87,7 @@ export const Small: Story = {
 export const Medium: Story = {
   args: {
     children: 'Medium Button',
-    size: 'md',
+    size: 'default',
   },
 };
 
@@ -110,10 +106,10 @@ export const Disabled: Story = {
   },
 };
 
-export const Loading: Story = {
+export const WithAsChild: Story = {
   args: {
-    children: 'Loading Button',
-    loading: true,
+    asChild: true,
+    children: <a href="#test">Link Button</a>,
   },
 };
 
@@ -145,14 +141,14 @@ export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <div className="flex gap-2">
-        <Button variant="primary">Primary</Button>
+        <Button variant="default">Default</Button>
         <Button variant="secondary">Secondary</Button>
         <Button variant="outline">Outline</Button>
         <Button variant="ghost">Ghost</Button>
         <Button variant="destructive">Destructive</Button>
       </div>
       <div className="flex gap-2">
-        <Button variant="primary" disabled>Primary</Button>
+        <Button variant="default" disabled>Default</Button>
         <Button variant="secondary" disabled>Secondary</Button>
         <Button variant="outline" disabled>Outline</Button>
         <Button variant="ghost" disabled>Ghost</Button>
@@ -167,7 +163,7 @@ export const AllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Button size="sm">Small</Button>
-      <Button size="md">Medium</Button>
+      <Button size="default">Default</Button>
       <Button size="lg">Large</Button>
       <Button size="icon">
         <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">

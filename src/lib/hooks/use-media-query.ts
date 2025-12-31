@@ -44,7 +44,7 @@ export function useMediaQuery(query: string): boolean {
       return () => mediaQuery.removeEventListener('change', handler)
     }
     // Legacy browsers - type guard for deprecated API
-    else if ('addListener' in mediaQuery && typeof mediaQuery.addListener === 'function') {
+    if ('addListener' in mediaQuery && typeof mediaQuery.addListener === 'function') {
       // Legacy MediaQueryList with deprecated methods
       const legacyMediaQuery = mediaQuery as MediaQueryList & {
         addListener: (listener: (event: MediaQueryListEvent) => void) => void;
@@ -53,6 +53,8 @@ export function useMediaQuery(query: string): boolean {
       legacyMediaQuery.addListener(handler);
       return () => legacyMediaQuery.removeListener(handler);
     }
+    // Fallback if neither API is available
+    return () => {};
   }, [query])
 
   // Return false during SSR to prevent hydration mismatch

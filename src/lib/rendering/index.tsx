@@ -53,7 +53,16 @@ function detectDeviceCapabilities() {
     };
   }
 
-  const nav = navigator as Navigator & { connection?: { saveData?: boolean } };
+  interface NavigatorWithCapabilities extends Navigator {
+    hardwareConcurrency?: number;
+    deviceMemory?: number;
+    connection?: {
+      effectiveType?: '4g' | '3g' | '2g' | 'slow-2g';
+      saveData?: boolean;
+    };
+  }
+
+  const nav = navigator as NavigatorWithCapabilities;
   
   return {
     cores: nav.hardwareConcurrency || 2,
@@ -281,7 +290,21 @@ export function RenderingProvider({ children, defaultMode }: RenderingProviderPr
       return;
     }
 
-    const connection = (navigator as Navigator & { connection?: { saveData?: boolean; addEventListener?: (type: string, listener: () => void) => void; removeEventListener?: (type: string, listener: () => void) => void } }).connection;
+    interface NavigatorWithConnection extends Navigator {
+      connection?: {
+        saveData?: boolean;
+        effectiveType?: string;
+        addEventListener?: (type: string, listener: () => void) => void;
+        removeEventListener?: (type: string, listener: () => void) => void;
+      };
+    }
+
+    const nav = navigator as NavigatorWithConnection;
+    const connection = nav.connection;
+    
+    if (!connection?.addEventListener) {
+      return;
+    }
     
     const handleConnectionChange = () => {
       const newMode = detectRenderingMode();
@@ -290,10 +313,12 @@ export function RenderingProvider({ children, defaultMode }: RenderingProviderPr
       }
     };
 
-    connection?.addEventListener?.('change', handleConnectionChange);
-    return () => connection?.removeEventListener?.('change', handleConnectionChange);
-    connection?.addEventListener?.('change', handleConnectionChange);
-    return () => connection?.removeEventListener?.('change', handleConnectionChange);
+    connection.addEventListener('change', handleConnectionChange);
+    return () => {
+      if (connection.removeEventListener) {
+        connection.removeEventListener('change', handleConnectionChange);
+      }
+    };
   }, [mode]);
 
   const shouldRender = useCallback(

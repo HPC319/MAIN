@@ -97,7 +97,7 @@ export const SlideIn = React.forwardRef<HTMLDivElement, SlideInProps>(
 
     // Disable animations if user prefers reduced motion
     if (prefersReducedMotion) {
-      return <div ref={ref} {...props}>{children}</div>
+      return <div ref={ref} {...(props as React.HTMLAttributes<HTMLDivElement>)}>{children}</div>
     }
 
     return (
@@ -110,9 +110,9 @@ export const SlideIn = React.forwardRef<HTMLDivElement, SlideInProps>(
         transition={{
           duration,
           delay,
-          ease: easing,
+          ease: Array.isArray(easing) ? easing : (easing as string),
         }}
-        {...props}
+        {...(props as React.ComponentProps<typeof motion.div>)}
       >
         {children}
       </motion.div>

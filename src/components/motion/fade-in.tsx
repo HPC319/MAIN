@@ -62,7 +62,7 @@ export const FadeIn = React.forwardRef<HTMLDivElement, FadeInProps>(
 
     // Disable animations if user prefers reduced motion
     if (prefersReducedMotion) {
-      return <div ref={ref} {...props}>{children as React.ReactNode}</div>
+      return <div ref={ref} {...(props as React.HTMLAttributes<HTMLDivElement>)}>{children}</div>
     }
 
     return (
@@ -77,9 +77,9 @@ export const FadeIn = React.forwardRef<HTMLDivElement, FadeInProps>(
           delay,
           ease: easing,
         }}
-        {...props}
+        {...(props as React.ComponentProps<typeof motion.div>)}
       >
-        {children as React.ReactNode}
+        {children}
       </motion.div>
     )
   }
