@@ -2,6 +2,7 @@ import { Blog } from "@/types/blog";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import type { Route } from "next";
 import { MotionWrapper } from "@/components/motion/motion-wrapper";
 
 const SingleBlog = ({ blog }: { blog: Blog }) => {
@@ -10,7 +11,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
   return (
     <MotionWrapper className="group mb-10">
       <div className="mb-8 overflow-hidden rounded">
-        <Link href={`/blogs/${slug}`} aria-label="blog cover" className="block">
+        <Link href={`/blogs/${slug}` as Route} aria-label="blog cover" className="block">
           <Image
             src={coverImage!}
             alt="image"
@@ -26,7 +27,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
         </span>
         <h3>
           <Link
-            href={`/blogs/${slug}`}
+            href={`/blogs/${slug}` as Route}
             className="mb-4 inline-block text-xl font-semibold text-dark hover:text-primary dark:text-white dark:hover:text-primary sm:text-2xl lg:text-xl xl:text-2xl"
           >
             {title}
