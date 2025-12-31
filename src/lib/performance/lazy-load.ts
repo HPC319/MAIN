@@ -11,7 +11,7 @@ export function lazyLoad<T extends ComponentType<Record<string, unknown>>>(
 
   return (props: React.ComponentProps<T>) =>
     createElement(Suspense, { fallback: fallback || createElement('div', null, 'Loading...') },
-      createElement(LazyComponent, props)
+      createElement(LazyComponent, props as unknown as React.ComponentPropsWithoutRef<T>)
     );
 }
 
@@ -32,7 +32,7 @@ export function lazyLoadWithRetry<T extends ComponentType<Record<string, unknown
   retries = 3,
   fallback?: ReactNode
 ) {
-  const retry = async (fn: () => Promise<unknown>, retriesLeft: number): Promise<unknown> => {
+  const retry = async (fn: () => Promise<{ default: T }>, retriesLeft: number): Promise<{ default: T }> => {
     try {
       return await fn();
     } catch (error) {
@@ -46,7 +46,7 @@ export function lazyLoadWithRetry<T extends ComponentType<Record<string, unknown
 
   return (props: React.ComponentProps<T>) =>
     createElement(Suspense, { fallback: fallback || createElement('div', null, 'Loading...') },
-      createElement(LazyComponent, props)
+      createElement(LazyComponent, props as unknown as React.ComponentPropsWithoutRef<T>)
     );
 }
 
@@ -60,7 +60,7 @@ export function createLazyWrapper(fallback?: ReactNode) {
     const LazyComponent = lazy(importFunc);
     return (props: React.ComponentProps<T>) =>
       createElement(Suspense, { fallback: fallback || createElement('div', null, 'Loading...') },
-        createElement(LazyComponent, props)
+        createElement(LazyComponent, props as unknown as React.ComponentPropsWithoutRef<T>)
       );
   };
 }

@@ -8,7 +8,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef, createContext, useContext, type ReactNode } from 'react';
-import { useForm, type UseFormReturn, type FieldValues, type FieldErrors } from 'react-hook-form';
+import type { UseFormReturn, FieldValues } from 'react-hook-form';
 import { invariant } from '../invariants';
 
 // ============================================================================
@@ -30,7 +30,7 @@ export interface FieldMeta {
   dirty: boolean;
   focused: boolean;
   validating: boolean;
-  error?: string;
+  error?: string | undefined;
   lastModified: number;
 }
 
@@ -62,7 +62,7 @@ interface AutoSaveConfig<T = unknown> {
   enabled: boolean;
   debounceMs: number;
   storageKey: string;
-  onSave?: (data: T) => Promise<void>;
+  onSave?: ((data: T) => Promise<void>) | undefined;
 }
 
 function useAutoSave<T extends FieldValues>(
@@ -113,7 +113,8 @@ function useAutoSave<T extends FieldValues>(
   useEffect(() => {
     if (!config.enabled) return;
 
-    const subscription = form.watch((data) => {
+    const subscription = form.watch(() => {
+      const data = form.getValues();
       debouncedSave(data);
     });
 
@@ -196,7 +197,7 @@ function useValidationState<T extends FieldValues>(
       setState('valid');
     } else if (formState.isDirty && !formState.isValid) {
       setState('invalid');
-    } else if (formState.isTouched || formState.isDirty) {
+    } else if (formState.isDirty) {
       setState('touched');
     } else {
       setState('idle');
@@ -278,7 +279,7 @@ export function useFormIntelligence<T extends FieldValues>(
       error: autoSave.error,
     },
     predictions: {
-      nextField: progress.nextField,
+      nextField: progress.nextField ?? undefined,
       completionPercentage: progress.progress,
       estimatedTimeRemaining: undefined,
     },
@@ -325,12 +326,12 @@ export function SmartFormProvider<T extends FieldValues>({
 }: SmartFormProviderProps<T>) {
   const focusNextField = useCallback(() => {
     if (intelligence.predictions.nextField) {
-      form.setFocus(intelligence.predictions.nextField as string);
+      form.setFocus(intelligence.predictions.nextField as string as import('react-hook-form').Path<T>);
     }
   }, [intelligence.predictions.nextField, form]);
 
   const focusField = useCallback((field: keyof T) => {
-    form.setFocus(field as string);
+    form.setFocus(field as string as import('react-hook-form').Path<T>);
   }, [form]);
 
   const getFieldProgress = useCallback(() => {
@@ -345,7 +346,7 @@ export function SmartFormProvider<T extends FieldValues>({
   };
 
   return (
-    <SmartFormContext.Provider value={value}>
+    <SmartFormContext.Provider value={value as SmartFormContextValue<Record<string, unknown>>}>
       {children}
     </SmartFormContext.Provider>
   );

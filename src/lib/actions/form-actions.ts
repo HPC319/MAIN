@@ -6,7 +6,7 @@ export const magicLinkSchema = z.object({
 
 export type MagicLinkFormData = z.infer<typeof magicLinkSchema>;
 
-export async function sendMagicLink(data: MagicLinkFormData) {
+export async function sendMagicLink(_data: MagicLinkFormData) {
   // Implementation
   return { success: true, message: "Magic link sent successfully" };
 }
@@ -18,12 +18,12 @@ export const createUserSchema = z.object({
 
 export type CreateUserData = z.infer<typeof createUserSchema>;
 
-export async function createUser(data: CreateUserData) {
+export async function createUser(_data: CreateUserData) {
   // Implementation
   return { success: true, message: "User created successfully" };
 }
 
-export async function requestPasswordReset(email: string) {
+export async function requestPasswordReset(_email: string) {
   // Implementation
   return { success: true, message: "Password reset email sent" };
 }
@@ -36,7 +36,7 @@ export const contactFormSchema = z.object({
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
 
-export async function submitContactForm(data: ContactFormData) {
+export async function submitContactForm(_data: ContactFormData) {
   // Implementation
   return { success: true, message: "Contact form submitted successfully" };
 }

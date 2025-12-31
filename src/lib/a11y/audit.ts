@@ -47,7 +47,7 @@ export async function runA11yAudit(
         helpUrl: v.helpUrl,
         nodes: v.nodes.map((n) => ({
           html: n.html,
-          target: n.target,
+          target: Array.isArray(n.target) ? n.target : (typeof n.target === 'string' ? [n.target] : []),
           failureSummary: n.failureSummary || '',
         })),
       })),
