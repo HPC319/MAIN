@@ -30,8 +30,8 @@ try {
     user = {
       findUnique: () => Promise.resolve(null),
       findFirst: () => Promise.resolve(null),
-      create: () => Promise.resolve({ id: '', email: '', createdAt: new Date(), updatedAt: new Date() } as unknown),
-      update: () => Promise.resolve({ id: '', email: '', createdAt: new Date(), updatedAt: new Date() } as unknown),
+      create: () => Promise.resolve({ id: '', email: '', createdAt: new Date(), updatedAt: new Date(), name: null, emailVerified: null, image: null, password: null, passwordResetToken: null, passwordResetTokenExp: null } as unknown),
+      update: () => Promise.resolve({ id: '', email: '', createdAt: new Date(), updatedAt: new Date(), name: null, emailVerified: null, image: null, password: null, passwordResetToken: null, passwordResetTokenExp: null } as unknown),
     } as PrismaClientType['user'];
     constructor() {
       throw new Error("PrismaClient not generated. Run: npx prisma generate");
