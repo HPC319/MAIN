@@ -35,7 +35,7 @@ jobs:
         run: npm run gatekeeper:ast
       
       - name: Motion Kernel Enforcement
-        run: tsx scripts/ast-validators/motion-kernel-guard.ts
+        run: npm run validate:motion
       
       - name: Inline Style Prohibition
         run: tsx scripts/ast-validators/inline-style-guard.ts

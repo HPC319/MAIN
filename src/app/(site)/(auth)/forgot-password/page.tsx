@@ -1,4 +1,3 @@
-import React from "react";
 import ForgotPassword from "@/components/Auth/ForgotPassword";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { Metadata } from "next";
