@@ -15,7 +15,7 @@ const Hero = () => {
   return (
     <HeroSection>
       <HeroContent>
-        <FadeIn direction="up" delay={0.2}>
+        <FadeIn /* direction="up" */ delay={0.2}>
           <HeroHeading>
             Trade-Agnostic Business Template for Next.js
           </HeroHeading>
@@ -63,7 +63,7 @@ const Hero = () => {
             </HeroActionItem>
           </HeroActions>
 
-          <FadeIn direction="up" delay={0.3}>
+          <FadeIn /* direction="up" */ delay={0.3}>
             <HeroBadges label="Play is now available for all popular frameworks">
               <HeroBadgeItem href="https://github.com/uideck/play-bootstrap/">
                 <svg

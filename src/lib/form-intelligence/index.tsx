@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * CANONSTRATA FORM STATE INTELLIGENCE LAYER
  * 

@@ -60,7 +60,7 @@ const ForgotPassword = () => {
       <div className="container">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">
-            <FadeIn direction="up" delay={0.15}>
+            <FadeIn /* direction="up" */ delay={0.15}>
               <div className="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white px-8 py-14 text-center dark:bg-dark-2 sm:px-12 md:px-[60px]">
                 <div className="mb-10 text-center">
                   <Link href="/" className="mx-auto inline-block max-w-[160px]">

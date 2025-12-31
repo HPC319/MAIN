@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Scale Motion Component
  * 

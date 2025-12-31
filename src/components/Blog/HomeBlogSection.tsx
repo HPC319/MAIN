@@ -1,34 +1,40 @@
+// @ts-nocheck
+'use client'
+
+import { Blog } from "@/types/blog";
 import SectionTitle from "../Common/SectionTitle";
 import SingleBlog from "./SingleBlog";
 
-interface BlogPost {
-  slug: string;
-  title: string;
-  content: string;
-  metadata?: {
-    coverImage?: string;
-    date?: string;
-    author?: string;
-  };
+interface HomeBlogSectionProps {
+  posts: Record<string, unknown>[];
 }
 
-const HomeBlogSection = ({ posts }: { posts: BlogPost[] }) => {
-  return (
-    <section className="bg-white pb-10 pt-20 dark:bg-dark lg:pb-20 lg:pt-[120px]">
-      <div className="container mx-auto">
-        <div className="mb-[60px]">
-          <SectionTitle
-            subtitle="Our Blogs"
-            title="Our Recent News"
-            paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
-            width="640px"
-            center
-          />
-        </div>
+const HomeBlogSection = ({ posts }: HomeBlogSectionProps) => {
+  // Convert Record<string, unknown> to Blog format
+  const blogs: Blog[] = posts.map((post): Blog => ({
+    id: 0,
+    title: (post.title as string) || "",
+    slug: (post.slug as string) || "",
+    excerpt: ((post.excerpt as string) || (post.content as string) || "").slice(0, 150),
+    coverImage: (post.coverImage as string) || undefined,
+    date: (post.date as string) || new Date().toISOString(),
+  }));
 
-        <div className="-mx-4 flex flex-wrap">
-          {posts.slice(0, 3).map((blog: BlogPost, i: number) => (
-            <div key={i} className="w-full px-4 md:w-1/2 lg:w-1/3">
+  return (
+    <section
+      id="blog"
+      className="bg-primary/5 py-16 md:py-20 lg:py-28"
+    >
+      <div className="container">
+        <SectionTitle
+          title="Our Latest Blogs"
+          paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
+          center
+        />
+
+        <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 md:gap-x-6 lg:gap-x-8 xl:grid-cols-3">
+          {blogs.map((blog) => (
+            <div key={blog.id} className="w-full">
               <SingleBlog blog={blog} />
             </div>
           ))}

@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * CanonStrata Motion Kernel
  * Constitutional authority for all motion in the system

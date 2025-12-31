@@ -10,7 +10,7 @@ const PopularArticle = (props: {
   const { image, title, name } = props;
   return (
     <div className="w-full px-4 md:w-1/2 lg:w-full">
-      <FadeIn direction="up" delay={0.1}>
+      <FadeIn /* direction="up" */ delay={0.1}>
         <div className="mb-5 flex w-full items-center border-b border-stroke pb-5 dark:border-dark-3">
           <div className={`mr-5 overflow-hidden rounded`}>
             <Image

@@ -8,21 +8,15 @@ export function getPostSlugs() {
   return fs.readdirSync(postsDirectory);
 }
 
-export function getPostBySlug(slug: string, fields: string[] = []) {
+export function getPostBySlug(slug: string, fields: string[] = []): Record<string, unknown> {
   const realSlug = slug.replace(/\.mdx$/, "");
   const fullPath = join(postsDirectory, `${realSlug}.mdx`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
-  type Items = {
-    [key: string]: string | object;
-  };
-
   const items: Record<string, unknown> = {};
 
   function processImages(content: string) {
-    // You can modify this function to handle image processing
-    // For example, replace image paths with actual HTML image tags
     return content.replace(/!\[.*?\]\((.*?)\)/g, '<img src="$1" alt="" />');
   }
 
@@ -32,12 +26,10 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
       items[field] = realSlug;
     }
     if (field === "content") {
-      // You can modify the content here to include images
       items[field] = processImages(content);
     }
 
     if (field === "metadata") {
-      // Include metadata, including the image information
       items[field] = { ...data, coverImage: data.coverImage || null };
     }
 
@@ -46,15 +38,26 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
     }
   });
 
+  // Ensure date is always present
+  if (!items.date && data.date) {
+    items.date = data.date;
+  }
+  if (!items.date) {
+    items.date = new Date().toISOString();
+  }
+
   return items;
 }
 
-export function getAllPosts(fields: string[] = []) {
+export function getAllPosts(fields: string[] = []): Record<string, unknown>[] {
   const slugs = getPostSlugs();
   const posts = slugs
     .map((slug) => getPostBySlug(slug, fields))
-    // sort posts by date in descending order
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+    .sort((post1, post2) => {
+      const date1 = post1.date as string;
+      const date2 = post2.date as string;
+      return date1 > date2 ? -1 : 1;
+    });
 
   return posts;
 }

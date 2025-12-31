@@ -84,7 +84,7 @@ const Footer = () => {
   ];
 
   return (
-    <FadeIn direction="up" delay={0.15}>
+    <FadeIn /* direction="up" */ delay={0.15}>
       <FooterContainer>
         <FooterGrid>
           <FooterColumn width="1/4">

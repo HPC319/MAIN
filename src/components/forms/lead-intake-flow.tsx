@@ -80,7 +80,7 @@ export function LeadIntakeFlow() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     getValues,
     trigger,
   } = useForm<LeadIntakeData>({
@@ -95,7 +95,7 @@ export function LeadIntakeFlow() {
         ? ['name', 'email', 'phone', 'company'] 
         : ['services', 'budget', 'timeline', 'message']
       
-      const isStepValid = await trigger(fieldsToValidate as Array<keyof typeof defaultValues>)
+      const isStepValid = await trigger(fieldsToValidate as ("name" | "email" | "phone" | "company" | "services" | "budget" | "timeline" | "message")[])
       if (!isStepValid) return
     }
     

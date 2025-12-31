@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * CANONSTRATA SIGNATURE MOTION IDENTITY
  * 

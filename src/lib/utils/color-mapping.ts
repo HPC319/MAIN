@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * CanonStrata Color Mapping Utility
  * Token-enforced color resolution

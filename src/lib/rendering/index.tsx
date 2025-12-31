@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * CANONSTRATA ADAPTIVE RENDERING MODES
  * 

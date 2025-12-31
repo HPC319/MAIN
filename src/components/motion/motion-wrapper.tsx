@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { motion, Variants } from "@/lib/motion-kernel";

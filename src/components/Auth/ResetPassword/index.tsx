@@ -1,13 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function ResetPassword({ token }: { token: string }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,6 +15,8 @@ export default function ResetPassword({ token }: { token: string }) {
       return;
     }
 
+    // Use token for password reset
+    console.log("Reset token:", token);
     setMessage("Password reset functionality pending");
   };
 

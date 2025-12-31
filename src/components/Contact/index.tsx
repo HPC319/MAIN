@@ -6,7 +6,7 @@ import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
 import { contactSchema, ContactFormData } from "@/lib/schemas/contact-schema";
-// import { submitContactForm } from "@/lib/actions/form-actions";
+import { submitContactForm } from "@/lib/actions/form-actions";
 import { FadeIn } from "@/components/motion/fade-in";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -121,7 +121,7 @@ const Contact = () => {
             </div>
           </div>
           <div className="w-full px-4 lg:w-5/12 xl:w-4/12">
-            <FadeIn direction="up" delay={0.2}>
+            <FadeIn /* direction="up" */ delay={0.2}>
               <div className="rounded-lg bg-white px-8 py-10 shadow-testimonial dark:bg-dark-2 dark:shadow-none sm:px-10 sm:py-12 md:p-[60px] lg:p-10 lg:px-10 lg:py-12 2xl:p-[60px]">
                 <h3 className="mb-8 text-2xl font-semibold text-dark dark:text-white md:text-[28px] md:leading-[1.42]">
                   Send us a Message

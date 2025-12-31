@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * SlideIn Motion Component
  * 

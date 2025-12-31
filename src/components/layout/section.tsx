@@ -76,7 +76,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
 
     return (
       <Component
-        ref={ref}
+        ref={ref as React.Ref<HTMLElement & HTMLDivElement>}
         className={cn(sectionVariants({ spacing, background }), className)}
         {...props}
       >

@@ -19,8 +19,8 @@ class GenericAdapter implements ITradeAdapter {
       branding: {
         logo: '/logo.svg',
         colors: {
-          primary: '#000000', // theme.colors.primary.main,
-          secondary: '#000000', // theme.colors.primary.main,
+          primary: '#000000',
+          secondary: '#000000',
         },
         fonts: {
           heading: 'Inter',
@@ -41,9 +41,9 @@ class GenericAdapter implements ITradeAdapter {
 
   getComponents(): ComponentRegistry {
     return {
-      HeroSection,
-      ContactForm,
-      ServicesGrid,
+      HeroSection: HeroSection as React.ComponentType<Record<string, unknown>>,
+      ContactForm: ContactForm as React.ComponentType<Record<string, unknown>>,
+      ServicesGrid: ServicesGrid as React.ComponentType<Record<string, unknown>>,
     };
   }
 }

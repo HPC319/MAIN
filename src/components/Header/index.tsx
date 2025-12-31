@@ -223,9 +223,9 @@ const Header = () => {
                             className={`submenu relative left-0 top-full w-[250px] rounded-sm bg-white p-4 transition-[top] duration-300 group-hover:opacity-100 dark:bg-dark-2 lg:invisible lg:absolute lg:top-[110%] lg:block lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${openIndex === index ? "!-left-[25px]" : "hidden"
                               }`}
                           >
-                            {menuItem?.submenu?.map((submenuItem: { path: string; title: string }, i) => (
+                            {menuItem?.submenu?.map((submenuItem: { path?: string; title: string }, i) => (
                               <Link
-                                href={submenuItem.path}
+                                href={submenuItem.path || "/"}
                                 key={i}
                                 className={`block rounded px-4 py-[10px] text-sm ${pathUrl === submenuItem.path
                                   ? "text-primary"

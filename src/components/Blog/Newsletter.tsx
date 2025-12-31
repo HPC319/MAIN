@@ -2,7 +2,7 @@ import { FadeIn } from "@/components/motion/fade-in";
 
 const Newsletter = () => {
   return (
-    <FadeIn direction="up" delay={0.1}>
+    <FadeIn /* direction="up" */ delay={0.1}>
       <div className="relative mb-12 overflow-hidden rounded-[5px] bg-primary px-11 py-[60px] text-center lg:px-8">
         <h3 className="mb-[6px] text-[28px] font-semibold leading-[40px] text-white">
           Join our newsletter!

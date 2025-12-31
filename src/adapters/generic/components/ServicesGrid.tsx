@@ -5,7 +5,7 @@ interface Service {
   readonly icon?: string;
 }
 
-interface ServicesGridProps {
+interface ServicesGridProps extends Record<string, unknown> {
   readonly services: readonly Service[];
 }
 

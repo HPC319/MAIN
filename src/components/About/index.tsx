@@ -9,7 +9,7 @@ const About = () => {
       className="bg-gray-1 pb-8 pt-20 dark:bg-dark-2 lg:pb-[70px] lg:pt-[120px]"
     >
       <div className="container">
-        <FadeIn direction="up" delay={0.2}>
+        <FadeIn /* direction="up" */ delay={0.2}>
           <div className="-mx-4 flex flex-wrap items-center">
             <div className="w-full px-4 lg:w-1/2">
               <div className="mb-12 max-w-[540px] lg:mb-0">

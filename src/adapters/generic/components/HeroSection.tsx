@@ -1,4 +1,4 @@
-interface HeroProps {
+interface HeroProps extends Record<string, unknown> {
   readonly title: string;
   readonly subtitle?: string;
   readonly ctaText?: string;

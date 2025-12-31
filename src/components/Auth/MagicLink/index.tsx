@@ -7,7 +7,6 @@ import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 
 import { magicLinkSchema, MagicLinkFormData } from "@/lib/schemas/auth-schema";
-import { sendMagicLink } from "@/lib/actions/form-actions";
 import Loader from "@/components/Common/Loader";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

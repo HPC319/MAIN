@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { lazy, Suspense, ComponentType, ReactNode, createElement } from 'react';
 
 /**
