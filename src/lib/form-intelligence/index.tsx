@@ -211,22 +211,18 @@ function useValidationState<T extends FieldValues>(
 // FIELD META TRACKER
 // ============================================================================
 
+// Unused function - kept for potential future use
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function _useFieldMeta<T extends FieldValues>(
-  form: UseFormReturn<T>,
-  fieldName: keyof T
+  _form: UseFormReturn<T>,
+  _fieldName: keyof T
 ): FieldMeta {
-  const { formState, getFieldState } = form;
-  const fieldState = getFieldState(fieldName as string as import('react-hook-form').Path<T>, formState);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [focused, _setFocused] = useState(false);
-
   return {
-    touched: fieldState.isTouched || false,
-    dirty: fieldState.isDirty || false,
-    focused,
-    validating: formState.isValidating,
-    error: fieldState.error?.message ?? undefined,
+    touched: false,
+    dirty: false,
+    focused: false,
+    validating: false,
+    error: undefined,
     lastModified: Date.now(),
   };
 }

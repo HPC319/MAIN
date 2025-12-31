@@ -3,7 +3,7 @@
  * Standardized hover states for interactive elements
  */
 
-const hoverContractsObj = {
+export const hoverContracts = {
   // Subtle hover for cards and surfaces
   subtle: "hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-200",
   
@@ -34,8 +34,6 @@ const hoverContractsObj = {
   // Fade in hover
   fadeIn: "hover:opacity-100 transition-opacity duration-200",
 } as const;
-
-export const hoverContracts: typeof hoverContractsObj = hoverContractsObj;
 
 export type HoverContract = keyof typeof hoverContracts;
 
