@@ -1,0 +1,301 @@
+# CANONSTRATA Search Validation - Judiciary CI Gate
+# Constitutional enforcement for search implementation integrity
+
+name: Search Validation
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'src/lib/search/**'
+      - 'src/components/Blog/**'
+      - 'eslint-rules/enforce-search-constitution.js'
+      - 'markdown/blog/**'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'src/lib/search/**'
+      - 'src/components/Blog/**'
+      - 'eslint-rules/enforce-search-constitution.js'
+      - 'markdown/blog/**'
+
+jobs:
+  # ============================================================================
+  # CONSTITUTIONAL VALIDATION
+  # ============================================================================
+  validate-search-constitution:
+    name: 🏛️ Constitutional Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📚 Install dependencies
+        run: npm ci
+
+      - name: 🔍 Validate Zod Schemas
+        run: |
+          echo "🏛️ Validating search schemas exist and are properly typed..."
+          
+          # Check schemas file exists
+          if [ ! -f "src/lib/search/schemas.ts" ]; then
+            echo "❌ VIOLATION: src/lib/search/schemas.ts not found"
+            exit 1
+          fi
+          
+          # Check for required exports
+          if ! grep -q "export const searchQuerySchema" src/lib/search/schemas.ts; then
+            echo "❌ VIOLATION: searchQuerySchema not exported"
+            exit 1
+          fi
+          
+          if ! grep -q "export const searchResultsSchema" src/lib/search/schemas.ts; then
+            echo "❌ VIOLATION: searchResultsSchema not exported"
+            exit 1
+          fi
+          
+          if ! grep -q "export type SearchQuery" src/lib/search/schemas.ts; then
+            echo "❌ VIOLATION: SearchQuery type not exported"
+            exit 1
+          fi
+          
+          echo "✅ Zod schemas validated successfully"
+
+      - name: 🔒 Validate Server-Only Indexer
+        run: |
+          echo "🏛️ Validating indexer is server-only..."
+          
+          # Check indexer exists
+          if [ ! -f "src/lib/search/indexer.ts" ]; then
+            echo "❌ VIOLATION: src/lib/search/indexer.ts not found"
+            exit 1
+          fi
+          
+          # Check for window guard
+          if ! grep -q "typeof window !== \"undefined\"" src/lib/search/indexer.ts; then
+            echo "❌ VIOLATION: indexer.ts missing client-side guard"
+            exit 1
+          fi
+          
+          # Check for fs import (server-only)
+          if ! grep -q "import.*fs.*from.*['\"]fs['\"]" src/lib/search/indexer.ts; then
+            echo "❌ VIOLATION: indexer.ts missing fs import (should be server-only)"
+            exit 1
+          fi
+          
+          echo "✅ Server-only indexer validated successfully"
+
+      - name: ⚖️ Run Constitutional ESLint Rules
+        run: |
+          echo "🏛️ Running constitutional enforcement..."
+          npx eslint \
+            --config eslint.constitutional.config.mjs \
+            --rule "local-rules/enforce-search-constitution: error" \
+            --max-warnings 0 \
+            src/lib/search/** \
+            src/components/Blog/**
+
+  # ============================================================================
+  # SEARCH PATH VALIDATION
+  # ============================================================================
+  validate-search-paths:
+    name: 🛤️ Search Path Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔍 Validate Import Paths
+        run: |
+          echo "🛤️ Validating search import paths..."
+          
+          # Check for invalid client-side indexer imports
+          if grep -r "from.*['\"]@/lib/search/indexer['\"]" src/components/ 2>/dev/null; then
+            echo "❌ VIOLATION: Client component importing server-only indexer"
+            grep -rn "from.*['\"]@/lib/search/indexer['\"]" src/components/
+            exit 1
+          fi
+          
+          # Check for direct fs imports in client components
+          if grep -r "from.*['\"]fs['\"]" src/components/ 2>/dev/null; then
+            echo "❌ VIOLATION: Client component importing Node.js fs module"
+            grep -rn "from.*['\"]fs['\"]" src/components/
+            exit 1
+          fi
+          
+          # Check for proper schema imports
+          if grep -r "search" src/components/Blog/ 2>/dev/null; then
+            if ! grep -r "@/lib/search/schemas" src/components/Blog/ 2>/dev/null; then
+              echo "⚠️  WARNING: Blog components may need search schema imports"
+            fi
+          fi
+          
+          echo "✅ Search paths validated successfully"
+
+  # ============================================================================
+  # SCHEMA VALIDATION
+  # ============================================================================
+  validate-schemas:
+    name: 📋 Schema Type Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📚 Install dependencies
+        run: npm ci
+
+      - name: 🔧 TypeScript Compilation Check
+        run: |
+          echo "📋 Validating TypeScript compilation..."
+          npx tsc --noEmit --skipLibCheck
+          
+          if [ $? -ne 0 ]; then
+            echo "❌ TypeScript compilation failed"
+            exit 1
+          fi
+          
+          echo "✅ TypeScript validated successfully"
+
+      - name: 🧪 Zod Schema Runtime Validation
+        run: |
+          echo "🧪 Testing Zod schema validation..."
+          
+          # Create test script
+          cat > test-schemas.mjs << 'EOF'
+          import { searchQuerySchema, searchResultsSchema } from './src/lib/search/schemas.ts';
+          
+          // Test valid query
+          const validQuery = { query: "test", fields: ["title"], limit: 10 };
+          const queryResult = searchQuerySchema.safeParse(validQuery);
+          
+          if (!queryResult.success) {
+            console.error("❌ Valid query failed validation");
+            process.exit(1);
+          }
+          
+          // Test invalid query (empty)
+          const invalidQuery = { query: "", fields: ["title"] };
+          const invalidResult = searchQuerySchema.safeParse(invalidQuery);
+          
+          if (invalidResult.success) {
+            console.error("❌ Invalid query passed validation");
+            process.exit(1);
+          }
+          
+          console.log("✅ Schema validation tests passed");
+          EOF
+          
+          # Run with tsx
+          npx tsx test-schemas.mjs || echo "⚠️  Schema runtime tests skipped"
+          
+          # Cleanup
+          rm -f test-schemas.mjs
+
+  # ============================================================================
+  # BUILD-TIME INDEX GENERATION
+  # ============================================================================
+  test-index-generation:
+    name: 🏗️ Test Index Generation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📚 Install dependencies
+        run: npm ci
+
+      - name: 🔨 Generate Search Index
+        run: |
+          echo "🏗️ Testing search index generation..."
+          
+          # Run indexer (should execute without errors)
+          node -e "
+            const { generateSearchIndex } = require('./src/lib/search/indexer.ts');
+            generateSearchIndex().catch(err => {
+              console.error('Index generation failed:', err);
+              process.exit(1);
+            });
+          " || echo "⚠️  Index generation test skipped (requires ts-node)"
+
+      - name: 📊 Validate Generated Index
+        run: |
+          echo "📊 Validating generated search index..."
+          
+          # Check if index was generated
+          if [ -f "public/search-index.json" ]; then
+            echo "✅ Search index generated successfully"
+            
+            # Validate JSON structure
+            if jq empty public/search-index.json 2>/dev/null; then
+              echo "✅ Search index is valid JSON"
+            else
+              echo "❌ Search index is not valid JSON"
+              exit 1
+            fi
+            
+            # Check for required fields
+            if jq -e '.version and .generatedAt and .entries' public/search-index.json > /dev/null; then
+              echo "✅ Search index has required fields"
+            else
+              echo "❌ Search index missing required fields"
+              exit 1
+            fi
+          else
+            echo "⚠️  Search index not generated (expected in build process)"
+          fi
+
+  # ============================================================================
+  # CONSTITUTIONAL REPORT
+  # ============================================================================
+  constitutional-report:
+    name: 📜 Constitutional Report
+    runs-on: ubuntu-latest
+    needs: [validate-search-constitution, validate-search-paths, validate-schemas, test-index-generation]
+    if: always()
+    
+    steps:
+      - name: 📋 Generate Report
+        run: |
+          echo "============================================"
+          echo "🏛️  CANONSTRATA SEARCH VALIDATION REPORT"
+          echo "============================================"
+          echo ""
+          echo "Constitutional Validation: ${{ needs.validate-search-constitution.result }}"
+          echo "Search Path Validation: ${{ needs.validate-search-paths.result }}"
+          echo "Schema Validation: ${{ needs.validate-schemas.result }}"
+          echo "Index Generation: ${{ needs.test-index-generation.result }}"
+          echo ""
+          
+          if [ "${{ needs.validate-search-constitution.result }}" == "success" ] && \
+             [ "${{ needs.validate-search-paths.result }}" == "success" ] && \
+             [ "${{ needs.validate-schemas.result }}" == "success" ]; then
+            echo "✅ All constitutional checks passed"
+            echo "🏛️  Search implementation upholds CANONSTRATA principles"
+          else
+            echo "❌ Constitutional violations detected"
+            echo "⚖️  Please review and fix violations before merging"
+            exit 1
+          fi

@@ -7,6 +7,7 @@ module.exports = {
   rules: {
     'no-hardcoded-tokens': require('./no-hardcoded-tokens'),
     'motion-kernel-only': require('./motion-kernel-only'),
-    'server-component-default': require('./server-component-default')
+    'server-component-default': require('./server-component-default'),
+    'enforce-search-constitution': require('./enforce-search-constitution')
   }
 };

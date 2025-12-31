@@ -75,7 +75,7 @@ const BlogSearch = React.forwardRef<HTMLInputElement, BlogSearchProps>(
   ): React.ReactElement => {
     const [searchQuery, setSearchQuery] = React.useState<string>("");
     const [isMounted, setIsMounted] = React.useState<boolean>(false);
-    const debounceTimerRef = React.useRef<NodeJS.Timeout | null>(null);
+    const debounceTimerRef = React.useRef<number | null>(null);
 
     /**
      * SSR safety: Mark component as mounted on client-side
@@ -147,9 +147,9 @@ const BlogSearch = React.forwardRef<HTMLInputElement, BlogSearchProps>(
         }
 
         // Set new debounced timer
-        debounceTimerRef.current = setTimeout(() => {
+        debounceTimerRef.current = window.setTimeout(() => {
           setSearchQuery(value);
-        }, debounceMs);
+        }, debounceMs) as unknown as number;
       },
       [debounceMs]
     );
