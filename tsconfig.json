@@ -22,7 +22,7 @@
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
       "@/lib/*": ["./src/lib/*"],
-      "@/design-system/*": ["./design-system/*"]
+      "@/design-system/*": ["./src/design-system/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true,
