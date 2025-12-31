@@ -31,7 +31,10 @@ export const motion = framerMotion
 export type Variants = FramerVariants
 // Type parameter T is used in the constraint for type safety, but not in the type body
 // This is intentional - T constrains which HTML elements can be used
-export type HTMLMotionProps<T extends keyof React.JSX.IntrinsicElements = 'div'> = MotionProps
+// Type parameter T is used in the constraint for type safety, but not in the type body
+// This is intentional - T constrains which HTML elements can be used
+// Suppress unused parameter warning as T is part of the type signature for API consistency
+export type HTMLMotionProps<_T extends keyof React.JSX.IntrinsicElements = 'div'> = MotionProps
 export type { MotionProps, Transition, Easing } from 'framer-motion'
 // Type parameter T is used in the constraint, suppress unused warning
 export type _HTMLMotionPropsExample = HTMLMotionProps<'div'>
