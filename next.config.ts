@@ -13,8 +13,13 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: '2mb',
     },
-    typedRoutes: true,
   },
+  
+  // Typed routes (moved from experimental in Next.js 16)
+  typedRoutes: true,
+  
+  // Turbopack configuration (Next.js 16 default)
+  turbopack: {},
 
   // Compiler options for React 19
   compiler: {

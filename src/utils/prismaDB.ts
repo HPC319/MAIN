@@ -1,7 +1,8 @@
 import { PrismaPg } from '@prisma/adapter-pg'
 
 // PrismaClient type - using dynamic import to handle CI environments
-type PrismaClientType = import("@prisma/client").PrismaClient
+// Try to get the type from the generated client, fallback to any for CI
+type PrismaClientType = typeof import("@prisma/client").PrismaClient extends new (...args: unknown[]) => infer T ? T : never
 
 const globalForPrisma = global as unknown as {
   prisma: PrismaClientType | undefined
