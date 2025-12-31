@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import Image from "next/image";
 
 const AuthorQuote = () => {
@@ -53,7 +54,7 @@ const AuthorQuote = () => {
           ipsum suspendisse ultrices gravida. Risus commodo viverra
         </p>
         <a
-          href="/#"
+          href={"/#" as Route}
           className="text-dark dark:text-white text-base font-medium underline underline-offset-2 transition hover:text-primary dark:hover:text-primary"
         >
           View More Details

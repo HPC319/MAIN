@@ -1,3 +1,4 @@
+import type { Route } from "next";
 const SharePost = () => {
   return (
     <>
@@ -9,19 +10,19 @@ const SharePost = () => {
 
           <div className="flex items-center">
             <a
-              href="/#"
+              href={"/#" as Route}
               className="mb-3 mr-3 inline-flex items-center justify-center rounded-md bg-primary/[0.08] px-4 py-2 duration-300 hover:bg-primary hover:text-white"
             >
               Design
             </a>
             <a
-              href="/#"
+              href={"/#" as Route}
               className="mb-3 mr-3 inline-flex items-center justify-center rounded-md bg-primary/[0.08] px-4 py-2 duration-300 hover:bg-primary hover:text-white"
             >
               Development
             </a>
             <a
-              href="/#"
+              href={"/#" as Route}
               className="mb-3 mr-3 inline-flex items-center justify-center rounded-md bg-primary/[0.08] px-4 py-2 duration-300 hover:bg-primary hover:text-white"
             >
               Info
@@ -35,7 +36,7 @@ const SharePost = () => {
           </h5>
           <div className="mb-3 flex items-center sm:justify-end">
             <a
-              href="/#"
+              href={"/#" as Route}
               aria-label="social-link"
               className="mr-3 flex h-9 w-9 items-center justify-center rounded-md border border-stroke text-body-color duration-300 hover:border-primary hover:bg-primary hover:text-white dark:border-dark-3 dark:text-dark-6 dark:hover:border-primary"
             >
@@ -49,7 +50,7 @@ const SharePost = () => {
               </svg>
             </a>
             <a
-              href="/#"
+              href={"/#" as Route}
               aria-label="social-link"
               className="mr-3 flex h-9 w-9 items-center justify-center rounded-md border border-stroke text-body-color duration-300 hover:border-primary hover:bg-primary hover:text-white dark:border-dark-3 dark:text-dark-6 dark:hover:border-primary"
             >
@@ -63,7 +64,7 @@ const SharePost = () => {
               </svg>
             </a>
             <a
-              href="/#"
+              href={"/#" as Route}
               aria-label="social-link"
               className="mr-3 flex h-9 w-9 items-center justify-center rounded-md border border-stroke text-body-color duration-300 hover:border-primary hover:bg-primary hover:text-white dark:border-dark-3 dark:text-dark-6 dark:hover:border-primary"
             >

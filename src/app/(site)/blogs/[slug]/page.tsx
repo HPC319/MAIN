@@ -7,6 +7,7 @@ import markdownToHtml from "@/utils/markdownToHtml";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import type { Route } from "next";
 import { FadeIn } from "@/components/motion/fade-in";
 
 type Props = {
@@ -106,7 +107,7 @@ export default async function Post({ params }: Props) {
                         </div>
                         <p className="text-base font-medium text-white">
                           By{" "}
-                          <Link href="/#" className="text-white hover:opacity-70">
+                          <Link href={"/#" as Route} className="text-white hover:opacity-70">
                             {(post.author as string) || "Anonymous"}
                           </Link>
                         </p>

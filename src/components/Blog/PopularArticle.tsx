@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Route } from "next";
 import { FadeIn } from "@/components/motion/fade-in";
 
 const PopularArticle = (props: {
@@ -25,7 +26,7 @@ const PopularArticle = (props: {
           <div className="w-full">
             <h4>
               <Link
-                href="/#"
+                href={"/#" as Route}
                 className="mb-1 inline-block text-lg font-medium leading-snug text-dark hover:text-primary dark:text-dark-6 dark:hover:text-primary lg:text-base xl:text-lg"
               >
                 {title}

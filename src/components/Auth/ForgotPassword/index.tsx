@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import type { Route } from "next";
 import Image from "next/image";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
@@ -63,7 +64,7 @@ const ForgotPassword = () => {
             <FadeIn /* direction="up" */ delay={0.15}>
               <div className="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white px-8 py-14 text-center dark:bg-dark-2 sm:px-12 md:px-[60px]">
                 <div className="mb-10 text-center">
-                  <Link href="/" className="mx-auto inline-block max-w-[160px]">
+                  <Link href={"/" as Route} className="mx-auto inline-block max-w-[160px]">
                     <Image
                       src="/images/logo/logo.svg"
                       alt="logo"
@@ -127,7 +128,7 @@ const ForgotPassword = () => {
 
                 <div className="mt-6">
                   <Link
-                    href="/signin"
+                    href={"/signin" as Route}
                     className="text-base text-primary hover:underline"
                   >
                     Back to Sign In

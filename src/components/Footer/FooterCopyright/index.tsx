@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Route } from "next";
 
 export const FooterCopyright = () => {
   return (
@@ -10,7 +11,7 @@ export const FooterCopyright = () => {
               <p className="text-base text-muted-foreground">
                 &copy; {new Date().getFullYear()} StartupPro. All rights reserved.{" "}
                 <Link
-                  href="https://tailgrids.com"
+                  href={"https://tailgrids.com" as Route}
                   rel="nofollow noopener"
                   target="_blank"
                   className="text-primary hover:underline"
@@ -19,7 +20,7 @@ export const FooterCopyright = () => {
                 </Link>{" "}
                 and{" "}
                 <Link
-                  href="https://nextjstemplates.com"
+                  href={"https://nextjstemplates.com" as Route}
                   rel="nofollow noopener"
                   target="_blank"
                   className="text-primary hover:underline"
@@ -32,13 +33,13 @@ export const FooterCopyright = () => {
           <div className="w-full px-4 md:w-1/3 lg:w-1/2">
             <div className="my-1 flex justify-end space-x-5">
               <Link
-                href="/#"
+                href={"/#" as Route}
                 className="text-base text-muted-foreground transition-colors hover:text-primary"
               >
                 Privacy Policy
               </Link>
               <Link
-                href="/#"
+                href={"/#" as Route}
                 className="text-base text-muted-foreground transition-colors hover:text-primary"
               >
                 Terms of Service

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Route } from "next";
 
 const NotFound = () => {
   return (
@@ -55,7 +56,7 @@ const NotFound = () => {
                   deleted or does not exist.
                 </p>
                 <Link
-                  href="/"
+                  href={"/" as Route}
                   className="px-8 py-3 text-base font-semibold text-white duration-300 ease-in-out bg-primary rounded-md hover:bg-primary/80"
                 >
                   Back to Homepage

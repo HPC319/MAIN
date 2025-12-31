@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Route } from "next";
 import { FadeIn } from "@/components/motion/fade-in";
 import {
   FooterContainer,
@@ -90,7 +91,7 @@ const Footer = () => {
           <FooterColumn width="1/4">
             <FooterBrand
               logo={
-                <Link href="/" className="mb-6 inline-block max-w-[160px]">
+                <Link href={"/" as Route} className="mb-6 inline-block max-w-[160px]">
                   <Image
                     src="/images/logo/logo-white.svg"
                     alt="logo"

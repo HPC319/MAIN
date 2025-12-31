@@ -1,5 +1,6 @@
 import { Feature } from "@/types/feature";
 import Link from "next/link";
+import type { Route } from "next";
 import { MotionWrapper } from "@/components/motion/motion-wrapper";
 
 const SingleFeature = ({ feature }: { feature: Feature }) => {
@@ -18,7 +19,7 @@ const SingleFeature = ({ feature }: { feature: Feature }) => {
           {paragraph}
         </p>
         <Link
-          href={btnLink}
+          href={btnLink as Route}
           className="text-base font-medium text-dark hover:text-primary dark:text-white dark:hover:text-primary"
         >
           {btn}

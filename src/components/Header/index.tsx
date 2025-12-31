@@ -3,6 +3,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
+import type { Route } from "next";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -55,7 +56,7 @@ const Header = () => {
           <div className="relative -mx-4 flex items-center justify-between">
             <div className="w-60 max-w-full px-4">
               <Link
-                href="/"
+                href={"/" as Route}
                 className={`navbar-logo block w-full ${sticky ? "py-2" : "py-5"
                   } `}
               >
@@ -298,13 +299,13 @@ const Header = () => {
                     {pathUrl !== "/" ? (
                       <>
                         <Link
-                          href="/signin"
+                          href={"/signin" as Route}
                           className="px-7 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white"
                         >
                           Sign In
                         </Link>
                         <Link
-                          href="/signup"
+                          href={"/signup" as Route}
                           className="rounded-lg bg-primary px-6 py-3 text-base font-medium text-white duration-300 ease-in-out hover:bg-primary/90 dark:bg-white/10 dark:hover:bg-white/20"
                         >
                           Sign Up
@@ -313,14 +314,14 @@ const Header = () => {
                     ) : (
                       <>
                         <Link
-                          href="/signin"
+                          href={"/signin" as Route}
                           className={`px-7 py-3 text-base font-medium hover:opacity-70 ${sticky ? "text-dark dark:text-white" : "text-white"
                             }`}
                         >
                           Sign In
                         </Link>
                         <Link
-                          href="/signup"
+                          href={"/signup" as Route}
                           className={`rounded-lg px-6 py-3 text-base font-medium text-white duration-300 ease-in-out ${sticky
                             ? "bg-primary hover:bg-primary/90 dark:bg-white/10 dark:hover:bg-white/20"
                             : "bg-white/10 hover:bg-white/20"

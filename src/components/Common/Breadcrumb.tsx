@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Route } from "next";
 
 const Breadcrumb = ({
   pageName,
@@ -25,7 +26,7 @@ const Breadcrumb = ({
                 <ul className="flex items-center justify-center gap-[10px]">
                   <li>
                     <Link
-                      href="/"
+                      href={"/" as Route}
                       className="text-dark flex items-center gap-[10px] text-base font-medium dark:text-white"
                     >
                       Home

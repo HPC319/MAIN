@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Route } from "next";
 
 const CallToAction = () => {
   return (
@@ -20,7 +21,7 @@ const CallToAction = () => {
                   majority have suffered in some form.
                 </p>
                 <Link
-                  href="/"
+                  href={"/" as Route}
                   className="inline-block rounded-md border border-transparent bg-secondary px-7 py-3 text-base font-medium text-white transition hover:bg-[#0BB489]"
                 >
                   Start using Play
