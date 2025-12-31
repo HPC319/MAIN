@@ -2,7 +2,6 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ScrollToTop from "@/components/ScrollToTop";
 import "../styles/index.css";
-import "../styles/prism-vsc-dark-plus.css";
 import Providers from "./providers";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
