@@ -175,8 +175,7 @@ function processMarkdownFile(
 
     // FIX 2: Extract slug with proper type safety
     const fileName = path.basename(filePath, path.extname(filePath));
-    const slugFromFrontmatter = frontmatter.slug as string | undefined;
-    const slug: string = slugFromFrontmatter ?? fileName;
+    const slug: string = (frontmatter.slug as string | undefined) ?? fileName;
 
     // Build search index entry
     const entry: SearchIndexEntry = {
