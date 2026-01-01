@@ -1,4 +1,4 @@
-import { signIn } from "next-auth/react";
+import { signInUser } from "@/lib/auth/surface";
 
 const SocialSignIn = () => {
   return (

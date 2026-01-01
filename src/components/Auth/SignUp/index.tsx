@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
-import { signUpSchema, SignUpFormData } from "@/lib/schemas/auth-schema";
+import { signUpSchema, type SignUpFormData } from "@/kernel/schemas/auth.schemas";
 import { signUpAction } from "@/lib/actions/form-actions";
 import SocialSignIn from "../SocialSignIn";
 import SwitchOption from "../SwitchOption";

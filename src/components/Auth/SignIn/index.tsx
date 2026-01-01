@@ -8,9 +8,9 @@ import type { Route } from "next";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
-import { signIn } from "next-auth/react";
+import { signInUser } from "@/lib/auth/surface";
 
-import { signInSchema, SignInFormData } from "@/lib/schemas/auth-schema";
+import { signInSchema, SignInFormData } from "@/kernel/schemas/auth.schemas";
 import SocialSignIn from "../SocialSignIn";
 import SwitchOption from "../SwitchOption";
 import MagicLink from "../MagicLink";

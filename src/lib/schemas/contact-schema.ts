@@ -1,6 +1,16 @@
 /**
- * Contact Form Schema
- * Zod validation schema for contact form
+ * @deprecated This file is deprecated.
+ * Use @/kernel/schemas/contact.schema instead.
+ * 
+ * MIGRATION PATH:
+ * - Import from: @/kernel/schemas/contact.schema
+ * - All schemas have been consolidated in the kernel layer
+ * - This file will be removed in the next major version
+ * 
+ * Constitutional Architecture Compliance:
+ * - Schemas belong in src/kernel/schemas/ (single source of truth)
+ * - UI layer must not contain validation logic
+ * - All types derived via z.infer<>
  */
 
 import { z } from 'zod'

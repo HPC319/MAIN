@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
-import { forgotPasswordSchema, ForgotPasswordFormData } from "@/lib/schemas/auth-schema";
+import { forgotPasswordSchema, type ForgotPasswordFormData } from "@/kernel/schemas/auth.schemas";
 import { forgotPasswordAction } from "@/lib/actions/form-actions";
 import Loader from "@/components/Common/Loader";
 import { FadeIn } from "@/components/motion/fade-in";
