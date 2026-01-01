@@ -1,60 +1,9 @@
 /**
- * Design System - Token Exports
- * 
- * Central export point for all design tokens
+ * Design System Tokens - Central Export
+ * CanonStrata Foundation
  */
 
-export * from './colors'
-export * from './spacing'
-export * from './typography'
-export * from './breakpoints'
-export * from './borders'
-export * from './radii'
-export * from './shadows'
-
-// Export motion and transitions separately to avoid naming conflicts
-export * as motionTokens from './motion'
-export * as transitionTokens from './transitions'
-
-/**
- * Default theme object combining all tokens
- */
-import { colors } from './colors'
-import { spacing, semanticSpacing } from './spacing'
-import { fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, textStyles } from './typography'
-import { duration, easing, transition, animation, spring } from './motion'
-import { breakpoints, mediaQueries, containerMaxWidth } from './breakpoints'
-import { borders } from './borders'
-import { radii } from './radii'
-import { transitions } from './transitions'
-import { shadows } from './shadows'
-
-export const theme = {
-  colors,
-  spacing,
-  semanticSpacing,
-  typography: {
-    fontFamily,
-    fontSize,
-    fontWeight,
-    lineHeight,
-    letterSpacing,
-    textStyles,
-  },
-  motion: {
-    duration,
-    easing,
-    transition,
-    animation,
-    spring,
-  },
-  breakpoints,
-  mediaQueries,
-  containerMaxWidth,
-  borders,
-  radii,
-  transitions,
-  shadows,
-} as const
-
-export type Theme = typeof theme
+export * from './motion.tokens';
+// Future token systems:
+// export * from './spacing.tokens';
+// export * from './colors.tokens';
