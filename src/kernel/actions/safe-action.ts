@@ -1,26 +1,13 @@
-/**
- * MUTATION KERNEL - Safe Action Wrapper
- * 
- * Wraps all Server Actions with:
- * - Server-side Zod validation
- * - Error handling
- * - Type-safe ActionState results
- */
-
-'use server';
-
 import { z, ZodSchema } from 'zod';
 
-export type ActionState<TOutput = void> = {
+/**
+ * MUTATION KERNEL - Safe Action Wrapper
+ * Constitutional Law: All mutations must flow through validated actions
+ */
+
+export type ActionSuccess<T> = {
   success: true;
-  data: TOutput;
-  message?: string;
-  errors?: Record<string, string[]>;
-} | {
-  success: false;
-  message: string;
-  errors?: Record<string, string[]>;
-  data?: TOutput;
+  data: T;
 };
 
 export type ActionError = {
@@ -29,78 +16,38 @@ export type ActionError = {
   code?: string;
 };
 
+export type ActionResult<T> = ActionSuccess<T> | { success: false; error: ActionError };
+
+/**
+ * Wraps server actions with Zod validation
+ * Enforces: Input validation, error handling, type safety
+ */
 export function safeAction<TInput, TOutput>(
   schema: ZodSchema<TInput>,
   handler: (data: TInput) => Promise<TOutput>
 ) {
-  return async (
-    _prevState: ActionState<TOutput>,
-    formData: FormData
-  ): Promise<ActionState<TOutput>> => {
-    try {
-      const rawData: Record<string, unknown> = {};
-      for (const [key, value] of formData.entries()) {
-        rawData[key] = value;
-      }
-
-      const validatedData = schema.parse(rawData);
-      const result = await handler(validatedData);
-
-      return {
-        success: true,
-        data: result,
-        message: 'Action completed successfully',
-      };
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const fieldErrors: Record<string, string[]> = {};
-        error.issues.forEach((issue) => {
-          const path = issue.path.join('.');
-          if (!fieldErrors[path]) {
-            fieldErrors[path] = [];
-          }
-          fieldErrors[path].push(issue.message);
-        });
-
-        return {
-          success: false,
-          message: 'Validation failed',
-          errors: fieldErrors,
-        };
-      }
-
-      return {
-        success: false,
-        message: error instanceof Error ? error.message : 'Action failed',
-      };
-    }
-  };
-}
-
-export function safeActionDirect<TInput, TOutput>(
-  schema: ZodSchema<TInput>,
-  handler: (data: TInput) => Promise<TOutput>
-) {
-  return async (data: TInput): Promise<TOutput> => {
+  return async (data: unknown): Promise<ActionResult<TOutput>> => {
     try {
       const validatedData = schema.parse(data);
-      return await handler(validatedData);
+      const result = await handler(validatedData);
+      return { success: true, data: result };
     } catch (error) {
       if (error instanceof z.ZodError) {
         const firstError = error.issues[0];
         const actionError: ActionError = {
           message: firstError?.message || 'Validation failed',
-          field: firstError?.path.join('.') || undefined,
-          code: firstError?.code || undefined,
+          ...(firstError?.path.length ? { field: firstError.path.join('.') } : {}),
+          ...(firstError?.code ? { code: firstError.code } : {}),
         };
-        throw actionError;
+        return { success: false, error: actionError };
       }
-
-      if (error instanceof Error) {
-        throw error;
-      }
-
-      throw new Error('Action failed');
+      
+      return {
+        success: false,
+        error: {
+          message: error instanceof Error ? error.message : 'Unknown error occurred',
+        },
+      };
     }
   };
 }

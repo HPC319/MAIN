@@ -10,7 +10,7 @@
 'use server';
 
 import { newsletterSchema, type NewsletterInput } from '@/kernel/schemas/newsletter.schema';
-import { safeAction, safeActionDirect } from './safe-action';
+import { safeAction } from './safe-action';
 
 // Server Action for useFormState (FormData → ActionState)
 export const subscribeNewsletterAction = safeAction(
@@ -30,22 +30,6 @@ export const subscribeNewsletterAction = safeAction(
     return {
       subscribedAt: new Date().toISOString(),
       message: 'Thank you for subscribing to our newsletter!',
-    };
-  }
-);
-
-// Direct action for programmatic use
-export const subscribeNewsletterDirect = safeActionDirect(
-  newsletterSchema,
-  async (data: NewsletterInput) => {
-    console.log('Newsletter subscription (direct):', data);
-
-    // Simulate processing
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    return {
-      success: true,
-      message: 'Successfully subscribed to newsletter',
     };
   }
 );

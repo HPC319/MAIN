@@ -10,7 +10,7 @@
 'use server';
 
 import { contactSchema, type ContactInput } from '@/kernel/schemas/contact.schema';
-import { safeAction, safeActionDirect } from './safe-action';
+import { safeAction } from './safe-action';
 
 // Server Action for useFormState (FormData → ActionState)
 export const submitContactFormAction = safeAction(
@@ -30,22 +30,6 @@ export const submitContactFormAction = safeAction(
     return {
       submittedAt: new Date().toISOString(),
       message: 'Thank you for contacting us! We will get back to you soon.',
-    };
-  }
-);
-
-// Direct action for programmatic use
-export const submitContactFormDirect = safeActionDirect(
-  contactSchema,
-  async (data: ContactInput) => {
-    console.log('Contact form submission (direct):', data);
-
-    // Simulate processing
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    return {
-      success: true,
-      message: 'Contact form submitted successfully',
     };
   }
 );

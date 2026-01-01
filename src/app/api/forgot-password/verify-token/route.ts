@@ -9,7 +9,7 @@
 
 import { NextResponse } from 'next/server';
 
-export async function POST(request: Request | undefined) {
+export async function POST(_request: Request | undefined) {
   return NextResponse.json(
     {
       error: 'DEPRECATED: Use Server Action verifyToken from @/kernel/actions/auth.actions',

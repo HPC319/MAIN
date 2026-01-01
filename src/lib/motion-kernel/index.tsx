@@ -79,7 +79,7 @@ const getMotionConfig = (intent: MotionIntent, prefersReduced: boolean, delay = 
         initial: { x: '-100%' },
         animate: { x: 0 },
         exit: { x: '-100%' },
-        transition: { type: 'spring', damping: 25, stiffness: 200 },
+        transition: { type: 'spring' as const, damping: 25, stiffness: 200 },
       };
 
     case 'RIPPLE':
@@ -104,7 +104,7 @@ const getMotionConfig = (intent: MotionIntent, prefersReduced: boolean, delay = 
         transition: {
           duration: 3,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: 'easeInOut' as const,
         },
       };
 
@@ -138,7 +138,7 @@ const getMotionConfig = (intent: MotionIntent, prefersReduced: boolean, delay = 
         transition: {
           duration: 2,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: 'easeInOut' as const,
         },
       };
 
@@ -148,8 +148,8 @@ const getMotionConfig = (intent: MotionIntent, prefersReduced: boolean, delay = 
         animate: { rotate: 360 },
         transition: {
           duration: 20,
-          repeat: Infinity,
-          ease: 'linear',
+          repeat: Infinity as number,
+          ease: 'linear' as const,
         },
       };
 
