@@ -1,0 +1,96 @@
+{
+  "duration": {
+    "instant": 0,
+    "fast": 150,
+    "normal": 300,
+    "slow": 500,
+    "slower": 700,
+    "slowest": 1000
+  },
+  "easing": {
+    "linear": "linear",
+    "easeIn": "cubic-bezier(0.4, 0, 1, 1)",
+    "easeOut": "cubic-bezier(0, 0, 0.2, 1)",
+    "easeInOut": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "smooth": "cubic-bezier(0.45, 0, 0.55, 1)",
+    "snappy": "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+    "bounce": "cubic-bezier(0.68, -0.6, 0.32, 1.6)"
+  },
+  "spring": {
+    "default": {
+      "stiffness": 300,
+      "damping": 30,
+      "mass": 1
+    },
+    "gentle": {
+      "stiffness": 100,
+      "damping": 20,
+      "mass": 1
+    },
+    "stiff": {
+      "stiffness": 500,
+      "damping": 40,
+      "mass": 1
+    },
+    "bouncy": {
+      "stiffness": 400,
+      "damping": 10,
+      "mass": 1
+    }
+  },
+  "variants": {
+    "fadeIn": {
+      "initial": {
+        "opacity": 0
+      },
+      "animate": {
+        "opacity": 1
+      },
+      "exit": {
+        "opacity": 0
+      }
+    },
+    "slideUp": {
+      "initial": {
+        "opacity": 0,
+        "y": 20
+      },
+      "animate": {
+        "opacity": 1,
+        "y": 0
+      },
+      "exit": {
+        "opacity": 0,
+        "y": -20
+      }
+    },
+    "slideDown": {
+      "initial": {
+        "opacity": 0,
+        "y": -20
+      },
+      "animate": {
+        "opacity": 1,
+        "y": 0
+      },
+      "exit": {
+        "opacity": 0,
+        "y": 20
+      }
+    },
+    "scale": {
+      "initial": {
+        "opacity": 0,
+        "scale": 0.9
+      },
+      "animate": {
+        "opacity": 1,
+        "scale": 1
+      },
+      "exit": {
+        "opacity": 0,
+        "scale": 0.9
+      }
+    }
+  }
+}

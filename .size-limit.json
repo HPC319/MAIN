@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Client Bundle",
+    "path": ".next/static/chunks/pages/_app-*.js",
+    "limit": "200 KB",
+    "webpack": false
+  },
+  {
+    "name": "Page Bundles (avg)",
+    "path": ".next/static/chunks/pages/*.js",
+    "limit": "150 KB",
+    "webpack": false
+  },
+  {
+    "name": "Shared Runtime",
+    "path": ".next/static/chunks/framework-*.js",
+    "limit": "180 KB",
+    "webpack": false
+  },
+  {
+    "name": "First Load JS",
+    "path": ".next/static/chunks/main-*.js",
+    "limit": "120 KB",
+    "webpack": false
+  },
+  {
+    "name": "CSS Bundle",
+    "path": ".next/static/css/*.css",
+    "limit": "50 KB",
+    "webpack": false
+  }
+]

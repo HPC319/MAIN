@@ -1,0 +1,141 @@
+name: Constitutional Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20.x'
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  pre-deploy-validation:
+    name: Pre-Deploy Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Constitutional Enforcement Suite
+        run: |
+          echo "Running constitutional enforcement..."
+          npm run ast:check
+          npm run boundary:check
+          npm run tokens:validate
+          npm run motion:check
+          npm run zod:sync
+          npm run no-design-literals
+          npm run no-magic-motion
+          npm run client-boundary:check
+        continue-on-error: false
+
+      - name: Build Validation
+        run: npm run build
+        continue-on-error: false
+
+      - name: Bundle Budget Enforcement
+        run: npm run bundle:check
+        continue-on-error: false
+
+      - name: Run All Tests
+        run: |
+          npm run test:unit
+          npx playwright install --with-deps
+          npm run test:invariant
+        continue-on-error: false
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: pre-deploy-validation
+    timeout-minutes: 10
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: Pull Vercel Environment
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel
+        id: deploy
+        run: |
+          url=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
+          echo "url=$url" >> $GITHUB_OUTPUT
+          echo "Deployed to: $url"
+
+      - name: Deployment Success
+        run: |
+          echo "╔════════════════════════════════════════════════════════╗"
+          echo "║                                                        ║"
+          echo "║  🚀 Deployment Successful                              ║"
+          echo "║                                                        ║"
+          echo "║  URL: ${{ steps.deploy.outputs.url }}                 ║"
+          echo "║                                                        ║"
+          echo "║  Constitutional compliance maintained                 ║"
+          echo "║  All invariants preserved                             ║"
+          echo "║                                                        ║"
+          echo "╚════════════════════════════════════════════════════════╝"
+
+  post-deploy-validation:
+    name: Post-Deploy Validation
+    runs-on: ubuntu-latest
+    needs: deploy-production
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Smoke Tests
+        run: npm run test:smoke
+        env:
+          BASE_URL: ${{ needs.deploy-production.outputs.url }}
+        continue-on-error: false
+
+      - name: Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: ${{ needs.deploy-production.outputs.url }}
+          uploadArtifacts: true
+          temporaryPublicStorage: true

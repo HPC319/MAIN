@@ -1,6 +1,7 @@
 /**
- * Library - Central Export
+ * GOVERNED LAYER - UTILITIES
+ * Shared utility functions that depend on kernel
  */
 
-export * from './utils'
-export * from './hooks'
+export * from './formatting';
+export * from './validation';

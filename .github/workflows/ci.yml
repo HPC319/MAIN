@@ -1,226 +1,290 @@
-name: CI
+name: Constitutional CI
 
 on:
   push:
-    branches: ['**']
+    branches: [main, develop]
   pull_request:
-    branches: ['**']
+    branches: [main, develop]
+
+env:
+  NODE_VERSION: '20.x'
 
 jobs:
-  lint:
-    name: Lint
+  constitutional-enforcement:
+    name: Constitutional Enforcement
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Run linter
+      - name: Type Check
+        run: npm run type-check
+        continue-on-error: false
+
+      - name: Lint (ESLint v9)
         run: npm run lint
+        continue-on-error: false
 
-  typecheck:
-    name: TypeScript Check
+      - name: Format Check (Prettier)
+        run: npm run format:check
+        continue-on-error: false
+
+  ast-enforcement:
+    name: AST Enforcement
     runs-on: ubuntu-latest
+    needs: constitutional-enforcement
+    timeout-minutes: 10
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Run type check
-        run: npm run typecheck
+      - name: AST Enforcement Check
+        run: npm run ast:check
+        continue-on-error: false
 
-  build:
-    name: Build
+      - name: Boundary Validation
+        run: npm run boundary:check
+        continue-on-error: false
+
+      - name: Client/Server Boundary Check
+        run: npm run client-boundary:check
+        continue-on-error: false
+
+  design-system-enforcement:
+    name: Design System Enforcement
     runs-on: ubuntu-latest
-    needs: [lint, typecheck]
+    needs: constitutional-enforcement
+    timeout-minutes: 10
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Build project
-        run: npm run build
-        env:
-          DATABASE_URL: "postgres://ci_stub/brain"
-          SECRET: "ci-build-secret-dummy-value-not-for-production"
+      - name: Design Token Validation
+        run: npm run tokens:validate
+        continue-on-error: false
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifacts
-          path: .next/
-          retention-days: 1
+      - name: No Design Literals Check
+        run: npm run no-design-literals
+        continue-on-error: false
 
-  test:
-    name: Run Tests
+      - name: Motion Token Validation
+        run: npm run motion:check
+        continue-on-error: false
+
+      - name: No Magic Motion Check
+        run: npm run no-magic-motion
+        continue-on-error: false
+
+  schema-synchronization:
+    name: Schema Synchronization
     runs-on: ubuntu-latest
+    needs: constitutional-enforcement
+    timeout-minutes: 10
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: React Import Governance
-        run: npm run validate:react-imports
+      - name: Zod Schema Sync Check
+        run: npm run zod:sync
+        continue-on-error: false
 
-      - name: Run unit tests
-        run: npm test
-
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v4
-        if: always()
-        with:
-          files: ./coverage/lcov.info
-          fail_ci_if_error: false
-
-  gatekeeper:
-    name: Storybook Gatekeeper
+  invariant-tests:
+    name: Invariant Tests
     runs-on: ubuntu-latest
-    needs: [lint, typecheck]
+    needs: [ast-enforcement, design-system-enforcement, schema-synchronization]
+    timeout-minutes: 15
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Run Storybook Gatekeeper
-        run: node .storybook/enforcement/gatekeeper.js
-
-      - name: Verify enforcement rules
-        run: |
-          if [ -f ".storybook/enforcement/violations.json" ]; then
-            echo "❌ Gatekeeper violations found"
-            cat .storybook/enforcement/violations.json
-            exit 1
-          else
-            echo "✅ All gatekeeper rules passed"
-          fi
-
-  canonstrata-audit:
-    name: Canonstrata System Audit
-    runs-on: ubuntu-latest
-    needs: [lint, typecheck]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run system audit
-        run: npm run canonstrata audit
-
-      - name: Validate components
-        run: npm run canonstrata validate
-
-      - name: Check design tokens
-        run: npm run canonstrata tokens
-
-  e2e:
-    name: E2E Tests
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright browsers
+      - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-artifacts
-          path: .next
+      - name: Build Application
+        run: npm run build
 
-      - name: Run Playwright tests
-        run: npm run test:e2e
+      - name: Run Invariant Tests
+        run: npm run test:invariant
+        continue-on-error: false
 
-      - name: Upload Playwright report
-        uses: actions/upload-artifact@v4
+      - name: Upload Test Results
         if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+          name: playwright-results
+          path: test-results/
+          retention-days: 7
 
-  bundle-size:
-    name: Bundle Size Check
+  bundle-budget:
+    name: Bundle Budget Check
     runs-on: ubuntu-latest
-    needs: build
+    needs: constitutional-enforcement
+    timeout-minutes: 15
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Analyze bundle
-        run: ANALYZE=true npm run build
-        env:
-          NEXT_TELEMETRY_DISABLED: 1
+      - name: Build Application
+        run: npm run build
 
-      - name: Check bundle size limits
+      - name: Check Bundle Size
+        run: npm run bundle:check
+        continue-on-error: false
+
+      - name: Size Limit Report
+        run: npx size-limit --json > size-limit-report.json || true
+
+      - name: Upload Size Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: size-limit-report
+          path: size-limit-report.json
+          retention-days: 7
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: constitutional-enforcement
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Unit Tests
+        run: npm run test:unit
+        continue-on-error: false
+
+      - name: Generate Coverage Report
+        run: npm run test:coverage
+        continue-on-error: true
+
+      - name: Upload Coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 7
+
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    needs: constitutional-enforcement
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Audit Dependencies
+        run: npm audit --audit-level=high
+        continue-on-error: false
+
+  final-validation:
+    name: Final Validation
+    runs-on: ubuntu-latest
+    needs: [ast-enforcement, design-system-enforcement, schema-synchronization, invariant-tests, bundle-budget, unit-tests, security-audit]
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Constitutional Compliance ✓
         run: |
-          echo "Checking bundle size constraints..."
-          # Add custom bundle size validation if needed
+          echo "╔════════════════════════════════════════════════════════╗"
+          echo "║                                                        ║"
+          echo "║  ✓ Constitutional Compliance Verified                 ║"
+          echo "║                                                        ║"
+          echo "║  All enforcement gates passed:                        ║"
+          echo "║  ✓ AST Enforcement                                    ║"
+          echo "║  ✓ Design System Enforcement                          ║"
+          echo "║  ✓ Schema Synchronization                             ║"
+          echo "║  ✓ Invariant Tests                                    ║"
+          echo "║  ✓ Bundle Budget                                      ║"
+          echo "║  ✓ Unit Tests                                         ║"
+          echo "║  ✓ Security Audit                                     ║"
+          echo "║                                                        ║"
+          echo "║  Ready for deployment                                 ║"
+          echo "║                                                        ║"
+          echo "╚════════════════════════════════════════════════════════╝"

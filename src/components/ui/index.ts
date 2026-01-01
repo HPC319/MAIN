@@ -1,17 +1,7 @@
 /**
- * UI Components - Central Export
+ * GOVERNED LAYER - UI COMPONENTS
+ * Base UI component exports
  */
 
-export * from './accordion'
-export * from './button'
-export * from './dialog'
-export * from './dropdown-menu'
-export * from './form'
-export * from './form-field'
-export * from './form-error'
-export * from './form-success'
-export * from './input'
-export * from './label'
-export * from './select'
-export * from './textarea'
-export * from './tooltip'
+// Export UI components here as they are created
+export {};

@@ -1,293 +1,391 @@
-CANONSTRATA CONSTITUTIONAL CHARTER v1.0
-SYSTEM CLASSIFICATION
-
-TYPE: Load-bearing architectural substrate
-STATUS: Immutable foundation
-JURISDICTION: All code, all dependencies, all runtime states
-
-CanonStrata is not a framework, stack, toolkit, template, theme, or library.
-CanonStrata is a constitutional system that refuses invalid code.
-
-ARTICLE I — IMMUTABILITY LAW
-Rule 1.1 — Repository Purity
-
-Only source-of-truth code may exist in version control.
-
-Enforcement:
-scripts/gatekeeper/immutability-check.ts
-
-Mechanism:
-
-CI executes git diff --exit-code
-
-Scans for untracked files
-
-Scans for modified tracked files
-
-Failure Mode:
-Immediate build termination with a list of violating files.
-
-Violations Include:
-
-Generated artifacts (dist/, .next/, build/)
-
-Temporary files (.DS_Store, *.log, *.tmp)
-
-Backups (*.old, *.backup)
-
-Ad-hoc scripts or reports
-
-Rule 1.2 — No Generated Artifacts
-
-Build outputs must never be committed.
-
-Enforcement:
-.gitignore + immutability gate
-
-Failure Mode:
-Commit rejection and CI termination.
-
-ARTICLE II — TOKEN ABSOLUTISM
-Rule 2.1 — No Hardcoded Visual Properties
-
-All color, spacing, typography, and layout values must derive from design tokens.
-
-Enforcement:
-scripts/ast-validators/validate-tokens.ts
-
-Mechanism:
-
-AST scan of all TS/TSX
-
-Detection of inline styles
-
-Detection of non-token CSS
-
-Validation of token imports
-
-Failure Mode:
-Build failure with file path and line number.
-
-Rule 2.2 — No Tailwind Arbitrary Literals
-
-Bracketed Tailwind syntax is forbidden.
-
-Enforcement:
-scripts/ast-validators/validate-no-tailwind-literals.ts
-
-Failure Mode:
-Build failure listing all violations.
-
-Examples (Forbidden):
-
-className="w-[350px]"
-
-className="text-[#fff]"
-
-ARTICLE III — TYPE ABSOLUTISM
-Rule 3.1 — No Type Suppression
-
-TypeScript suppression is forbidden.
-
-Enforcement:
-.eslintrc.constitutional.json
-
-Banned:
-
-@ts-ignore
-
-@ts-nocheck
-
-@ts-expect-error
-
-any
-
-Failure Mode:
-Lint failure blocks CI.
-
-Rule 3.2 — Maximum Strictness
-
-TypeScript must run at full strictness.
-
-Required:
-
-strict: true
-
-noImplicitAny: true
-
-noUncheckedIndexedAccess: true
-
-noUnusedLocals: true
-
-noUnusedParameters: true
-
-Failure Mode:
-Compile failure.
-
-ARTICLE IV — MOTION GOVERNANCE
-Rule 4.1 — Kernel-Authorized Motion Only
-
-Only motion defined in the CanonStrata motion kernel is permitted.
-
-Enforcement:
-scripts/ast-validators/validate-motion.ts
-
-Failure Mode:
-Build failure with unauthorized import locations.
-
-Rule 4.2 — Reduced Motion Mandatory
-
-All motion must respect prefers-reduced-motion.
-
-Enforcement:
-scripts/enforcement/motion-validator.ts
-
-Failure Mode:
-
-Runtime refusal in development
-
-CI failure in staging
-
-ARTICLE V — RENDERING BOUNDARIES
-Rule 5.1 — Server Components Default
-
-Components are server-rendered unless explicitly marked "use client".
-
-Enforcement:
-scripts/ast-validators/validate-rendering.ts
-
-Violations Include:
-
-React hooks without "use client"
-
-Browser APIs in server components
-
-Rule 5.2 — Client Isolation
-
-Client-only APIs may not appear in server context.
-
-Failure Mode:
-Compile-time error with import chain trace.
-
-ARTICLE VI — DEPENDENCY LAW
-Rule 6.1 — Peer Compatibility Preflight
-
-All peer dependencies must be compatible before installation.
-
-Enforcement:
-scripts/gatekeeper/dependency-preflight.ts
-
-Failure Mode:
-Pre-install refusal with incompatibility report.
-
-Rule 6.2 — Explicit Dependencies Only
-
-No reliance on transitive or hoisted dependencies.
-
-Failure Mode:
-Build failure with missing dependency list.
-
-ARTICLE VII — STRUCTURAL PROHIBITIONS
-Rule 7.1 — No SaaS Coupling
-
-Core logic must not depend on SaaS platforms.
-
-Allowed:
-
-Adapter interfaces
-
-Provider isolation
-
-Prohibited:
-
-Direct CRM imports
-
-Billing systems
-
-SaaS-specific data models
-
-Rule 7.2 — No Build-Time Secrets
-
-Secrets may not leak into build artifacts.
-
-Enforcement:
-scripts/enforcement/runtime-assertions.ts
-
-Failure Mode:
-Build refusal.
-
-ARTICLE VIII — CI JUDICIARY
-
-CI gates execute sequentially with no exceptions:
-
-Dependency Preflight
-
-npm ci
-
-Immutability Check
-
-AST Validation
-
-Constitutional Lint
-
-Type Compilation
-
-Invariant Validation
-
-Any failure terminates the pipeline immediately.
-
-ARTICLE IX — RUNTIME ENFORCEMENT
-Rule 9.1 — Configuration Validation
-
-All required configuration must be present at startup.
-
-Failure Mode:
-Application refuses to start.
-
-Rule 9.2 — Token Integrity
-
-Design tokens must conform to schema at runtime.
-
-Failure Mode:
-Runtime error with precise token path.
-
-ARTICLE X — AMENDMENTS
-Rule 10.1 — No Amendments
-
-This constitution is immutable.
-
-Rationale:
-Discipline cannot be optional.
-The system enforces itself.
-
-FAILURE MODE TAXONOMY
-
-Class A: Pre-commit refusal
-
-Class B: CI termination
-
-Class C: Build failure
-
-Class D: Runtime refusal
-
-SYSTEM GUARANTEES
-
-If the build succeeds, the system is constitutionally valid.
-
-The foundation cannot drift.
-
-All future code must obey existing law.
-
-Zero trust is assumed.
-
-FINAL STATEMENT
-
-CanonStrata is not maintained.
-CanonStrata is not updated.
-CanonStrata is not explained.
-
-CanonStrata is enforced.
-
-This is load-bearing architecture.
-This is irreversible.
-This is law.
+# CanonStrata Constitutional Architecture
+
+**Version 2.2.2**
+
+A rigorously architected Next.js system implementing constitutional governance, strict layer isolation, and enforceable design contracts.
+
+---
+
+## 🏛️ Constitutional Principles
+
+### 1. **Architectural Layers**
+Four distinct layers with strict dependency rules:
+
+```
+┌─────────────────────────────────────┐
+│         SURFACE LAYER               │  App Router, Pages
+│         (src/app/)                  │  Can import: Governed, Kernel
+├─────────────────────────────────────┤
+│         GOVERNED LAYER              │  Components, Utilities
+│    (src/lib/, src/components/)     │  Can import: Kernel only
+├─────────────────────────────────────┤
+│         KERNEL LAYER                │  Core Types, Constants
+│    (src/core/, src/kernel/)        │  No dependencies
+├─────────────────────────────────────┤
+│         ISOLATION ZONE              │  Third-party Contractors
+│      (src/contractors/)             │  Can import: Kernel only
+└─────────────────────────────────────┘
+```
+
+### 2. **Design Token Sovereignty**
+All visual properties must reference design tokens from `design-system/tokens/`:
+- ❌ `color: #3b82f6`
+- ✅ `color: tokens.colors.brand.primary[500]`
+
+### 3. **Motion Governance**
+Animations exclusively through Framer Motion + design tokens:
+- ❌ `transition: all 0.3s ease`
+- ✅ `motion.div` + `duration: tokens.motion.duration.normal`
+
+### 4. **Type Safety Absolutism**
+- Zero `any` types allowed
+- No TypeScript error suppressions (`@ts-ignore`)
+- Strict mode enabled
+
+### 5. **Client Boundary Clarity**
+Explicit `"use client"` directive for:
+- React hooks (useState, useEffect, etc.)
+- Event handlers (onClick, onChange)
+- Framer Motion components
+
+---
+
+## 📁 Directory Structure
+
+```
+/
+├── .github/workflows/        # CI/CD with hard-fail enforcement
+│   ├── ci.yml
+│   └── deploy.yml
+├── design-system/
+│   └── tokens/              # Design token source of truth
+│       ├── colors.tokens.json
+│       ├── spacing.tokens.json
+│       ├── typography.tokens.json
+│       ├── motion.tokens.json
+│       └── breakpoints.tokens.json
+├── scripts/
+│   └── gatekeeper/          # Constitutional enforcement scripts
+│       ├── ast-enforcer.ts          # AST-level rule enforcement
+│       ├── boundary-check.ts        # Layer isolation verification
+│       ├── token-check.ts           # Design token compliance
+│       ├── motion-check.ts          # Framer Motion validation
+│       ├── client-boundary-check.ts # use client verification
+│       ├── zod-sync.ts              # Token schema validation
+│       ├── no-magic-motion.ts       # Magic value detection
+│       ├── no-design-literals.ts    # Hardcoded literal detection
+│       └── check-bundle-budget.ts   # Bundle size enforcement
+├── src/
+│   ├── core/                # Kernel: Pure types & constants
+│   │   ├── types.ts
+│   │   ├── constants.ts
+│   │   └── invariants.ts
+│   ├── kernel/              # Kernel: System configuration
+│   │   ├── config.ts
+│   │   └── errors.ts
+│   ├── lib/                 # Governed: Utilities
+│   │   ├── formatting.ts
+│   │   └── validation.ts
+│   ├── components/          # Governed: UI components
+│   │   └── ui/
+│   ├── app/                 # Surface: Next.js App Router
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   └── contractors/         # Isolation: Third-party integrations
+│       ├── contracts.ts
+│       ├── registry.ts
+│       └── README.md
+├── tests/
+│   └── invariants/          # Invariant contract tests
+│       ├── page-render.spec.ts
+│       ├── form-submit.spec.ts
+│       └── existence.spec.ts
+├── .size-limit.json         # Bundle budget configuration
+├── tailwind.config.ts       # Tailwind referencing design tokens
+├── eslint.constitutional.config.mjs
+└── package.json             # Constitutional scripts
+```
+
+---
+
+## 🛠️ Constitutional Scripts
+
+### Enforcement
+```bash
+npm run gatekeeper:ast          # AST enforcement checks
+npm run gatekeeper:boundaries   # Layer boundary verification
+npm run validate:tokens         # Design token compliance
+npm run validate:motion         # Motion system validation
+npm run validate:all            # Complete validation suite
+```
+
+### Development
+```bash
+npm run dev                     # Development server
+npm run build                   # Production build (with enforcement)
+npm run typecheck               # TypeScript validation
+npm run lint:constitutional     # ESLint v9 flat config
+```
+
+### Testing
+```bash
+npm run test:e2e                # Playwright E2E tests
+npm run test:invariants         # Invariant contract tests
+npm run test:coverage           # Coverage reports
+```
+
+### Monitoring
+```bash
+npm run monitor:bundle          # Bundle size analysis
+npm run monitor:perf            # Performance monitoring
+```
+
+---
+
+## 🔒 Enforcement Mechanisms
+
+### 1. **Pre-commit Hooks** (Husky)
+```bash
+.husky/pre-commit
+├─ Type checking
+├─ ESLint constitutional
+├─ AST enforcement
+└─ Token validation
+```
+
+### 2. **CI Pipeline** (GitHub Actions)
+Every push/PR triggers:
+1. Gatekeeper enforcement (all scripts)
+2. TypeScript type check
+3. ESLint constitutional
+4. Invariant tests (Playwright)
+5. Production build
+6. Bundle budget check
+
+**HARD FAIL**: Any violation = PR blocked
+
+### 3. **Runtime Validation**
+- Zod schemas for design tokens
+- Type guards at contractor boundaries
+- Invariant assertions in kernel layer
+
+---
+
+## 🎨 Design System Integration
+
+### Using Design Tokens
+```typescript
+// ❌ FORBIDDEN
+const Button = styled.button`
+  color: #3b82f6;
+  padding: 16px;
+  transition: all 0.3s ease;
+`;
+
+// ✅ CONSTITUTIONAL
+import colors from '@/design-system/tokens/colors.tokens.json';
+import spacing from '@/design-system/tokens/spacing.tokens.json';
+import motion from '@/design-system/tokens/motion.tokens.json';
+
+const Button = styled.button`
+  color: ${colors.brand.primary[500]};
+  padding: ${spacing[4]};
+  transition-duration: ${motion.duration.normal};
+`;
+```
+
+### Tailwind Integration
+```tsx
+// Tailwind classes automatically reference design tokens
+<button className="bg-brand-primary-500 p-4 transition-normal">
+  Click Me
+</button>
+```
+
+---
+
+## 🏗️ Layer Architecture
+
+### Kernel Layer (`src/core/`, `src/kernel/`)
+**Purpose**: Foundational primitives, immutable constants, core types
+
+**Rules**:
+- ❌ No external dependencies (except TypeScript)
+- ❌ No imports from other layers
+- ✅ Pure functions only
+- ✅ Type definitions
+- ✅ Constants
+
+**Example**:
+```typescript
+// src/core/types.ts
+export interface Result<T, E = Error> {
+  readonly success: boolean;
+  readonly data?: T;
+  readonly error?: E;
+}
+```
+
+### Governed Layer (`src/lib/`, `src/components/`)
+**Purpose**: Shared utilities and UI components
+
+**Rules**:
+- ✅ Can import from Kernel
+- ❌ Cannot import from Surface or Isolation
+- ✅ Reusable across application
+- ✅ Design token compliant
+
+**Example**:
+```typescript
+// src/lib/formatting.ts
+import { assert } from '@/core/invariants';
+
+export function formatCurrency(amount: number): string {
+  assert(amount >= 0, 'Amount must be non-negative');
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+}
+```
+
+### Surface Layer (`src/app/`)
+**Purpose**: Next.js App Router pages and layouts
+
+**Rules**:
+- ✅ Can import from Governed and Kernel
+- ❌ Cannot import from Isolation
+- ✅ Server components by default
+- ✅ Explicit `"use client"` for client features
+
+**Example**:
+```typescript
+// src/app/page.tsx
+import { Button } from '@/components/ui/Button';
+import { formatCurrency } from '@/lib/formatting';
+
+export default function HomePage() {
+  return <div>{formatCurrency(100)}</div>;
+}
+```
+
+### Isolation Zone (`src/contractors/`)
+**Purpose**: Third-party integrations (analytics, payments, email)
+
+**Rules**:
+- ✅ Can import from Kernel only
+- ❌ Cannot import from Governed or Surface
+- ✅ Must implement contract interface
+- ✅ Registered in central registry
+
+**Example**:
+```typescript
+// src/contractors/analytics/google.ts
+import { AnalyticsContractor } from '@/contractors/contracts';
+import { Result } from '@/core/types';
+
+export const googleAnalytics: AnalyticsContractor = {
+  config: { name: 'google-analytics', version: '1.0.0', enabled: true },
+  
+  async track(event: string, properties?: Record<string, unknown>): Promise<Result<void>> {
+    try {
+      // Implementation
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error as Error };
+    }
+  },
+};
+```
+
+---
+
+## 📊 Monitoring & Observability
+
+### Bundle Budget
+Configured in `.size-limit.json`:
+- Main bundle: 200 KB
+- Page bundles: 150 KB
+- Shared chunks: 100 KB
+- CSS: 50 KB
+
+### Performance Metrics
+- Lighthouse CI on every PR
+- Web Vitals monitoring
+- Bundle analysis with webpack-bundle-analyzer
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js ≥ 20
+- npm ≥ 10
+
+### Installation
+```bash
+git clone <repository>
+cd MAIN
+npm install
+```
+
+### Development
+```bash
+npm run dev
+# Visit http://localhost:3000
+```
+
+### Before Committing
+```bash
+npm run validate:all    # Runs all enforcement checks
+npm run typecheck       # TypeScript validation
+npm run lint            # ESLint
+npm run test            # Tests
+```
+
+---
+
+## 📚 Documentation
+
+- [Contractor Integration Guide](./src/contractors/README.md)
+- [Design Token Specification](./design-system/tokens/README.md)
+- [CI/CD Architecture](../.github/workflows/CI_YML_CLEANUP_GUIDE.md)
+- [Testing Strategy](./tests/README.md)
+
+---
+
+## 🔐 Security
+
+- No API keys in code (use environment variables)
+- Prisma for type-safe database access
+- NextAuth for authentication
+- CSRF protection enabled
+- Security headers configured
+
+---
+
+## 📈 Versioning
+
+This project follows [Semantic Versioning](https://semver.org/):
+- **MAJOR**: Breaking architectural changes
+- **MINOR**: New features (backward compatible)
+- **PATCH**: Bug fixes
+
+Current: **v2.2.2**
+
+---
+
+## 📄 License
+
+MIT License - See LICENSE file
+
+---
+
+## 🙏 Acknowledgments
+
+Built on the principles of:
+- **Constitutional Architecture**: Enforceable rules at build time
+- **Design Token Methodology**: Single source of truth for design decisions
+- **Layer Pattern**: Strict dependency management
+- **Contract-First Integration**: Isolation of third-party code
+
+---
+
+**Maintained with architectural rigor. Every commit is a constitutional act.**
