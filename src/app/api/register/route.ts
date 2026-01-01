@@ -1,34 +1,20 @@
-import bcrypt from "bcrypt";
-import { NextResponse, NextRequest } from "next/server";
-import { prisma } from "@/utils/prismaDB";
+/**
+ * DEPRECATED - USE SERVER ACTIONS
+ * 
+ * This API route is deprecated in favor of Server Actions.
+ * New code should use: src/kernel/actions/auth.actions.ts -> registerUser
+ * 
+ * Migration: This route will be removed in the next major version.
+ */
 
-export async function POST(request: NextRequest) {
-  const body = await request.json();
-  const { name, email, password } = body;
+import { NextResponse } from 'next/server';
 
-  if (!name || !email || !password) {
-    return NextResponse.json("Missing Fields", { status: 400 });
-  }
-
-  const exist = await prisma.user.findUnique({
-    where: {
-      email: email.toLowerCase(),
+export async function POST(_request: Request | undefined) {
+  return NextResponse.json(
+    {
+      error: 'DEPRECATED: Use Server Action registerUser from @/kernel/actions/auth.actions',
+      migrationPath: 'src/kernel/actions/auth.actions.ts',
     },
-  });
-
-  if (exist) {
-    return NextResponse.json("User already exists!", { status: 500 });
-  }
-
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  await prisma.user.create({
-    data: {
-      name,
-      email: email.toLowerCase(),
-      password: hashedPassword,
-    } as Parameters<typeof prisma.user.create>[0]['data'],
-  });
-
-  return NextResponse.json("User created successfully!", { status: 200 });
+    { status: 410 } // 410 Gone
+  );
 }

@@ -3,10 +3,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
-import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 
-import { magicLinkSchema, MagicLinkFormData } from "@/lib/schemas/auth-schema";
+import { magicLinkSchema, type MagicLinkFormData } from "@/kernel/schemas/auth.schemas";
+import { signInUser } from "@/lib/auth/surface";
 import Loader from "@/components/Common/Loader";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

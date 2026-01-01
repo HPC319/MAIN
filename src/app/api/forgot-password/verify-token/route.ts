@@ -1,26 +1,20 @@
-import { prisma } from "@/utils/prismaDB";
-import { NextResponse } from "next/server";
+/**
+ * DEPRECATED - USE SERVER ACTIONS
+ * 
+ * This API route is deprecated in favor of Server Actions.
+ * New code should use: src/kernel/actions/auth.actions.ts -> verifyToken
+ * 
+ * Migration: This route will be removed in the next major version.
+ */
 
-export const POST = async (request: Request) => {
-  const body = await request.json();
-  const { token } = body;
+import { NextResponse } from 'next/server';
 
-  if (!token) {
-    return new NextResponse("Missing Fields", { status: 400 });
-  }
-
-  const user = await prisma.user.findFirst({
-    where: {
-      passwordResetToken: token,
-      passwordResetTokenExp: {
-        gte: new Date(),
-      },
-    } as Record<string, unknown>,
-  });
-
-  if (!user) {
-    return new NextResponse("Invalid Token or Token Expired", { status: 400 });
-  }
-
-  return NextResponse.json(user);
-};
+export async function POST(_request: Request | undefined) {
+  return NextResponse.json(
+    {
+      error: 'DEPRECATED: Use Server Action verifyToken from @/kernel/actions/auth.actions',
+      migrationPath: 'src/kernel/actions/auth.actions.ts',
+    },
+    { status: 410 } // 410 Gone
+  );
+}

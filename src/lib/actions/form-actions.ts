@@ -1,22 +1,29 @@
-import { z } from "zod";
+/**
+ * Form Actions
+ * Server-side form handlers
+ * Constitutional Law: Import schemas from kernel, no inline definitions
+ */
 
-export const magicLinkSchema = z.object({
-  email: z.string().email("Invalid email address"),
-});
+import {
+  magicLinkSchema,
+  createUserSchema,
+  signUpSchema,
+  forgotPasswordSchema,
+  type MagicLinkFormData,
+  type CreateUserData,
+  type SignUpFormData,
+} from '@/kernel/schemas/auth.schemas';
 
-export type MagicLinkFormData = z.infer<typeof magicLinkSchema>;
+import {
+  contactSchema,
+  type ContactFormData,
+} from '@/kernel/schemas/contact.schema';
 
+// Auth Actions
 export async function sendMagicLink(_data: MagicLinkFormData) {
   // Implementation
   return { success: true, message: "Magic link sent successfully" };
 }
-
-export const createUserSchema = z.object({
-  email: z.string().email(),
-  name: z.string().optional(),
-});
-
-export type CreateUserData = z.infer<typeof createUserSchema>;
 
 export async function createUser(_data: CreateUserData) {
   // Implementation
@@ -28,31 +35,32 @@ export async function requestPasswordReset(_email: string) {
   return { success: true, message: "Password reset email sent" };
 }
 
-export const contactFormSchema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  message: z.string(),
-});
+export async function forgotPasswordAction(data: { email: string }) {
+  return requestPasswordReset(data.email);
+}
 
-export type ContactFormData = z.infer<typeof contactFormSchema>;
+export async function signUpAction(data: SignUpFormData) {
+  return createUser(data);
+}
 
+// Contact Form Actions
 export async function submitContactForm(_data: ContactFormData) {
   // Implementation
   return { success: true, message: "Contact form submitted successfully" };
 }
 
-export async function forgotPasswordAction(data: { email: string }) {
-  return requestPasswordReset(data.email);
-}
+// Re-export schemas for backward compatibility
+export {
+  magicLinkSchema,
+  createUserSchema,
+  signUpSchema,
+  forgotPasswordSchema,
+  contactSchema,
+};
 
-export const signUpSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-  name: z.string().optional(),
-});
-
-export type SignUpData = z.infer<typeof signUpSchema>;
-
-export async function signUpAction(data: SignUpData) {
-  return createUser(data);
-}
+export type {
+  MagicLinkFormData,
+  CreateUserData,
+  SignUpFormData,
+  ContactFormData,
+};

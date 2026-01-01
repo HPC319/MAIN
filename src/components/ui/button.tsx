@@ -19,7 +19,7 @@ import { pressStates } from '@/design-system/interaction-contracts/press'
 const buttonVariants = cva(
   [
     'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium',
-    'ring-offset-background transition-all duration-200',
+    'ring-offset-background',
     // Focus contract
     focusStates.visible,
     // Press contract
