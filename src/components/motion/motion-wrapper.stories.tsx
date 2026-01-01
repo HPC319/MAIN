@@ -1,71 +1,56 @@
+/**
+ * MotionWrapper Stories - DEPRECATED
+ * 
+ * MIGRATION NOTICE:
+ * This component is deprecated. Use MotionBlock with specific intents instead.
+ * 
+ * @deprecated Use MotionBlock from @/lib/motion-kernel
+ */
+
 import type { Meta, StoryObj } from '@storybook/react';
 import { MotionWrapper } from './motion-wrapper';
 
 const meta: Meta<typeof MotionWrapper> = {
-  title: 'Motion/MotionWrapper',
+  title: 'Motion/MotionWrapper (Deprecated)',
   component: MotionWrapper,
   parameters: {
-    layout: 'centered',
+    docs: {
+      description: {
+        component: '⚠️ DEPRECATED: Use MotionBlock with specific intent props instead',
+      },
+    },
   },
-  tags: ['autodocs'],
 };
 
 export default meta;
 type Story = StoryObj<typeof MotionWrapper>;
 
-export const Default: Story = {
-  args: {
-    children: (
-      <div className="w-64 h-32 bg-blue-500 rounded-lg flex items-center justify-center text-white">
-        Motion Wrapper
-      </div>
-    ),
-  },
-};
-
-export const WithDelay: Story = {
-  args: {
-    delay: 0.5,
-    children: (
-      <div className="w-64 h-32 bg-gray-500 rounded-lg flex items-center justify-center text-white">
-        Motion with Delay
-      </div>
-    ),
-  },
-};
-
-export const WithCustomVariant: Story = {
-  args: {
-    variant: {
-      hidden: { opacity: 0, scale: 0.5 },
-      visible: { opacity: 1, scale: 1 },
-    },
-    children: (
-      <div className="w-64 h-32 bg-purple-500 rounded-lg flex items-center justify-center text-white">
-        Custom Variant
-      </div>
-    ),
-  },
-};
-
-export const MultipleElements: Story = {
+export const EntrySoft: Story = {
   render: () => (
-    <div className="flex gap-4">
-      <MotionWrapper>
-        <div className="w-32 h-32 bg-red-500 rounded-lg flex items-center justify-center text-white">
-          1
-        </div>
-      </MotionWrapper>
-      <MotionWrapper>
-        <div className="w-32 h-32 bg-green-500 rounded-lg flex items-center justify-center text-white">
-          2
-        </div>
-      </MotionWrapper>
-      <MotionWrapper>
-        <div className="w-32 h-32 bg-blue-500 rounded-lg flex items-center justify-center text-white">
-          3
-        </div>
-      </MotionWrapper>
-    </div>
+    <MotionWrapper intent="ENTRY_SOFT">
+      <div className="p-6 bg-blue-500 text-white rounded-lg">
+        Entry Soft Animation
+      </div>
+    </MotionWrapper>
+  ),
+};
+
+export const GridEntry: Story = {
+  render: () => (
+    <MotionWrapper intent="GRID_ENTRY">
+      <div className="p-6 bg-green-500 text-white rounded-lg">
+        Grid Entry Animation
+      </div>
+    </MotionWrapper>
+  ),
+};
+
+export const Drawer: Story = {
+  render: () => (
+    <MotionWrapper intent="DRAWER">
+      <div className="p-6 bg-purple-500 text-white rounded-lg">
+        Drawer Animation
+      </div>
+    </MotionWrapper>
   ),
 };

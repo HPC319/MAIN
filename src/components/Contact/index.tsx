@@ -1,12 +1,10 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
+import { useFormState, useFormStatus } from "react-dom";
+import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 
-import { contactSchema, ContactFormData } from "@/lib/schemas/contact-schema";
-import { submitContactForm } from "@/lib/actions/form-actions";
+import { submitContactFormAction } from "@/kernel/actions/contact.action";
 import { FadeIn } from "@/components/motion/fade-in";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,46 +13,35 @@ import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/ui/form-error";
 import { FormSuccess } from "@/components/ui/form-success";
 
-const Contact = () => {
-  const [isPending, startTransition] = useTransition();
-  const [successMessage, setSuccessMessage] = useState<string>("");
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  
+  return (
+    <Button
+      type="submit"
+      disabled={pending}
+      className="w-full sm:w-auto"
+    >
+      {pending ? "Sending..." : "Send Message"}
+    </Button>
+  );
+}
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-    },
+const Contact = () => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [state, formAction] = useFormState(submitContactFormAction, {
+    success: false,
+    message: "",
   });
 
-  const onSubmit = async (data: ContactFormData) => {
-    setSuccessMessage("");
-    
-    startTransition(async () => {
-      try {
-        const result = await submitContactForm(data);
-
-        if (!result.success) {
-          toast.error(result.message);
-          return;
-        }
-
-        setSuccessMessage(result.message);
-        toast.success("Message sent successfully!");
-        reset();
-      } catch (error) {
-        toast.error("An unexpected error occurred");
-        console.error("Contact form error:", error);
-      }
-    });
-  };
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.message || "Message sent successfully!");
+      formRef.current?.reset();
+    } else if (state.message && !state.success) {
+      toast.error(state.message);
+    }
+  }, [state]);
 
   return (
     <section id="contact" className="relative py-20 md:py-[120px]">
@@ -127,8 +114,9 @@ const Contact = () => {
                   Send us a Message
                 </h3>
                 
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  {successMessage && <FormSuccess message={successMessage} />}
+                <form ref={formRef} action={formAction} className="space-y-6">
+                  {state.success && <FormSuccess message={state.message} />}
+                  {!state.success && state.message && <FormError message={state.message} />}
 
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-sm text-body-color dark:text-dark-6">
@@ -136,15 +124,14 @@ const Contact = () => {
                     </Label>
                     <Input
                       id="name"
+                      name="name"
                       type="text"
                       placeholder="Adam Gelius"
-                      {...register("name")}
-                      aria-invalid={!!errors.name}
-                      disabled={isPending}
+                      required
                       className="border-0 border-b border-gray-200 bg-transparent pb-3 rounded-none px-0 focus:border-primary dark:border-dark-3"
                     />
-                    {errors.name && (
-                      <FormError message={errors.name.message ?? ""} />
+                    {state.errors?.name && (
+                      <FormError message={state.errors.name[0]} />
                     )}
                   </div>
 
@@ -154,33 +141,30 @@ const Contact = () => {
                     </Label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       placeholder="example@yourmail.com"
-                      {...register("email")}
-                      aria-invalid={!!errors.email}
-                      disabled={isPending}
+                      required
                       className="border-0 border-b border-gray-200 bg-transparent pb-3 rounded-none px-0 focus:border-primary dark:border-dark-3"
                     />
-                    {errors.email && (
-                      <FormError message={errors.email.message ?? ""} />
+                    {state.errors?.email && (
+                      <FormError message={state.errors.email[0]} />
                     )}
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="text-sm text-body-color dark:text-dark-6">
-                      Phone*
+                      Phone
                     </Label>
                     <Input
                       id="phone"
+                      name="phone"
                       type="tel"
                       placeholder="+885 1254 5211 552"
-                      {...register("phone")}
-                      aria-invalid={!!errors.phone}
-                      disabled={isPending}
                       className="border-0 border-b border-gray-200 bg-transparent pb-3 rounded-none px-0 focus:border-primary dark:border-dark-3"
                     />
-                    {errors.phone && (
-                      <FormError message={errors.phone.message ?? ""} />
+                    {state.errors?.phone && (
+                      <FormError message={state.errors.phone[0]} />
                     )}
                   </div>
 
@@ -190,26 +174,19 @@ const Contact = () => {
                     </Label>
                     <Textarea
                       id="message"
+                      name="message"
                       rows={3}
                       placeholder="Type your message here"
-                      {...register("message")}
-                      aria-invalid={!!errors.message}
-                      disabled={isPending}
+                      required
                       className="border-0 border-b border-gray-200 bg-transparent pb-3 rounded-none px-0 resize-none focus:border-primary dark:border-dark-3"
                     />
-                    {errors.message && (
-                      <FormError message={errors.message.message ?? ""} />
+                    {state.errors?.message && (
+                      <FormError message={state.errors.message[0]} />
                     )}
                   </div>
 
                   <div>
-                    <Button
-                      type="submit"
-                      disabled={isPending}
-                      className="w-full sm:w-auto"
-                    >
-                      {isPending ? "Sending..." : "Send Message"}
-                    </Button>
+                    <SubmitButton />
                   </div>
                 </form>
               </div>

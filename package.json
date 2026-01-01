@@ -82,7 +82,11 @@
     "prebuild": "npm run validate:all",
     "test:invariants": "tsx scripts/invariant-enforcer.ts",
     "verify:docs": "node scripts/verify-docs.js",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "gatekeeper": "tsx scripts/gatekeeper/index.ts",
+    "gatekeeper:boundary": "tsx scripts/gatekeeper/boundary-check.ts",
+    "gatekeeper:motion": "tsx scripts/gatekeeper/motion-kernel-check.ts",
+    "gatekeeper:all": "npm run gatekeeper"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.5.0",

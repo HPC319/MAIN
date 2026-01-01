@@ -1,90 +1,46 @@
+/**
+ * Scale Stories - DEPRECATED
+ * 
+ * MIGRATION NOTICE:
+ * This component is deprecated. Use MotionBlock with intent="GRID_ENTRY" instead.
+ * 
+ * @deprecated Use MotionBlock from @/lib/motion-kernel
+ */
+
 import type { Meta, StoryObj } from '@storybook/react';
 import { Scale } from './scale';
 
 const meta: Meta<typeof Scale> = {
-  title: 'Motion/Scale',
+  title: 'Motion/Scale (Deprecated)',
   component: Scale,
   parameters: {
-    layout: 'centered',
+    docs: {
+      description: {
+        component: '⚠️ DEPRECATED: Use MotionBlock with intent="GRID_ENTRY" instead',
+      },
+    },
   },
-  tags: ['autodocs'],
 };
 
 export default meta;
 type Story = StoryObj<typeof Scale>;
 
 export const Default: Story = {
-  args: {
-    children: (
-      <div className="w-64 h-32 bg-blue-500 rounded-lg flex items-center justify-center text-white">
-        Scale Animation
+  render: () => (
+    <Scale>
+      <div className="p-6 bg-blue-500 text-white rounded-lg">
+        Scaling Content
       </div>
-    ),
-  },
-};
-
-export const ScaleUp: Story = {
-  args: {
-    initialScale: 0.5,
-    children: (
-      <div className="w-64 h-32 bg-green-500 rounded-lg flex items-center justify-center text-white">
-        Scale Up
-      </div>
-    ),
-  },
-};
-
-export const ScaleDown: Story = {
-  args: {
-    initialScale: 1.5,
-    children: (
-      <div className="w-64 h-32 bg-red-500 rounded-lg flex items-center justify-center text-white">
-        Scale Down
-      </div>
-    ),
-  },
-};
-
-export const SlowScale: Story = {
-  args: {
-    duration: 1,
-    children: (
-      <div className="w-64 h-32 bg-purple-500 rounded-lg flex items-center justify-center text-white">
-        Slow Scale
-      </div>
-    ),
-  },
+    </Scale>
+  ),
 };
 
 export const WithDelay: Story = {
-  args: {
-    delay: 0.5,
-    children: (
-      <div className="w-64 h-32 bg-orange-500 rounded-lg flex items-center justify-center text-white">
-        Scale with Delay
-      </div>
-    ),
-  },
-};
-
-export const MultipleCards: Story = {
   render: () => (
-    <div className="flex gap-4">
-      <Scale delay={0}>
-        <div className="w-32 h-32 bg-red-500 rounded-lg flex items-center justify-center text-white">
-          1
-        </div>
-      </Scale>
-      <Scale delay={0.2}>
-        <div className="w-32 h-32 bg-green-500 rounded-lg flex items-center justify-center text-white">
-          2
-        </div>
-      </Scale>
-      <Scale delay={0.4}>
-        <div className="w-32 h-32 bg-blue-500 rounded-lg flex items-center justify-center text-white">
-          3
-        </div>
-      </Scale>
-    </div>
+    <Scale delay={0.3}>
+      <div className="p-6 bg-purple-500 text-white rounded-lg">
+        Delayed Scale
+      </div>
+    </Scale>
   ),
 };

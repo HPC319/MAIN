@@ -1,74 +1,66 @@
+/**
+ * SlideIn Stories - DEPRECATED
+ * 
+ * MIGRATION NOTICE:
+ * This component is deprecated. Use MotionBlock with intent="ENTRY_SOFT" or "DRAWER" instead.
+ * 
+ * @deprecated Use MotionBlock from @/lib/motion-kernel
+ */
+
 import type { Meta, StoryObj } from '@storybook/react';
 import { SlideIn } from './slide-in';
 
-const meta = {
-  title: 'Motion/SlideIn',
+const meta: Meta<typeof SlideIn> = {
+  title: 'Motion/SlideIn (Deprecated)',
   component: SlideIn,
   parameters: {
-    layout: 'centered',
-  },
-  tags: ['autodocs'],
-  argTypes: {
-    direction: {
-      control: 'select',
-      options: ['top', 'bottom', 'left', 'right'],
-    },
-    duration: {
-      control: { type: 'number', min: 0.1, max: 2, step: 0.1 },
-    },
-    delay: {
-      control: { type: 'number', min: 0, max: 2, step: 0.1 },
+    docs: {
+      description: {
+        component: '⚠️ DEPRECATED: Use MotionBlock with intent="ENTRY_SOFT" or "DRAWER" instead',
+      },
     },
   },
-} satisfies Meta<typeof SlideIn>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const FromBottom: Story = {
-  args: {
-    direction: 'bottom',
-    children: (
-      <div className="rounded-lg bg-primary p-8 text-primary-foreground">
-        <h3 className="text-lg font-semibold">Slide Up</h3>
-        <p className="mt-2">Slides from bottom to top</p>
-      </div>
-    ),
-  },
-};
-
-export const FromTop: Story = {
-  args: {
-    direction: 'top',
-    children: (
-      <div className="rounded-lg bg-secondary p-8 text-secondary-foreground">
-        <h3 className="text-lg font-semibold">Slide Down</h3>
-        <p className="mt-2">Slides from top to bottom</p>
-      </div>
-    ),
-  },
-};
+type Story = StoryObj<typeof SlideIn>;
 
 export const FromLeft: Story = {
-  args: {
-    direction: 'right',
-    children: (
-      <div className="rounded-lg bg-accent p-8 text-accent-foreground">
-        <h3 className="text-lg font-semibold">Slide Right</h3>
-        <p className="mt-2">Slides from left to right</p>
+  render: () => (
+    <SlideIn direction="left">
+      <div className="p-6 bg-blue-500 text-white rounded-lg">
+        Sliding from Left
       </div>
-    ),
-  },
+    </SlideIn>
+  ),
 };
 
 export const FromRight: Story = {
-  args: {
-    direction: 'left',
-    children: (
-      <div className="rounded-lg bg-muted p-8 text-muted-foreground">
-        <h3 className="text-lg font-semibold">Slide Left</h3>
-        <p className="mt-2">Slides from right to left</p>
+  render: () => (
+    <SlideIn direction="right">
+      <div className="p-6 bg-green-500 text-white rounded-lg">
+        Sliding from Right
       </div>
-    ),
-  },
+    </SlideIn>
+  ),
+};
+
+export const FromUp: Story = {
+  render: () => (
+    <SlideIn direction="up">
+      <div className="p-6 bg-purple-500 text-white rounded-lg">
+        Sliding from Up
+      </div>
+    </SlideIn>
+  ),
+};
+
+export const FromDown: Story = {
+  render: () => (
+    <SlideIn direction="down">
+      <div className="p-6 bg-orange-500 text-white rounded-lg">
+        Sliding from Down
+      </div>
+    </SlideIn>
+  ),
 };

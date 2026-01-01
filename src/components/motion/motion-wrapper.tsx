@@ -1,58 +1,35 @@
-"use client";
+/**
+ * MotionWrapper Component - MIGRATED
+ * Uses Motion Kernel exclusively - NO inline motion
+ */
 
-import { motion, Variants } from "@/lib/motion-kernel";
+'use client';
 
-import { ReactNode, useEffect, useState } from "react";
+import * as React from 'react';
+import { MotionBlock, type MotionIntent } from '@/lib/motion-kernel';
 
-interface MotionWrapperProps {
-  children: ReactNode;
-  variant?: Variants | undefined;
-  className?: string | undefined;
-  delay?: number | undefined;
+export interface MotionWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+  intent?: MotionIntent;
+  delay?: number;
 }
 
-export const MotionWrapper = ({
-  children,
-  variant,
-  className = "",
-  delay = 0,
-}: MotionWrapperProps) => {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches);
-    };
-
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
-
-  // If user prefers reduced motion, render without animation
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
+/**
+ * MotionWrapper - Generic wrapper with configurable intent
+ */
+export const MotionWrapper = React.forwardRef<HTMLDivElement, MotionWrapperProps>(
+  ({ children, intent = 'ENTRY_SOFT', delay = 0, ...props }, ref) => {
+    return (
+      <MotionBlock
+        ref={ref}
+        intent={intent}
+        delay={delay}
+        {...props}
+      >
+        {children}
+      </MotionBlock>
+    );
   }
+);
 
-  // Apply animation with variant
-  const motionProps = variant
-    ? {
-        initial: "hidden" as const,
-        whileInView: "visible" as const,
-        viewport: { once: true, margin: "-100px" },
-        variants: variant,
-        transition: { delay },
-        className,
-      }
-    : {
-        initial: "hidden" as const,
-        whileInView: "visible" as const,
-        viewport: { once: true, margin: "-100px" },
-        transition: { delay },
-        className,
-      };
-
-  return <motion.div {...motionProps}>{children}</motion.div>;
-};
+MotionWrapper.displayName = 'MotionWrapper';

@@ -1,43 +1,20 @@
-import bcrypt from "bcrypt";
-import { prisma } from "@/utils/prismaDB";
-import { NextResponse } from "next/server";
+/**
+ * DEPRECATED - USE SERVER ACTIONS
+ * 
+ * This API route is deprecated in favor of Server Actions.
+ * New code should use: src/kernel/actions/auth.actions.ts -> resetPassword
+ * 
+ * Migration: This route will be removed in the next major version.
+ */
 
-export async function POST(request: Request) {
-	const body = await request.json();
-	const { email, password } = body;
+import { NextResponse } from 'next/server';
 
-	if (!email || !password) {
-		return new NextResponse("Missing Fields", { status: 400 });
-	}
-
-	const formatedEmail = email.toLowerCase();
-
-	const user = await prisma.user.findUnique({
-		where: {
-			email: formatedEmail,
-		},
-	});
-
-	if (!user) {
-		throw new Error("Email does not exists");
-	}
-
-	const hashedPassword = await bcrypt.hash(password, 10);
-
-	try {
-		await prisma.user.update({
-			where: {
-				email: formatedEmail,
-			},
-			data: {
-				password: hashedPassword,
-				passwordResetToken: null,
-				passwordResetTokenExp: null,
-			} as Parameters<typeof prisma.user.update>[0]['data'],
-		});
-
-		return NextResponse.json("Password Updated", { status: 200 });
-	} catch (error) {
-		return new NextResponse("Internal Error", { status: 500 });
-	}
+export async function POST(request: Request | undefined) {
+  return NextResponse.json(
+    {
+      error: 'DEPRECATED: Use Server Action resetPassword from @/kernel/actions/auth.actions',
+      migrationPath: 'src/kernel/actions/auth.actions.ts',
+    },
+    { status: 410 } // 410 Gone
+  );
 }

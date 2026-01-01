@@ -109,21 +109,21 @@ const Header = () => {
                   className="absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
                 >
                   <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 ${navbarOpen ? " top-[7px] rotate-45" : " "
+                    className={`relative my-1.5 block h-0.5 w-[30px] ${navbarOpen ? " top-[7px] rotate-45" : " "
                       } ${pathUrl !== "/" && "!bg-dark dark:!bg-white"} ${pathUrl === "/" && sticky
                         ? "bg-dark dark:bg-white"
                         : "bg-white"
                       }`}
                   />
                   <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 ${navbarOpen ? "opacity-0 " : " "
+                    className={`relative my-1.5 block h-0.5 w-[30px] ${navbarOpen ? "opacity-0 " : " "
                       } ${pathUrl !== "/" && "!bg-dark dark:!bg-white"} ${pathUrl === "/" && sticky
                         ? "bg-dark dark:bg-white"
                         : "bg-white"
                       }`}
                   />
                   <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 ${navbarOpen ? " top-[-8px] -rotate-45" : " "
+                    className={`relative my-1.5 block h-0.5 w-[30px] ${navbarOpen ? " top-[-8px] -rotate-45" : " "
                       } ${pathUrl !== "/" && "!bg-dark dark:!bg-white"} ${pathUrl === "/" && sticky
                         ? "bg-dark dark:bg-white"
                         : "bg-white"
@@ -178,7 +178,7 @@ const Header = () => {
 
                               <span className="pl-1">
                                 <svg
-                                  className={`duration-300 lg:group-hover:rotate-180`}
+                                  className={`lg:group-hover:rotate-180`}
                                   width="16"
                                   height="17"
                                   viewBox="0 0 16 17"
@@ -204,7 +204,7 @@ const Header = () => {
 
                               <span className="pl-1">
                                 <svg
-                                  className={`duration-300 lg:group-hover:rotate-180`}
+                                  className={`lg:group-hover:rotate-180`}
                                   width="16"
                                   height="17"
                                   viewBox="0 0 16 17"
@@ -248,7 +248,7 @@ const Header = () => {
                 <button
                   aria-label="theme toggler"
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="flex h-8 w-8 items-center justify-center text-body-color duration-300 dark:text-white cursor-pointer"
+                  className="flex h-8 w-8 items-center justify-center text-body-color dark:text-white cursor-pointer"
                 >
                   <span>
                     <svg
@@ -281,14 +281,14 @@ const Header = () => {
                     {pathUrl !== "/" || sticky ? (
                       <button
                         onClick={() => signOut()}
-                        className="signUpBtn rounded-lg bg-primary/100 px-6 py-3 text-base font-medium text-white duration-300 ease-in-out hover:bg-opacity-20 hover:text-dark"
+                        className="signUpBtn rounded-lg bg-primary/100 px-6 py-3 text-base font-medium text-white ease-in-out hover:bg-opacity-20 hover:text-dark"
                       >
                         Sign Out
                       </button>
                     ) : (
                       <button
                         onClick={() => signOut()}
-                        className="signUpBtn rounded-lg bg-white/20 px-6 py-3 text-base font-medium text-white duration-300 ease-in-out hover:bg-opacity-100 hover:text-dark"
+                        className="signUpBtn rounded-lg bg-white/20 px-6 py-3 text-base font-medium text-white ease-in-out hover:bg-opacity-100 hover:text-dark"
                       >
                         Sign Out
                       </button>
@@ -306,7 +306,7 @@ const Header = () => {
                         </Link>
                         <Link
                           href={"/signup" as Route}
-                          className="rounded-lg bg-primary px-6 py-3 text-base font-medium text-white duration-300 ease-in-out hover:bg-primary/90 dark:bg-white/10 dark:hover:bg-white/20"
+                          className="rounded-lg bg-primary px-6 py-3 text-base font-medium text-white ease-in-out hover:bg-primary/90 dark:bg-white/10 dark:hover:bg-white/20"
                         >
                           Sign Up
                         </Link>
